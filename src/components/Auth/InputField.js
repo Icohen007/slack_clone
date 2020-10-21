@@ -10,7 +10,7 @@ const StyledInputField = styled.div`
   input {
     width: 100%;
     height: 100%;
-    color: #3c4250;
+    color: black;
     padding-top: 12.8rem;
     border: none;
     outline: none;
@@ -22,7 +22,7 @@ const StyledInputField = styled.div`
     {
       transform: translateY(-150%);
       font-size: 14rem;
-      color: ${({ color }) => color || 'rgba(0,160,23,1)'};
+      color: ${({ color, theme }) => color || theme.colors.greenLight};
     }
     &:focus + .label-name:after,
     &.error + .label-name:after,
@@ -33,7 +33,7 @@ const StyledInputField = styled.div`
     &.error + .label-name .placeholder-name  {
       transform: translateY(-150%);
       font-size: 14rem;
-      color: #ff0000;
+      color: ${({ theme }) => theme.colors.redLight};
     }
     
   }
@@ -46,20 +46,20 @@ const StyledInputField = styled.div`
     border-bottom: 1px solid black;
     pointer-events: none;
     font-family: Roboto, sans-serif;
-    color: #505563;
+    color: ${({ theme }) => theme.colors.grayDark};
     &:after {
       content: '';
       position: absolute;
       height: 100%;
       width: 100%;
-      border-bottom: 3px solid ${({ color }) => color || 'rgba(0,160,23,1)'};
+      border-bottom: 3px solid ${({ color, theme }) => color || theme.colors.greenLight};
       left: 0;
       bottom: -1px;
       transform: translateX(-100%);
       transition: all 0.3s ease;
     }
     &.error:after{
-          border-bottom: 3px solid #ff0000;
+          border-bottom: 3px solid ${({ theme }) => theme.colors.redLight};
     }
   }
   .placeholder-name {
@@ -68,7 +68,7 @@ const StyledInputField = styled.div`
     left: 0;
     transition: all 0.3s ease;
     font-family: Roboto, sans-serif;
-    color: #898989;
+    color: ${({ theme }) => theme.colors.grayLight};
   }
 `;
 

@@ -7,7 +7,7 @@ flex-direction: column;
 align-items: center;
 justify-content: center;
 //background: #3f0e40;
-background: url('./slack_logo.svg'), #3f0e40;
+background: url('./slack_logo.svg'), ${({ theme }) => theme.colors.purpleDark};
 
 .header {
 text-align: center;
@@ -41,7 +41,7 @@ width: 100%;
 
 .error-label {
 font-size: 12rem;
-color: #c20000;
+color: ${({ theme }) => theme.colors.redDark};
 text-align: left;
 width: 100%;
 font-weight: bold;
@@ -57,11 +57,11 @@ export const SubmitButton = styled.button`
    width: 100%;
    max-width: 300px;
    padding: 10px 25px;
-   color: ${({ color }) => color || 'rgba(0,160,23,1)'};
+   color: ${({ color, theme }) => color || theme.colors.greenLight};
    font-size: 24px;
    text-align: center;
    text-decoration: none;
-   border: 2px solid #000000;
+   border: 2px solid black;
    border-radius: 10px;
    overflow: hidden;
    transition: all 200ms ease-in-out;
@@ -78,7 +78,7 @@ export const SubmitButton = styled.button`
       top: 0;
       width: 100%;
       height: 100%;
-      background-color: ${({ color }) => color || 'rgba(0,160,23,1)'};
+      background-color: ${({ color, theme }) => color || theme.colors.greenLight};
       z-index: -1;
       transform: scaleX(0);
       transform-origin: 100%;
@@ -87,7 +87,7 @@ export const SubmitButton = styled.button`
    
    &:hover {
       color: white;
-      border-color: ${({ color }) => color || 'rgba(0,160,23,1)'};
+      border-color: ${({ color, theme }) => color || theme.colors.greenLight};
       box-shadow: 0 0 16px rgba(255, 255, 255, 0.1);
       
       &:after {
@@ -100,7 +100,7 @@ export const SubmitButton = styled.button`
 `;
 
 export const ResponseText = styled.div`
-color: ${({ success }) => (success ? '#1a861a' : '#ff0000')};
+color: ${({ success, theme }) => (success ? theme.colors.greenLight : theme.colors.redLight)};
 font-size: 20rem;
 text-align: center;
 font-weight: bold;
@@ -116,11 +116,11 @@ export const StyledGoogleButton = styled.button`
    max-width: 300px;
    margin: 20rem auto 0;
    padding: 5px 15px;
-   color: #4285f4;
+   color: ${({ theme }) => theme.colors.blueLight};
    font-size: 18px;
    text-align: center;
    text-decoration: none;
-   border: 2px solid #4285f4;
+   border: 2px solid ${({ theme }) => theme.colors.blueLight};
    border-radius: 4px;
    background: white;
    cursor: pointer;
@@ -130,6 +130,6 @@ export const StyledGoogleButton = styled.button`
    
    &:hover {
    color: white;
-   background: #4285f4;
+   background: ${({ theme }) => theme.colors.blueLight};
    }
 `;

@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react';
 import { FaSpinner } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import Fade from 'react-reveal/Fade';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
 import InputField from './InputField';
 import { useForm } from '../../hooks';
