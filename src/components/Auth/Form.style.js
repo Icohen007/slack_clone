@@ -8,6 +8,7 @@ align-items: center;
 justify-content: center;
 //background: #3f0e40;
 background: url('./slack_logo.svg'), ${({ theme }) => theme.colors.purpleDark};
+padding: 10rem;
 
 .header {
 text-align: center;

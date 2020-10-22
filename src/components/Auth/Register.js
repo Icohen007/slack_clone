@@ -16,10 +16,12 @@ import {
 import DividerWithText from './DividerWithText';
 import validateForm from './validateForm';
 import { STATUS } from '../consts';
+import { useMobile } from '../../hooks/mediaQueries';
 
 const Register = () => {
   const [status, setStatus] = useState(STATUS.IDLE);
   const [serverError, setServerError] = useState('');
+  const isMobile = useMobile();
 
   const formContainerRef = useRef(null);
   const mouseMoveListener = (e) => {
@@ -58,7 +60,7 @@ const Register = () => {
   };
 
   return (
-    <FormContainer ref={formContainerRef} onMouseMove={mouseMoveListener}>
+    <FormContainer ref={formContainerRef} onMouseMove={!isMobile && mouseMoveListener}>
       <Fade bottom>
         <h1 className="header">
           Registration
