@@ -70,7 +70,7 @@ const Register = () => {
       <StyledForm onSubmit={handleSubmit} onMouseMove={(e) => e.stopPropagation()}>
         <Fade bottom delay={200}>
           <StyledGoogleButton type="button" onClick={signInWithGoogle}>
-            <FcGoogle size="24rem" />
+            <FcGoogle size="24px" />
             <span>Continue with Google</span>
           </StyledGoogleButton>
         </Fade>
@@ -104,7 +104,7 @@ const Register = () => {
           <SubmitButton type="submit">
             Sign Up
             {' '}
-            {status === 'loading' && <FaSpinner className="fa-spin" size="26rem" style={{ marginLeft: '20rem' }} />}
+            {status === 'loading' && <FaSpinner className="fa-spin" size="26px" style={{ marginLeft: '20rem' }} />}
           </SubmitButton>
           <span style={{ textAlign: 'center' }}>
             Already have an account?

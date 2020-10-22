@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { CgSearch } from 'react-icons/cg';
 import { FcHome } from 'react-icons/fc';
+import { Tooltip } from 'react-tippy';
 
 const NavigationBar = () => (
   <StyledNavigationBar role="navigation" aria-label="Search and info">
@@ -12,16 +13,45 @@ const NavigationBar = () => (
       </StyledSearchButton>
     </StyledSearchButtonContainer>
     <StyledSideButtons>
-      <button type="button" className="side-button">
-        <span>
-          <FcHome />
-        </span>
-      </button>
-      <button type="button" className="side-button">
-        <span>
-          <FcHome />
-        </span>
-      </button>
+      <Tooltip
+        position="bottom"
+        arrow
+        html={(
+          <div style={{
+            fontSize: 14, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 6,
+          }}
+          >
+            <FcHome />
+            <span>Working remotely </span>
+          </div>
+        )}
+      >
+        <button type="button" className="side-button">
+          <span>
+            <FcHome />
+          </span>
+        </button>
+      </Tooltip>
+      <Tooltip
+        position="bottom"
+        arrow
+        trigger="click"
+        html={(
+          <div style={{
+            fontSize: 14, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 6,
+          }}
+          >
+            <FcHome />
+            <span>Working remotely </span>
+          </div>
+        )}
+      >
+        <button type="button" className="side-button">
+          <span>
+            <FcHome />
+          </span>
+        </button>
+      </Tooltip>
     </StyledSideButtons>
   </StyledNavigationBar>
 );
@@ -43,7 +73,7 @@ const StyledSearchButtonContainer = styled.div`
   flex: 1;
   display: flex;
   justify-content: flex-end;
-  padding: 0 10rem;
+  padding: 0 10px;
 `;
 
 const StyledSearchButton = styled.button`
@@ -74,7 +104,7 @@ const StyledSearchButton = styled.button`
     }
     
     span {
-      font-size: 13rem;
+      font-size: 13px;
       line-height: 1.38463;
       font-weight: 400;
       display: block;
@@ -85,8 +115,8 @@ const StyledSearchButton = styled.button`
     }
     
     svg {
-      margin-right: 8rem;
-      font-size: 15rem;
+      margin-right: 8px;
+      font-size: 15px;
       opacity: .8;
     }
 `;
@@ -105,7 +135,7 @@ align-items: center;
     width: 28px;
     border-radius: 4px 0 0 4px;
     background: rgb(73,37,74);
-    margin: 0 2rem;
+    margin: 0 2px;
     
     &:hover {
     background: rgb(99,69,100);
@@ -119,6 +149,11 @@ align-items: center;
     }
 }
 
+`;
+
+const StyledProfileMenu = styled.div`
+width: 300px;
+background-color: rgb(248,248,248);
 `;
 
 export default NavigationBar;

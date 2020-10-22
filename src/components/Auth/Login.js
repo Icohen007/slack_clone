@@ -72,7 +72,7 @@ const Login = () => {
       <StyledForm onSubmit={handleSubmit} onMouseMove={(e) => e.stopPropagation()}>
         <Fade bottom delay={200}>
           <StyledGoogleButton type="button" onClick={signInWithGoogle}>
-            <FcGoogle size="24rem" />
+            <FcGoogle size="24px" />
             <span>Continue with Google</span>
           </StyledGoogleButton>
         </Fade>
@@ -108,7 +108,7 @@ const Login = () => {
           <SubmitButton type="submit" color={mainColor}>
             Login
             {' '}
-            {status === 'loading' && <FaSpinner className="fa-spin" size="26rem" style={{ marginLeft: '20rem' }} />}
+            {status === 'loading' && <FaSpinner className="fa-spin" size="26px" style={{ marginLeft: '20rem' }} />}
           </SubmitButton>
           <span style={{ textAlign: 'center' }}>
             {'Don\'t have an account? '}

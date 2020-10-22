@@ -5,6 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import Root from './components/Root';
 import GlobalStyle from './components/Global.style';
 import theme from './theme';
+import 'react-tippy/dist/tippy.css';
 
 ReactDOM.render(
   <React.StrictMode>

@@ -8,7 +8,7 @@ const GlobalStyle = createGlobalStyle`
       height: 100%;
       width: 100%;
       font-family: 'Lato', sans-serif !important;
-      font-size: 1px;
+      font-size: 16px;;
       scroll-behavior: smooth;
     }
     
@@ -22,7 +22,7 @@ const GlobalStyle = createGlobalStyle`
     
     body {
       font-family: 'Lato', sans-serif !important;
-      font-size: 16rem;
+      font-size: 16px;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       height: 100%;
@@ -38,6 +38,12 @@ const GlobalStyle = createGlobalStyle`
     
     a, a:hover, a:focus, a:active  {
     text-decoration: none !important;
+    }
+    
+    
+    .tippy-tooltip.tippy-tooltip--regular.dark-theme{
+    background-color: black !important;
+    padding: 4px 8px !important;
     }
 `;
 

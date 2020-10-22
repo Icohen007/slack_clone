@@ -15,10 +15,10 @@ const StyledDividerWithText = styled.div`
 display: flex;
 align-items: center;
 width: 100%;
-margin-top: 24rem;
+margin-top: 24px;
 
 .text {
-padding: 0 20rem;
+padding: 0 20px;
 font-weight: bold;
 }
 

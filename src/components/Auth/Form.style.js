@@ -8,15 +8,15 @@ align-items: center;
 justify-content: center;
 //background: #3f0e40;
 background: url('./slack_logo.svg'), ${({ theme }) => theme.colors.purpleDark};
-padding: 10rem;
+padding: 10px;
 
 .header {
 text-align: center;
-font-size: 40rem;
-margin-bottom: 10rem;
+font-size: 40px;
+margin-bottom: 10px;
 color: white;
 background: rgba(95,21,97,0.9);
-padding: 5rem 15rem;
+padding: 5px 15px;
 border-radius: 10px;
 box-shadow: 0 0 5px;
 }
@@ -28,10 +28,10 @@ display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
-max-width: 500rem;
+max-width: 500px;
 width: 100%;
-padding: 20rem;
-margin: 10rem;
+padding: 20px;
+margin: 10px;
 border: rgba(0,0,0,0.3) 1px solid;
 border-radius: 10px;
 background: white;
@@ -41,7 +41,7 @@ width: 100%;
 }
 
 .error-label {
-font-size: 12rem;
+font-size: 12px;
 color: ${({ theme }) => theme.colors.redDark};
 text-align: left;
 width: 100%;
@@ -70,7 +70,7 @@ export const SubmitButton = styled.button`
    background: white;
    cursor: pointer;
    outline: none;
-   margin: 20rem auto;
+   margin: 20px auto;
    
    &:after {
       content: " ";
@@ -102,7 +102,7 @@ export const SubmitButton = styled.button`
 
 export const ResponseText = styled.div`
 color: ${({ success, theme }) => (success ? theme.colors.greenLight : theme.colors.redLight)};
-font-size: 20rem;
+font-size: 20px;
 text-align: center;
 font-weight: bold;
 `;
@@ -115,7 +115,7 @@ export const StyledGoogleButton = styled.button`
    align-items: center;
    width: 100%;
    max-width: 300px;
-   margin: 20rem auto 0;
+   margin: 20px auto 0;
    padding: 5px 15px;
    color: ${({ theme }) => theme.colors.blueLight};
    font-size: 18px;

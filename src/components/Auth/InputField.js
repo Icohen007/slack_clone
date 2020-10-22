@@ -3,25 +3,25 @@ import styled from 'styled-components';
 
 const StyledInputField = styled.div`
   width: 100%;
-  height: 54rem;
+  height: 54px;
   position: relative;
   overflow: hidden;
-  margin-top: 20rem;
+  margin-top: 20px;
   input {
     width: 100%;
     height: 100%;
     color: black;
-    padding-top: 12.8rem;
+    padding-top: 12.8px;
     border: none;
     outline: none;
     font-family: Roboto, sans-serif;
-    font-size: 16rem;
+    font-size: 16px;
     background: transparent;
     &.not-empty + .label-name .placeholder-name,
     &:focus + .label-name .placeholder-name
     {
       transform: translateY(-150%);
-      font-size: 14rem;
+      font-size: 14px;
       color: ${({ color, theme }) => color || theme.colors.greenLight};
     }
     &:focus + .label-name:after,
@@ -32,7 +32,7 @@ const StyledInputField = styled.div`
     
     &.error + .label-name .placeholder-name  {
       transform: translateY(-150%);
-      font-size: 14rem;
+      font-size: 14px;
       color: ${({ theme }) => theme.colors.redLight};
     }
     
