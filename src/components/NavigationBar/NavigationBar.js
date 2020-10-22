@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { CgSearch } from 'react-icons/cg';
 import { FcHome } from 'react-icons/fc';
 import { Tooltip } from 'react-tippy';
+import ProfileMenu from './ProfileMenu';
 
 const NavigationBar = () => (
   <StyledNavigationBar role="navigation" aria-label="Search and info">
@@ -34,17 +35,10 @@ const NavigationBar = () => (
       </Tooltip>
       <Tooltip
         position="bottom"
-        arrow
+        theme="light"
         trigger="click"
-        html={(
-          <div style={{
-            fontSize: 14, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 6,
-          }}
-          >
-            <FcHome />
-            <span>Working remotely </span>
-          </div>
-        )}
+        interactive
+        html={<ProfileMenu />}
       >
         <button type="button" className="side-button">
           <span>
@@ -149,11 +143,6 @@ align-items: center;
     }
 }
 
-`;
-
-const StyledProfileMenu = styled.div`
-width: 300px;
-background-color: rgb(248,248,248);
 `;
 
 export default NavigationBar;

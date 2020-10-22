@@ -41,6 +41,10 @@ const GlobalStyle = createGlobalStyle`
     }
     
     
+    .tippy-tooltip.tippy-tooltip--regular {
+      padding: 0 !important;
+    }
+    
     .tippy-tooltip.tippy-tooltip--regular.dark-theme{
     background-color: black !important;
     padding: 4px 8px !important;
