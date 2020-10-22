@@ -15,9 +15,10 @@ import {
 } from './Form.style';
 import DividerWithText from './DividerWithText';
 import validateForm from './validateForm';
+import { STATUS } from '../consts';
 
 const Register = () => {
-  const [status, setStatus] = useState('idle');
+  const [status, setStatus] = useState(STATUS.IDLE);
   const [serverError, setServerError] = useState('');
 
   const formContainerRef = useRef(null);
@@ -38,7 +39,7 @@ const Register = () => {
     } catch (error) {
       console.log(error);
       setServerError(error.message);
-      setStatus('error');
+      setStatus(STATUS.ERROR);
     }
   };
   const {
@@ -52,7 +53,7 @@ const Register = () => {
     } catch (error) {
       console.log(error);
       setServerError(error.message);
-      setStatus('error');
+      setStatus(STATUS.ERROR);
     }
   };
 
@@ -109,10 +110,10 @@ const Register = () => {
             <Link to="/login">Login</Link>
           </span>
         </Fade>
-        <Fade when={status !== 'idle'} bottom>
+        <Fade when={status !== STATUS.IDLE} bottom>
           <>
-            {status === 'success' && <ResponseText success> Login successfully! </ResponseText>}
-            {status === 'error' && <ResponseText>{serverError}</ResponseText>}
+            {status === STATUS.SUCCESS && <ResponseText success> Login successfully! </ResponseText>}
+            {status === STATUS.ERROR && <ResponseText>{serverError}</ResponseText>}
           </>
         </Fade>
       </StyledForm>

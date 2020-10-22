@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react';
 import { FaSpinner } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import Fade from 'react-reveal/Fade';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
 import InputField from './InputField';
 import { useForm } from '../../hooks';
@@ -16,11 +15,12 @@ import {
 } from './Form.style';
 import DividerWithText from './DividerWithText';
 import validateForm from './validateForm';
+import { STATUS } from '../consts';
 
 const mainColor = 'rgba(66, 133, 244, 1)';
 
 const Login = () => {
-  const [status, setStatus] = useState('idle');
+  const [status, setStatus] = useState(STATUS.IDLE);
   const [serverError, setServerError] = useState('');
 
   const formContainerRef = useRef(null);
@@ -30,18 +30,18 @@ const Login = () => {
   };
 
   const onSubmit = async (values) => {
-    if (status === 'loading') {
+    if (status === STATUS.LOADING) {
       return;
     }
-    setStatus('loading');
+    setStatus(STATUS.LOADING);
     setServerError('');
     try {
       await auth.signInWithEmailAndPassword(values.email, values.password);
-      setStatus('success');
+      setStatus(STATUS.SUCCESS);
     } catch (error) {
       console.log(error);
       setServerError(error.message);
-      setStatus('error');
+      setStatus(STATUS.ERROR);
     }
   };
   const {
@@ -55,7 +55,7 @@ const Login = () => {
     } catch (error) {
       console.log(error);
       setServerError(error.message);
-      setStatus('error');
+      setStatus(STATUS.ERROR);
     }
   };
 
@@ -113,10 +113,10 @@ const Login = () => {
             <Link to="/register">Register</Link>
           </span>
         </Fade>
-        <Fade when={status !== 'idle'} bottom>
+        <Fade when={status !== STATUS.IDLE} bottom>
           <>
-            {status === 'success' && <ResponseText success> Registered successfully! </ResponseText>}
-            {status === 'error' && <ResponseText>{serverError}</ResponseText>}
+            {status === STATUS.SUCCESS && <ResponseText success> Registered successfully! </ResponseText>}
+            {status === STATUS.ERROR && <ResponseText>{serverError}</ResponseText>}
           </>
         </Fade>
       </StyledForm>
