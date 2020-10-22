@@ -1,6 +1,7 @@
 const theme = {
   colors: {
     purpleDark: '#3f0e40',
+    purpleDark2: '#350d36',
     white: '#FFF',
     greenLight: '#00a017',
     redDark: '#c20000',
