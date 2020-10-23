@@ -4,6 +4,7 @@ import { CgSearch } from 'react-icons/cg';
 import { FcHome } from 'react-icons/fc';
 import { Tooltip } from 'react-tippy';
 import ProfileMenu from './ProfileMenu';
+import { TooltipContent } from '../Shared/Shared.style';
 
 const NavigationBar = () => (
   <StyledNavigationBar role="navigation" aria-label="Search and info">
@@ -18,13 +19,10 @@ const NavigationBar = () => (
         position="bottom"
         arrow
         html={(
-          <div style={{
-            fontSize: 14, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 6,
-          }}
-          >
+          <TooltipContent gap={6}>
             <FcHome />
             <span>Working remotely </span>
-          </div>
+          </TooltipContent>
         )}
       >
         <button type="button" className="side-button">

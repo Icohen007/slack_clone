@@ -48,6 +48,10 @@ const GlobalStyle = createGlobalStyle`
     .tippy-tooltip.tippy-tooltip--regular.dark-theme{
     background-color: black !important;
     padding: 4px 8px !important;
+    border-radius: 8px !important;
+    .enter{
+    background-color: black !important;
+    }
     }
 `;
 
