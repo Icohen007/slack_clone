@@ -1,12 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
+import MessagesHeader from './MessagesHeader';
+import Messages from './Messages';
 
 const StyledPrimaryView = styled.section`
 grid-area: primary-view;
+color: black;
 `;
 
 const PrimaryView = () => (
-  <StyledPrimaryView />
+  <StyledPrimaryView>
+    <MessagesHeader />
+    <Messages />
+  </StyledPrimaryView>
 );
 
 export default PrimaryView;

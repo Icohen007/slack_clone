@@ -108,7 +108,6 @@ const StyledSearchButton = styled.button`
     
     svg {
       margin-right: 8px;
-      font-size: 15px;
       opacity: .8;
     }
 `;

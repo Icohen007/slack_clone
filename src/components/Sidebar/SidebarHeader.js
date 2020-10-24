@@ -33,7 +33,6 @@ const StyledSidebarHeader = styled.div`
 `;
 
 const HeaderButton = styled(ButtonUnstyled)`
-      font-size: 15px;
       font-weight: 900;
       user-select: none;
 `;

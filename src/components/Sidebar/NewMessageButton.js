@@ -23,7 +23,7 @@ color: ${({ theme }) => theme.colors.purpleDark};
 `;
 
 const NewMessageButton = () => (
-  <Tooltip position="bottom" html={<TooltipContent> New message </TooltipContent>}>
+  <Tooltip position="bottom" arrow html={<TooltipContent> New message </TooltipContent>}>
     <StyledNewMessageButton>
       <FiEdit />
     </StyledNewMessageButton>

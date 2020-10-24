@@ -14,7 +14,6 @@ const StyledSidebarMessages = styled.nav`
   width: 100%; 
   height: 100vh;
   color: ${({ theme }) => theme.colors.purpleLight};
-  font-size: 15px;
 `;
 
 export default SidebarMessages;

@@ -22,7 +22,7 @@ const GlobalStyle = createGlobalStyle`
     
     body {
       font-family: 'Lato', sans-serif !important;
-      font-size: 16px;
+      font-size: 15px;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       height: 100%;
