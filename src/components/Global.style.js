@@ -40,6 +40,15 @@ const GlobalStyle = createGlobalStyle`
     text-decoration: none !important;
     }
     
+    ul, li {
+    margin: 0;
+    padding: 0;
+    }
+    
+    li {
+    list-style-type: none;
+    }
+    
     
     .tippy-tooltip.tippy-tooltip--regular {
       padding: 0 !important;
