@@ -80,7 +80,9 @@ margin-right: 12px;
 }
 
 .participant-count {
-margin-left: 4px;
+margin-left: 6px;
+font-size: 13px;
+font-weight: 700;
 }
 `;
 

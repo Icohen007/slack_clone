@@ -10,6 +10,7 @@ const theme = {
     blueLight: '#4285f4',
     grayDark: '#505563',
     grayLight: '#898989',
+    black1: '#1D1C1D',
   },
 };
 

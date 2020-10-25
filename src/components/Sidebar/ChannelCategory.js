@@ -24,15 +24,22 @@ const AccordionButton = styled(ButtonUnstyled)`
   &:hover {
     background: rgba(255,255,255,0.1);
   }
+  
+  svg {
+      font-size: 18px;
+  }
 `;
 
 const AddChannelButton = styled(AccordionButton)`
   ${centeredFlex};
   margin-left: auto;
   color: ${({ theme }) => theme.colors.purpleLight};
-  font-size: 20px;
-  padding: 2px 2px 4px;
+  padding: 2px;
   display: none;
+  
+  svg {
+  font-size: 20px;
+  }
 `;
 
 const AccordionContainer = styled(Centered)`

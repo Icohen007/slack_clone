@@ -20,7 +20,7 @@ padding: 12px 0;
   align-items: center;
   gap: 10px;
   padding: 8px 20px 12px 24px;
-  color: black;
+  color: ${({ theme }) => theme.colors.black1};
   
   .img-container {
   width: 36px;

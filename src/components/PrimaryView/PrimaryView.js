@@ -5,7 +5,7 @@ import Messages from './Messages';
 
 const StyledPrimaryView = styled.section`
 grid-area: primary-view;
-color: black;
+color: ${({ theme }) => theme.colors.black1};
 `;
 
 const PrimaryView = () => (

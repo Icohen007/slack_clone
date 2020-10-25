@@ -116,17 +116,17 @@ const StyledSideButtons = styled.div`
 display: flex;
 justify-content: center;
 align-items: center;
+margin-right: 12px;
 
 .side-button {
     cursor: pointer;
     border: 0;
     padding: 0;
     outline: none;
-    height: 28px;
-    width: 28px;
     border-radius: 4px 0 0 4px;
     background: rgb(73,37,74);
     margin: 0 2px;
+    font-size: 18px;
     
     &:hover {
     background: rgb(99,69,100);

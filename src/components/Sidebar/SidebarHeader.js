@@ -25,6 +25,7 @@ const StyledSidebarHeader = styled.div`
     align-items: center;
     height: 64px;
     padding: 0 16px;
+    box-shadow: 0 1px 0 0 rgba(255,255,255,0.1);
     
     &:hover {
     background: ${({ theme }) => theme.colors.purpleDark2};
