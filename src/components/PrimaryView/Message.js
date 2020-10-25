@@ -55,6 +55,7 @@ const UserImage = styled(ButtonUnstyled)`
 border-radius: 4px;
 width: 36px;
 height: 36px;
+margin-top: 6px;
 
 `;
 

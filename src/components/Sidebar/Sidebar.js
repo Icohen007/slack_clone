@@ -14,6 +14,7 @@ const StyledSidebar = styled.section`
 grid-area: sidebar;
 background: ${({ theme }) => theme.colors.purpleDark};
 color: white;
+height: 100%;
 `;
 
 export default Sidebar;

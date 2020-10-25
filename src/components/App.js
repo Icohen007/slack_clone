@@ -6,6 +6,7 @@ import PrimaryView from './PrimaryView/PrimaryView';
 
 const AppContainer = styled.div`
 display: grid;
+height: calc(100% - 38px);
 grid-template-rows: auto;
 overflow: hidden;
 position: relative;
@@ -14,13 +15,13 @@ grid-template-areas: 'sidebar primary-view';
 `;
 
 const App = () => (
-  <div>
+  <>
     <NavigationBar />
     <AppContainer>
       <Sidebar />
       <PrimaryView />
     </AppContainer>
-  </div>
+  </>
 );
 
 export default App;

@@ -32,6 +32,11 @@ const GlobalStyle = createGlobalStyle`
       padding: 0;
     }
     
+    #root {
+      height: 100%;
+      width: 100%;
+    }
+    
     h1, h2, h3 , h4 ,h5 ,h6 {
     margin: 0;
     }
@@ -48,7 +53,6 @@ const GlobalStyle = createGlobalStyle`
     li {
     list-style-type: none;
     }
-    
     
     .tippy-tooltip.tippy-tooltip--regular {
       padding: 0 !important;

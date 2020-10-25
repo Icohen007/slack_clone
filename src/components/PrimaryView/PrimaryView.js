@@ -6,6 +6,7 @@ import Messages from './Messages';
 const StyledPrimaryView = styled.section`
 grid-area: primary-view;
 color: ${({ theme }) => theme.colors.black1};
+height: calc(100% - 38px);
 `;
 
 const PrimaryView = () => (

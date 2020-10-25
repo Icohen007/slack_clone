@@ -6,6 +6,8 @@ import Root from './components/Root';
 import GlobalStyle from './components/Global.style';
 import theme from './theme';
 import 'react-tippy/dist/tippy.css';
+import 'draft-js/dist/Draft.css';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 ReactDOM.render(
   <React.StrictMode>
