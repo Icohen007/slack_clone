@@ -14,11 +14,28 @@ import {
   SubmitButton,
 } from './Form.style';
 import DividerWithText from './DividerWithText';
-import validateForm from './validateForm';
 import { STATUS } from '../consts';
 import { useMobile } from '../../hooks/mediaQueries';
 
 const mainColor = 'rgba(66, 133, 244, 1)';
+
+function validateForm(values) {
+  const errors = {};
+
+  if (!values.email) {
+    errors.email = 'Email is required';
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+    errors.email = 'Email address is invalid';
+  }
+
+  if (!values.password) {
+    errors.password = 'Password is required';
+  } else if (values.password.length < 6) {
+    errors.password = 'Password length should be greater than 6';
+  }
+
+  return errors;
+}
 
 const Login = () => {
   const [status, setStatus] = useState(STATUS.IDLE);
@@ -46,6 +63,7 @@ const Login = () => {
       setStatus(STATUS.ERROR);
     }
   };
+
   const {
     values, errors, handleChange, handleSubmit,
   } = useForm(onSubmit, validateForm);
@@ -54,6 +72,7 @@ const Login = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
       await auth.signInWithRedirect(provider);
+      setStatus(STATUS.SUCCESS);
     } catch (error) {
       console.log(error);
       setServerError(error.message);
@@ -108,7 +127,7 @@ const Login = () => {
           <SubmitButton type="submit" color={mainColor}>
             Login
             {' '}
-            {status === 'loading' && <FaSpinner className="fa-spin" size="26px" style={{ marginLeft: '20rem' }} />}
+            {status === 'loading' && <FaSpinner className="fa-spin" size="26px" style={{ marginLeft: 20 }} />}
           </SubmitButton>
           <span style={{ textAlign: 'center' }}>
             {'Don\'t have an account? '}

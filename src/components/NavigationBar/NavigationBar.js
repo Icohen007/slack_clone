@@ -4,7 +4,8 @@ import { CgSearch } from 'react-icons/cg';
 import { FcHome } from 'react-icons/fc';
 import { Tooltip } from 'react-tippy';
 import ProfileMenu from './ProfileMenu';
-import { TooltipContent } from '../Shared/Shared.style';
+import { Image, TooltipContent } from '../Shared/Shared.style';
+import { auth } from '../../firebase';
 
 const NavigationBar = () => (
   <StyledNavigationBar role="navigation" aria-label="Search and info">
@@ -26,7 +27,7 @@ const NavigationBar = () => (
         )}
       >
         <button type="button" className="side-button">
-          <span>
+          <span className="wrapper">
             <FcHome />
           </span>
         </button>
@@ -39,8 +40,8 @@ const NavigationBar = () => (
         html={<ProfileMenu />}
       >
         <button type="button" className="side-button">
-          <span>
-            <FcHome />
+          <span className="wrapper image">
+            <Image src={(auth.currentUser && auth.currentUser.photoURL) || '/dummy36.png'} alt={(auth.currentUser && auth.currentUser.displayName) || 'User name'} />
           </span>
         </button>
       </Tooltip>
@@ -132,11 +133,20 @@ margin-right: 12px;
     background: rgb(99,69,100);
     }
     
-    span {
+    .wrapper {
     margin: 0;
     display: inline-block;
     padding: 6px;
     height: 28px;
+    width: 28px;
+    
+    &.image {
+    padding: 0;
+    
+    &:hover {
+    filter: brightness(1.1);
+    }
+    }
     }
 }
 

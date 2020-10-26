@@ -9,6 +9,7 @@ grid-area: primary-view;
 color: ${({ theme }) => theme.colors.black1};
 height: 100%;
 position: relative;
+overflow: hidden;
 `;
 
 const PrimaryView = () => (

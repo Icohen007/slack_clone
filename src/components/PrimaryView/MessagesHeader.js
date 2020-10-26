@@ -6,6 +6,7 @@ import { Tooltip } from 'react-tippy';
 import {
   ButtonUnstyled, Centered, centeredFlex, Image, TooltipContent,
 } from '../Shared/Shared.style';
+import { auth } from '../../firebase';
 
 const starred = true;
 
@@ -21,13 +22,13 @@ const MessagesHeader = () => (
     <Tooltip position="bottom" delay={100} arrow html={<TooltipContent> View all 3 members </TooltipContent>}>
       <ParticipantButtons>
         <span className="participant">
-          <Image src="/dummy36.png" alt="dummy36" />
+          <Image src={(auth.currentUser && auth.currentUser.photoURL) || '/dummy36.png'} alt={(auth.currentUser && auth.currentUser.displayName) || 'User name'} />
         </span>
         <span className="participant">
-          <Image src="/dummy36.png" alt="dummy36" />
+          <Image src={(auth.currentUser && auth.currentUser.photoURL) || '/dummy36.png'} alt={(auth.currentUser && auth.currentUser.displayName) || 'User name'} />
         </span>
         <span className="participant">
-          <Image src="/dummy36.png" alt="dummy36" />
+          <Image src={(auth.currentUser && auth.currentUser.photoURL) || '/dummy36.png'} alt={(auth.currentUser && auth.currentUser.displayName) || 'User name'} />
         </span>
         <span className="participant-count"> 3</span>
       </ParticipantButtons>

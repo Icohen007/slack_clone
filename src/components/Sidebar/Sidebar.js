@@ -15,6 +15,7 @@ grid-area: sidebar;
 background: ${({ theme }) => theme.colors.purpleDark};
 color: white;
 height: 100%;
+overflow: hidden;
 `;
 
 export default Sidebar;

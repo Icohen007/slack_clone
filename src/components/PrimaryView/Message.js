@@ -1,17 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ButtonUnstyled, Image } from '../Shared/Shared.style';
+import { auth } from '../../firebase';
 
 const Message = () => (
   <StyledMessage>
     <div className="left">
       <UserImage>
-        <Image src="/dummy36.png" alt="dummy36" />
+        <Image src={(auth.currentUser && auth.currentUser.photoURL) || '/dummy36.png'} alt={(auth.currentUser && auth.currentUser.displayName) || 'User name'} />
       </UserImage>
     </div>
     <div className="right">
       <span className="user-name">
-        Itamar Cohen
+        {(auth.currentUser && auth.currentUser.displayName) || 'User name'}
       </span>
       <span className="timestamp"> 2:10PM </span>
       <div>

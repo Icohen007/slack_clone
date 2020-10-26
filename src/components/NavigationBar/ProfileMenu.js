@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import Divider from '../Auth/Divider';
 import { auth } from '../../firebase';
-import { Image, imageBlock } from '../Shared/Shared.style';
-
+import { Image } from '../Shared/Shared.style';
+// color: ${({ theme }) => theme.colors.black1};
 const StyledProfileMenu = styled.div`
 width: 300px;
 max-width: 360px;
@@ -20,7 +20,7 @@ padding: 12px 0;
   align-items: center;
   gap: 10px;
   padding: 8px 20px 12px 24px;
-  color: ${({ theme }) => theme.colors.black1};
+  color: #1D1C1D;
   
   .img-container {
   width: 36px;
@@ -59,15 +59,16 @@ const StyledProfileMenuButton = styled.button`
     padding: 0 24px;
     text-overflow: ellipsis;
     white-space: nowrap;
+    font-size: 15px;
 `;
 
 const ProfileMenu = () => (
   <StyledProfileMenu>
     <div className="user">
       <div className="img-container">
-        <Image src="/dummy36.png" alt="dummy36" />
+        <Image src={(auth.currentUser && auth.currentUser.photoURL) || '/dummy36.png'} alt={(auth.currentUser && auth.currentUser.displayName) || 'User name'} />
       </div>
-      <div className="user-name">Itamar Cohen</div>
+      <div className="user-name">{(auth.currentUser && auth.currentUser.displayName) || 'User name'}</div>
     </div>
     <Divider />
     <StyledProfileMenuButtonContainer>
