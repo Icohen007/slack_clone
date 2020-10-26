@@ -2,7 +2,8 @@ import React from 'react';
 import { IoMdAdd, IoMdArrowDropdown, IoMdArrowDropright } from 'react-icons/io';
 import styled from 'styled-components';
 import { AccordionButton, Centered } from '../Shared/Shared.style';
-import AddChannelButton, { StyledAddChannelButton } from './AddChannelButton';
+import AddChannelButton from './AddChannelButton';
+import SidebarAddButton from './SidebarAddButton';
 
 const ChannelCategory = ({ name, showing, onClick }) => (
   <>
@@ -30,7 +31,7 @@ const AccordionContainer = styled(Centered)`
   user-select: none;
   
     &:hover {
-    ${StyledAddChannelButton} {
+    ${SidebarAddButton} {
       display: block;
     }
   }

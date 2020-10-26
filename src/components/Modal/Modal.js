@@ -101,7 +101,7 @@ const StyledModal = styled.div`
   overflow: auto;
 }
 .modal-content {
-  padding: 0 28px;
+  padding: 0 28px 10px;
 }
 
 .modal-title {
