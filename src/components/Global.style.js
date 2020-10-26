@@ -66,6 +66,11 @@ const GlobalStyle = createGlobalStyle`
     background-color: black !important;
     }
     }
+    
+    
+    .public-DraftStyleDefault-block {
+      margin: 0 !important;
+    }
 `;
 
 export default GlobalStyle;

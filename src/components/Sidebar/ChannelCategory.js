@@ -1,46 +1,23 @@
 import React from 'react';
 import { IoMdAdd, IoMdArrowDropdown, IoMdArrowDropright } from 'react-icons/io';
 import styled from 'styled-components';
-import { ButtonUnstyled, Centered, centeredFlex } from '../Shared/Shared.style';
+import { AccordionButton, Centered } from '../Shared/Shared.style';
+import AddChannelButton, { StyledAddChannelButton } from './AddChannelButton';
 
 const ChannelCategory = ({ name, showing, onClick }) => (
-  <AccordionContainer onClick={onClick}>
-    <AccordionButton>
-      {showing ? <IoMdArrowDropdown /> : <IoMdArrowDropright />}
-    </AccordionButton>
-    <span>{name}</span>
-    <AddChannelButton>
-      <IoMdAdd />
-    </AddChannelButton>
-  </AccordionContainer>
+  <>
+    <AccordionContainer onClick={onClick}>
+      <AccordionButton>
+        {showing ? <IoMdArrowDropdown /> : <IoMdArrowDropright />}
+      </AccordionButton>
+      <span>{name}</span>
+      <AddChannelButton>
+        <IoMdAdd />
+      </AddChannelButton>
+    </AccordionContainer>
+
+  </>
 );
-
-const AccordionButton = styled(ButtonUnstyled)`
-  ${centeredFlex};
-  border-radius: 4px;
-  margin-right: 4px;
-  height: 26px;
-  width: 26px;
-  &:hover {
-    background: rgba(255,255,255,0.1);
-  }
-  
-  svg {
-      font-size: 18px;
-  }
-`;
-
-const AddChannelButton = styled(AccordionButton)`
-  ${centeredFlex};
-  margin-left: auto;
-  color: ${({ theme }) => theme.colors.purpleLight};
-  padding: 2px;
-  display: none;
-  
-  svg {
-  font-size: 20px;
-  }
-`;
 
 const AccordionContainer = styled(Centered)`
   display: flex;
@@ -53,7 +30,7 @@ const AccordionContainer = styled(Centered)`
   user-select: none;
   
     &:hover {
-    ${AddChannelButton} {
+    ${StyledAddChannelButton} {
       display: block;
     }
   }

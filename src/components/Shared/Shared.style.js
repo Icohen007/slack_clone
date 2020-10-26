@@ -38,3 +38,18 @@ export const TooltipContent = styled(Centered)`
 font-size: 14px;
 font-weight: bold;
 `;
+
+export const AccordionButton = styled(ButtonUnstyled)`
+  ${centeredFlex};
+  border-radius: 4px;
+  margin-right: 4px;
+  height: 26px;
+  width: 26px;
+  &:hover {
+    background: rgba(255,255,255,0.1);
+  }
+  
+  svg {
+      font-size: 18px;
+  }
+`;

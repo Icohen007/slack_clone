@@ -1,9 +1,5 @@
 .wrapper {
-  min-height: 115px;
-  //margin-top: -115px;
-  //position: relative;
-  //bottom: 0;
-  clear: both;
+  min-height: 80px;
 
   display: flex;
   flex-direction: column;
@@ -15,5 +11,5 @@
 .editor {
   order: -1;
   line-height: 1.5;
-  padding: 5px;
+  padding: 10px;
 }

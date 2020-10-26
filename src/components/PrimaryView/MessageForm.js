@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { EditorState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
+import styled from 'styled-components';
+
 import styles from './messageForm.module.scss';
 
 const toolbar = {
@@ -87,7 +89,7 @@ const MessageForm = () => {
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
 
   return (
-    <div style={{ padding: 10 }}>
+    <MessageFormWrapper>
       <Editor
         editorState={editorState}
         wrapperClassName={styles.wrapper}
@@ -95,8 +97,15 @@ const MessageForm = () => {
         onEditorStateChange={setEditorState}
         toolbar={toolbar}
       />
-    </div>
+    </MessageFormWrapper>
   );
 };
+
+const MessageFormWrapper = styled.div`
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 10px;
+`;
 
 export default MessageForm;
