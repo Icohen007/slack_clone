@@ -5,7 +5,7 @@ import Fade from 'react-reveal/Fade';
 import { Link } from 'react-router-dom';
 import InputField from './InputField';
 import { useForm } from '../../hooks';
-import { auth, firebase } from '../../firebase';
+import { auth, db, firebase } from '../../firebase';
 import {
   FormContainer,
   ResponseText,
@@ -16,6 +16,7 @@ import {
 import DividerWithText from './DividerWithText';
 import { STATUS } from '../consts';
 import { useMobile } from '../../hooks/mediaQueries';
+import md5 from 'md5';
 
 const mainColor = 'rgba(66, 133, 244, 1)';
 
@@ -41,6 +42,7 @@ const Login = () => {
   const [status, setStatus] = useState(STATUS.IDLE);
   const [serverError, setServerError] = useState('');
   const isMobile = useMobile();
+  const usersRef = db.collection('users');
 
   const formContainerRef = useRef(null);
   const mouseMoveListener = (e) => {
@@ -71,7 +73,11 @@ const Login = () => {
   const signInWithGoogle = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
-      await auth.signInWithRedirect(provider);
+      const createdUser = await auth.signInWithPopup(provider);
+      await usersRef.doc(createdUser.user.uid).set({
+        displayName: createdUser.user.displayName,
+        photoURL: `http://gravatar.com/avatar/${md5(createdUser.user.email)}?d=identicon`,
+      }, { merge: true });
       setStatus(STATUS.SUCCESS);
     } catch (error) {
       console.log(error);

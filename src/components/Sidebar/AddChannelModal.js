@@ -12,6 +12,39 @@ const addChannel = async (channelsRef, channel) => {
   }
 };
 
+const ModalContent = ({
+  name, setName, description, setDescription,
+}) => (
+  <>
+    <UpperText>
+      Channels are where your team communicates. They’re best when organized around a topic —
+      #marketing, for example.
+    </UpperText>
+    <Input>
+      <label>
+        Name
+      </label>
+      <input
+        id="name"
+        value={name}
+        onChange={({ target }) => setName(target.value)}
+        autoComplete="off"
+      />
+    </Input>
+    <Input>
+      <label>
+        Description
+      </label>
+      <input
+        id="description"
+        value={description}
+        onChange={({ target }) => setDescription(target.value)}
+        autoComplete="off"
+      />
+    </Input>
+  </>
+);
+
 const AddChannelModal = ({ isModal, setModal }) => {
   const channelsRef = db.collection('channels');
   const [name, setName] = useState('');
@@ -35,8 +68,22 @@ const AddChannelModal = ({ isModal, setModal }) => {
     <Modal
       isVisible={isModal}
       title="Create a channel"
-      content={<ModalContent name={name} setName={setName} description={description} setDescription={setDescription} />}
-      footer={<CreateButton isEmptyInput={name.length === 0} onClick={handleClick}>Create</CreateButton>}
+      content={(
+        <ModalContent
+          name={name}
+          setName={setName}
+          description={description}
+          setDescription={setDescription}
+        />
+)}
+      footer={(
+        <CreateButton
+          isEmptyInput={name.length === 0}
+          onClick={handleClick}
+        >
+          Create
+        </CreateButton>
+)}
       onClose={() => setModal(false)}
     />
   );
@@ -79,38 +126,6 @@ const Input = styled.div`
   }
 `;
 
-const ModalContent = ({
-  name, setName, description, setDescription,
-}) => (
-  <>
-    <UpperText>
-      Channels are where your team communicates. They’re best when organized around a topic —
-      #marketing, for example.
-    </UpperText>
-    <Input>
-      <label>
-        Name
-      </label>
-      <input
-        id="name"
-        value={name}
-        onChange={({ target }) => setName(target.value)}
-        autoComplete="off"
-      />
-    </Input>
-    <Input>
-      <label>
-        Description
-      </label>
-      <input
-        id="description"
-        value={description}
-        onChange={({ target }) => setDescription(target.value)}
-        autoComplete="off"
-      />
-    </Input>
-  </>
-);
 const CreateButton = styled(ButtonUnstyled)`
     ${centeredFlex};
     height: 36px;

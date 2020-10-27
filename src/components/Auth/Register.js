@@ -6,7 +6,7 @@ import Fade from 'react-reveal/Fade';
 import { Link } from 'react-router-dom';
 import InputField from './InputField';
 import { useForm } from '../../hooks';
-import { auth, firebase } from '../../firebase';
+import { auth, firebase, db } from '../../firebase';
 import {
   FormContainer,
   ResponseText,
@@ -23,8 +23,7 @@ function validateForm(values) {
 
   if (!values.displayName) {
     errors.displayName = 'Display Name is required';
-  }
-  else if (values.displayName.length > 20) {
+  } else if (values.displayName.length > 20) {
     errors.displayName = 'Display Name should be shorter than 20 letters';
   }
 
@@ -47,6 +46,7 @@ const Register = () => {
   const [status, setStatus] = useState(STATUS.IDLE);
   const [serverError, setServerError] = useState('');
   const isMobile = useMobile();
+  const usersRef = db.collection('users');
 
   const formContainerRef = useRef(null);
   const mouseMoveListener = (e) => {
@@ -66,6 +66,19 @@ const Register = () => {
         displayName: values.displayName,
         photoURL: `http://gravatar.com/avatar/${md5(createdUser.user.email)}?d=identicon`,
       });
+      // const document = await usersRef.doc(createdUser.user.uid).get();
+      // if (!document || !document.exists) {
+      //   await usersRef.doc(createdUser.user.uid).set({
+      //     displayName: createdUser.displayName,
+      //     photoURL: `http://gravatar.com/avatar/${md5(createdUser.user.email)}?d=identicon`,
+      //   });
+      // }
+
+      await usersRef.doc(createdUser.user.uid).set({
+        displayName: createdUser.user.displayName,
+        photoURL: `http://gravatar.com/avatar/${md5(createdUser.user.email)}?d=identicon`,
+      }, { merge: true });
+
       setStatus(STATUS.SUCCESS);
     } catch (error) {
       console.log(error);
@@ -81,7 +94,11 @@ const Register = () => {
   const signInWithGoogle = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
-      await auth.signInWithRedirect(provider);
+      const createdUser = await auth.signInWithPopup(provider);
+      await usersRef.doc(createdUser.user.uid).set({
+        displayName: createdUser.user.displayName,
+        photoURL: `http://gravatar.com/avatar/${md5(createdUser.user.email)}?d=identicon`,
+      }, { merge: true });
       setStatus(STATUS.SUCCESS);
     } catch (error) {
       console.log(error);

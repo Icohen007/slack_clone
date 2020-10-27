@@ -11,7 +11,7 @@ import App from './App';
 const Root = () => {
   const [user, loading] = useAuthState(auth);
   const history = useHistory();
-  if (user) {
+  if (user && user.displayName) {
     history.push('/');
   } else {
     history.push('/login');
