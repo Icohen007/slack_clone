@@ -5,16 +5,20 @@ import { AccordionButton, Centered } from '../Shared/Shared.style';
 import AddChannelButton from './AddChannelButton';
 import SidebarAddButton from './SidebarAddButton';
 
-const ChannelCategory = ({ name, showing, onClick }) => (
+const ChannelCategory = ({
+  name, showing, onClick, isStarred,
+}) => (
   <>
     <AccordionContainer onClick={onClick}>
       <AccordionButton>
         {showing ? <IoMdArrowDropdown /> : <IoMdArrowDropright />}
       </AccordionButton>
       <span>{name}</span>
+      {!isStarred && (
       <AddChannelButton>
         <IoMdAdd />
       </AddChannelButton>
+      )}
     </AccordionContainer>
 
   </>

@@ -1,18 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
 import ChannelList from './ChannelList';
-import { db } from '../../firebase';
+import StarredList from './StarredList';
 
 const SidebarMessages = () => {
-  const channelsRef = db.collection('channels');
-  const query = channelsRef.orderBy('createdAt').limit(25);
-  const [channels] = useCollectionData(query);
 
   return (
     <StyledSidebarMessages>
-      <ChannelList categoryName="Starred" />
-      <ChannelList categoryName="Channels" />
+      <StarredList />
+      <ChannelList />
     </StyledSidebarMessages>
   );
 };

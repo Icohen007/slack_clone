@@ -1,21 +1,29 @@
 import React, { useState } from 'react';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
 import ChannelCategory from './ChannelCategory';
 import Channel from './Channel';
+import { db } from '../../firebase';
 
-const ChannelList = ({ categoryName }) => {
+const ChannelList = () => {
   const [showing, setShowing] = useState(true);
+  const channelsRef = db.collection('channels');
+  const query = channelsRef.orderBy('createdAt').limit(25);
+  const [channels, loading, error] = useCollectionData(query);
+
+  if (loading || error) {
+    return null;
+  }
 
   return (
     <>
       <ChannelCategory
-        name={categoryName}
+        name="Channels"
         showing={showing}
         onClick={() => setShowing((showingState) => !showingState)}
       />
       {showing && (
       <ul>
-        <Channel name="channel name" />
-        <Channel name="channel name" />
+        {channels.map((channel) => <Channel key={channel.id} name={channel.name} />)}
       </ul>
       )}
     </>
