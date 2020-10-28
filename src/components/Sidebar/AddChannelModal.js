@@ -51,13 +51,14 @@ const AddChannelModal = ({ isModal, setModal }) => {
   const [description, setDescription] = useState('');
 
   const handleClick = async () => {
+    const { currentUser } = auth;
     await addChannel(channelsRef, {
       name,
       description,
       createdBy: {
-        displayName: auth.currentUser.displayName,
-        photoUrl: auth.currentUser.photoURL,
-        id: auth.currentUser.uid,
+        id: currentUser.uid,
+        displayName: currentUser.displayName,
+        photoUrl: currentUser.photoURL,
       },
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     });

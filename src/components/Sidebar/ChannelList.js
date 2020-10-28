@@ -1,16 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { useDispatch, useSelector } from 'react-redux';
 import ChannelCategory from './ChannelCategory';
 import Channel from './Channel';
 import { db } from '../../firebase';
+import changePublicChannel from '../../features/channels/changePublicChannel';
 
 const ChannelList = () => {
   const [showing, setShowing] = useState(true);
-  const channelsRef = db.collection('channels');
-  const query = channelsRef.orderBy('createdAt').limit(25);
-  const [channels, loading, error] = useCollectionData(query);
+  const query = db.collection('channels').orderBy('createdAt').limit(25);
+  const [channels, loading, error] = useCollectionData(query, { idField: 'id' });
+  const { activeChannel } = useSelector((state) => state.channels);
+  const dispatch = useDispatch();
+  const isReady = !loading && !error;
 
-  if (loading || error) {
+  useEffect(() => {
+    if (isReady && !activeChannel) {
+      dispatch(changePublicChannel(channels[0]));
+    }
+  }, [activeChannel, isReady]);
+
+  if (!isReady || !activeChannel) {
     return null;
   }
 
@@ -23,7 +33,7 @@ const ChannelList = () => {
       />
       {showing && (
       <ul>
-        {channels.map((channel) => <Channel key={channel.id} name={channel.name} />)}
+        {channels.map((channel) => <Channel key={channel.id} channel={channel} activeChannel={activeChannel} />)}
       </ul>
       )}
     </>

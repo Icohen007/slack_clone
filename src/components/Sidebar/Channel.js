@@ -1,18 +1,28 @@
 import React from 'react';
 import { HiOutlineHashtag } from 'react-icons/hi';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 import { centeredFlex } from '../Shared/Shared.style';
+import changePublicChannel from '../../features/channels/changePublicChannel';
 
-const Channel = ({ name }) => (
-  <StyledChannel>
-    <HashIconChannel>
-      <HiOutlineHashtag />
-    </HashIconChannel>
-    <ChannelName>
-      {name}
-    </ChannelName>
-  </StyledChannel>
-);
+const Channel = ({ channel, activeChannel }) => {
+  const { name, id } = channel;
+  const dispatch = useDispatch();
+
+  // clearNotifications
+  // remove typing
+
+  return (
+    <StyledChannel onClick={() => dispatch(changePublicChannel(channel))} isActive={activeChannel.id === id}>
+      <HashIconChannel>
+        <HiOutlineHashtag />
+      </HashIconChannel>
+      <ChannelName>
+        {name}
+      </ChannelName>
+    </StyledChannel>
+  );
+};
 
 const StyledChannel = styled.li`
   display: flex;
@@ -21,9 +31,11 @@ const StyledChannel = styled.li`
   padding: 4px 12px 4px 30px;
   user-select: none;
   cursor: pointer;
+  background-color: ${({ isActive }) => (isActive ? '#1164A3' : 'inherit')};
+  color: ${({ isActive }) => (isActive ? 'white' : 'inherit')};
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.purpleDark2};
+    background-color: ${({ theme, isActive }) => (isActive ? '#1164A3' : theme.colors.purpleDark2)};
   }
 `;
 

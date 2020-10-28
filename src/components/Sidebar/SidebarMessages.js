@@ -7,7 +7,7 @@ const SidebarMessages = () => {
 
   return (
     <StyledSidebarMessages>
-      <StarredList />
+      {/*<StarredList />*/}
       <ChannelList />
     </StyledSidebarMessages>
   );
