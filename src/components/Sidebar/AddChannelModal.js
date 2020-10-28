@@ -137,6 +137,7 @@ const CreateButton = styled(ButtonUnstyled)`
     color: ${({ isEmptyInput }) => (isEmptyInput ? 'rgb(29, 28, 29)' : 'white')};
     border-radius: 4px;
     background: ${({ isEmptyInput }) => (isEmptyInput ? 'rgb(221, 221 ,221)' : 'rgb(0, 122, 90)')};
+    cursor: ${({ isEmptyInput }) => (isEmptyInput ? 'auto' : 'pointer')};
 `;
 
 export default AddChannelModal;

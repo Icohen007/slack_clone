@@ -12,4 +12,10 @@
   order: -1;
   line-height: 1.5;
   padding: 10px;
+  z-index: 1;
+}
+
+.popup {
+  bottom: 35px !important;
+  top: initial !important;
 }

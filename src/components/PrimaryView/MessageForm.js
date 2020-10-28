@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import { EditorState, convertToRaw } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import styled from 'styled-components';
+import { TiArrowRightOutline } from 'react-icons/ti';
 
+import { useSelector } from 'react-redux';
 import styles from './messageForm.module.scss';
+import { ButtonUnstyled, centeredFlex } from '../Shared/Shared.style';
 
 const toolbar = {
   options: ['inline', 'list', 'colorPicker', 'link', 'emoji', 'image', 'history'],
@@ -24,7 +27,7 @@ const toolbar = {
   colorPicker: {
     className: undefined,
     component: undefined,
-    popupClassName: undefined,
+    popupClassName: styles.popup,
     colors: ['rgb(97,189,109)', 'rgb(26,188,156)', 'rgb(84,172,210)', 'rgb(44,130,201)',
       'rgb(147,101,184)', 'rgb(71,85,119)', 'rgb(204,204,204)', 'rgb(65,168,95)', 'rgb(0,168,133)',
       'rgb(61,142,185)', 'rgb(41,105,176)', 'rgb(85,57,130)', 'rgb(40,50,78)', 'rgb(0,0,0)',
@@ -36,7 +39,7 @@ const toolbar = {
     inDropdown: false,
     className: undefined,
     component: undefined,
-    popupClassName: undefined,
+    popupClassName: styles.popup,
     dropdownClassName: undefined,
     showOpenOptionOnHover: true,
     defaultTargetOption: '_self',
@@ -46,7 +49,7 @@ const toolbar = {
   emoji: {
     className: undefined,
     component: undefined,
-    popupClassName: undefined,
+    popupClassName: styles.popup,
     emojis: [
       '😀', '😁', '😂', '😃', '😉', '😋', '😎', '😍', '😗', '🤗', '🤔', '😣', '😫', '😴', '😌', '🤓',
       '😛', '😜', '😠', '😇', '😷', '😈', '👻', '😺', '😸', '😹', '😻', '😼', '😽', '🙀', '🙈',
@@ -63,7 +66,7 @@ const toolbar = {
     // icon: image,
     className: undefined,
     component: undefined,
-    popupClassName: undefined,
+    popupClassName: styles.popup,
     urlEnabled: true,
     uploadEnabled: true,
     alignmentEnabled: true,
@@ -85,6 +88,41 @@ const toolbar = {
   },
 };
 
+const SubmitMessageButton = ({ editorState }) => {
+  const content = editorState.getCurrentContent();
+  const isEmptyInput = !content.hasText();
+  const { activeChannel, isPrivateChannelMode } = useSelector((state) => state.channels);
+
+  const handleClick = () => {
+    console.log(convertToRaw(content));
+    console.log(activeChannel);
+    console.log(isPrivateChannelMode);
+  };
+
+  return (
+    <StyledSubmitMessageButton isEmptyInput={isEmptyInput} onClick={handleClick}>
+      <TiArrowRightOutline />
+    </StyledSubmitMessageButton>
+  );
+};
+
+const StyledSubmitMessageButton = styled(ButtonUnstyled)`
+    ${centeredFlex};
+    margin-left: auto;
+    border-radius: 2px;
+    margin-bottom: 6px;
+    padding: 0 5px;
+    opacity: ${({ isEmptyInput }) => (isEmptyInput ? 0.2 : 1)};
+    transition: opacity .2s,background-color .2s, color .2s;
+    font-weight: bold;
+    color: ${({ isEmptyInput }) => (isEmptyInput ? 'rgba(29, 28, 29, .7)' : 'white')};
+    background: ${({ isEmptyInput }) => (isEmptyInput ? 'white' : 'rgb(0, 122, 90)')};
+    cursor: ${({ isEmptyInput }) => (isEmptyInput ? 'auto' : 'pointer')};
+    svg {
+    font-size: 20px;
+    }
+`;
+
 const MessageForm = () => {
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
   // console.log(JSON.stringify(convertToRaw(editorState.getCurrentContent())));
@@ -96,6 +134,7 @@ const MessageForm = () => {
         editorClassName={styles.editor}
         onEditorStateChange={setEditorState}
         toolbar={toolbar}
+        toolbarCustomButtons={[<SubmitMessageButton />]}
       />
     </MessageFormWrapper>
   );
@@ -106,6 +145,7 @@ const MessageFormWrapper = styled.div`
     bottom: 0;
     width: 100%;
     padding: 10px;
+    z-index: 1;
 `;
 
 export default MessageForm;
