@@ -3,14 +3,7 @@ import styled from 'styled-components';
 import Modal from '../Modal/Modal';
 import { ButtonUnstyled, centeredFlex } from '../Shared/Shared.style';
 import { auth, db, firebase } from '../../firebase';
-
-const addChannel = async (channelsRef, channel) => {
-  try {
-    await channelsRef.add(channel);
-  } catch (serverError) {
-    console.log(serverError);
-  }
-};
+import { addToCollection } from '../../firebaseUtils';
 
 const ModalContent = ({
   name, setName, description, setDescription,
@@ -51,8 +44,10 @@ const AddChannelModal = ({ isModal, setModal }) => {
   const [description, setDescription] = useState('');
 
   const handleClick = async () => {
+    if (name.length === 0) return;
     const { currentUser } = auth;
-    await addChannel(channelsRef, {
+
+    await addToCollection(channelsRef, {
       name,
       description,
       createdBy: {

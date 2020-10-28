@@ -49,7 +49,9 @@ const HashIconChannel = styled.span`
 `;
 
 const ChannelName = styled.span`
-
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 `;
 
 export default Channel;

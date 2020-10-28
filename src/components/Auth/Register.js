@@ -5,7 +5,7 @@ import { FcGoogle } from 'react-icons/fc';
 import Fade from 'react-reveal/Fade';
 import { Link } from 'react-router-dom';
 import InputField from './InputField';
-import { useForm } from '../../hooks';
+import { useForm, useMobile } from '../../hooks';
 import { auth, firebase, db } from '../../firebase';
 import {
   FormContainer,
@@ -16,7 +16,6 @@ import {
 } from './Form.style';
 import DividerWithText from './DividerWithText';
 import { STATUS } from '../consts';
-import { useMobile } from '../../hooks/mediaQueries';
 
 function validateForm(values) {
   const errors = {};
@@ -66,14 +65,6 @@ const Register = () => {
         displayName: values.displayName,
         photoURL: `http://gravatar.com/avatar/${md5(createdUser.user.email)}?d=identicon`,
       });
-      // const document = await usersRef.doc(createdUser.user.uid).get();
-      // if (!document || !document.exists) {
-      //   await usersRef.doc(createdUser.user.uid).set({
-      //     displayName: createdUser.displayName,
-      //     photoURL: `http://gravatar.com/avatar/${md5(createdUser.user.email)}?d=identicon`,
-      //   });
-      // }
-
       await usersRef.doc(createdUser.user.uid).set({
         displayName: createdUser.user.displayName,
         photoURL: `http://gravatar.com/avatar/${md5(createdUser.user.email)}?d=identicon`,

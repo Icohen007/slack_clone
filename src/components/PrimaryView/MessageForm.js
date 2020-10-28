@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { auth, db, firebase } from '../../firebase';
 import styles from './messageForm.module.scss';
 import { ButtonUnstyled, centeredFlex } from '../Shared/Shared.style';
+import { addToCollection } from '../../firebaseUtils';
 
 const toolbar = {
   options: ['inline', 'list', 'emoji', 'history'],
@@ -59,22 +60,19 @@ const SubmitMessageButton = ({ editorState, setEditorState }) => {
     const { currentUser } = auth;
     const formattedContent = JSON.stringify(convertToRaw(content));
     const cleanContent = content.getPlainText();
-    try {
-      await channelMessagesRef.add({
-        cleanContent,
-        formattedContent,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-        createdBy: {
-          id: currentUser.uid,
-          displayName: currentUser.displayName,
-          photoURL: currentUser.photoURL,
-        },
-      });
-      const emptyEditorState = EditorState.push(editorState, ContentState.createFromText(''), 'remove-range');
-      setEditorState(emptyEditorState);
-    } catch (err) {
-      console.log(err);
-    }
+    await addToCollection(channelMessagesRef, {
+      cleanContent,
+      formattedContent,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      createdBy: {
+        id: currentUser.uid,
+        displayName: currentUser.displayName,
+        photoURL: currentUser.photoURL,
+      },
+    });
+
+    const emptyEditorState = EditorState.push(editorState, ContentState.createFromText(''), 'remove-range');
+    setEditorState(emptyEditorState);
   };
 
   return (

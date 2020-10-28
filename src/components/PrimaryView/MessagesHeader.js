@@ -9,11 +9,12 @@ import {
   ButtonUnstyled, Centered, centeredFlex, Image, TooltipContent,
 } from '../Shared/Shared.style';
 import { auth, db } from '../../firebase';
+import { enhance } from '../../firebaseUtils';
 
 const MessagesHeader = () => {
   const starredChannelsRef = db.collection('users').doc(auth.currentUser.uid).collection('starred');
-  const [starredChannels, loading, error] = useCollectionData(starredChannelsRef);
-  const isReady = !loading && !error;
+
+  const [starredChannels, isReady] = enhance(useCollectionData(starredChannelsRef));
   const { activeChannel } = useSelector((state) => state.channels);
 
   if (!isReady) {

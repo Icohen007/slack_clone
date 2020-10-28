@@ -3,8 +3,9 @@ import { FaSpinner } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import Fade from 'react-reveal/Fade';
 import { Link } from 'react-router-dom';
+import md5 from 'md5';
 import InputField from './InputField';
-import { useForm } from '../../hooks';
+import { useForm, useMobile } from '../../hooks';
 import { auth, db, firebase } from '../../firebase';
 import {
   FormContainer,
@@ -15,8 +16,6 @@ import {
 } from './Form.style';
 import DividerWithText from './DividerWithText';
 import { STATUS } from '../consts';
-import { useMobile } from '../../hooks/mediaQueries';
-import md5 from 'md5';
 
 const mainColor = 'rgba(66, 133, 244, 1)';
 
