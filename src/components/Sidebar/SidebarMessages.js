@@ -3,15 +3,12 @@ import styled from 'styled-components';
 import ChannelList from './ChannelList';
 import StarredList from './StarredList';
 
-const SidebarMessages = () => {
-
-  return (
-    <StyledSidebarMessages>
-      {/*<StarredList />*/}
-      <ChannelList />
-    </StyledSidebarMessages>
-  );
-};
+const SidebarMessages = () => (
+  <StyledSidebarMessages>
+    <StarredList />
+    <ChannelList />
+  </StyledSidebarMessages>
+);
 
 const StyledSidebarMessages = styled.nav`
   min-height: 0;

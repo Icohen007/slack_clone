@@ -1,8 +1,7 @@
 import { setActiveChannel, setIsPrivateChannelMode } from './channelSlice';
 
 const changePublicChannel = (channel) => (dispatch) => {
-  const { createdAt, ...rest } = channel;
-  dispatch(setActiveChannel({ channel: rest }));
+  dispatch(setActiveChannel({ channel }));
   dispatch(setIsPrivateChannelMode(false));
 };
 

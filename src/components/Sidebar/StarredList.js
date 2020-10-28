@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
-import { useDocumentData } from 'react-firebase-hooks/firestore';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { useSelector } from 'react-redux';
 import ChannelCategory from './ChannelCategory';
 import Channel from './Channel';
 import { auth, db } from '../../firebase';
 
 const StarredList = () => {
   const [showing, setShowing] = useState(true);
-  const currentUserRef = db.collection('users').doc(auth.currentUser.uid);
-  const [currentUser, loading, error] = useDocumentData(currentUserRef);
+  const starredChannelsRef = db.collection('users').doc(auth.currentUser.uid).collection('starred').orderBy('createdAt');
+  const [starredChannels, loading, error] = useCollectionData(starredChannelsRef);
+  const { activeChannel } = useSelector((state) => state.channels);
+  const isReady = !loading && !error;
 
-  console.log({ currentUser });
-
-  if (loading || error) {
+  if (!isReady) {
     return null;
   }
 
@@ -25,8 +26,7 @@ const StarredList = () => {
       />
       {showing && (
       <ul>
-        <Channel name="channel name" />
-        <Channel name="channel name" />
+        {starredChannels.map((starredChannel) => <Channel key={starredChannel.id} channel={starredChannel} activeChannel={activeChannel} />)}
       </ul>
       )}
     </>
