@@ -58,7 +58,7 @@ const AddChannelModal = ({ isModal, setModal }) => {
       createdBy: {
         id: currentUser.uid,
         displayName: currentUser.displayName,
-        photoUrl: currentUser.photoURL,
+        photoURL: currentUser.photoURL,
       },
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     });

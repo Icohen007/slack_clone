@@ -1,32 +1,35 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { Editor, convertFromRaw, EditorState } from 'draft-js';
 import { ButtonUnstyled, Image } from '../Shared/Shared.style';
-import { auth } from '../../firebase';
-import storedState from './storedState.json';
 
-const contentState = convertFromRaw(storedState);
-const editorState = EditorState.createWithContent(contentState);
+const Message = ({ message }) => {
+  const { formattedContent, createdBy: { displayName, photoURL } } = message;
+  const editorState = useMemo(() => {
+    const contentState = convertFromRaw(JSON.parse(formattedContent));
+    return EditorState.createWithContent(contentState);
+  }, [formattedContent]);
 
-const Message = () => (
-  <StyledMessage>
-    <div className="left">
-      <UserImage>
-        <Image
-          src={(auth.currentUser && auth.currentUser.photoURL) || '/dummy36.png'}
-          alt={(auth.currentUser && auth.currentUser.displayName) || 'User name'}
-        />
-      </UserImage>
-    </div>
-    <div className="right">
-      <span className="user-name">
-        {(auth.currentUser && auth.currentUser.displayName) || 'User name'}
-      </span>
-      <span className="timestamp"> 2:10PM </span>
-      <Editor editorState={editorState} readOnly />
-    </div>
-  </StyledMessage>
-);
+  return (
+    <StyledMessage>
+      <div className="left">
+        <UserImage>
+          <Image
+            src={photoURL || '/dummy36.png'}
+            alt={displayName || 'User name'}
+          />
+        </UserImage>
+      </div>
+      <div className="right">
+        <span className="user-name">
+          {displayName || 'User name'}
+        </span>
+        <span className="timestamp"> 2:10PM </span>
+        <Editor editorState={editorState} readOnly />
+      </div>
+    </StyledMessage>
+  );
+};
 
 const StyledMessage = styled.div`
   display: flex;

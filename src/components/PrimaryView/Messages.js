@@ -1,21 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { useSelector } from 'react-redux';
 import Message from './Message';
+import { db } from '../../firebase';
 
-const Messages = () => (
-  <StyledMessages>
-    <Message />
-    <Message />
-    <Message />
-    <Message />
-    <Message />
-    <Message />
-    <Message />
-    <Message />
-    <Message />
-  </StyledMessages>
+const Messages = () => {
+  const { activeChannel } = useSelector((state) => state.channels);
+  const publicMessagesRef = db.collection('channelMessages').doc(activeChannel.id).collection('messages').orderBy('createdAt');
+  const [messages, loading, error] = useCollectionData(publicMessagesRef, { idField: 'id' });
+  const isReady = !loading && !error;
 
-);
+  if (!isReady) {
+    return null;
+  }
+
+  return (
+    <StyledMessages>
+      {messages.map((message) => <Message key={message.id} message={message} />)}
+    </StyledMessages>
+
+  );
+};
 
 const StyledMessages = styled.div`
 flex: 1;

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { EditorState, convertToRaw } from 'draft-js';
+import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import styled from 'styled-components';
 import { TiArrowRightOutline } from 'react-icons/ti';
-
 import { useSelector } from 'react-redux';
+import { auth, db, firebase } from '../../firebase';
 import styles from './messageForm.module.scss';
 import { ButtonUnstyled, centeredFlex } from '../Shared/Shared.style';
 
@@ -63,7 +63,6 @@ const toolbar = {
     ],
   },
   image: {
-    // icon: image,
     className: undefined,
     component: undefined,
     popupClassName: styles.popup,
@@ -88,15 +87,32 @@ const toolbar = {
   },
 };
 
-const SubmitMessageButton = ({ editorState }) => {
+const SubmitMessageButton = ({ editorState, setEditorState }) => {
   const content = editorState.getCurrentContent();
   const isEmptyInput = !content.hasText();
   const { activeChannel, isPrivateChannelMode } = useSelector((state) => state.channels);
 
-  const handleClick = () => {
-    console.log(convertToRaw(content));
-    console.log(activeChannel);
-    console.log(isPrivateChannelMode);
+  const handleClick = async () => {
+    const publicMessagesRef = db.collection('channelMessages').doc(activeChannel.id).collection('messages');
+    const { currentUser } = auth;
+    const formattedContent = JSON.stringify(convertToRaw(content));
+    const cleanContent = content.getPlainText();
+    try {
+      await publicMessagesRef.add({
+        cleanContent,
+        formattedContent,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        createdBy: {
+          id: currentUser.uid,
+          displayName: currentUser.displayName,
+          photoURL: currentUser.photoURL,
+        },
+      });
+      const emptyEditorState = EditorState.push(editorState, ContentState.createFromText(''), 'remove-range');
+      setEditorState(emptyEditorState);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -111,7 +127,7 @@ const StyledSubmitMessageButton = styled(ButtonUnstyled)`
     margin-left: auto;
     border-radius: 2px;
     margin-bottom: 6px;
-    padding: 0 5px;
+    padding: 5px;
     opacity: ${({ isEmptyInput }) => (isEmptyInput ? 0.2 : 1)};
     transition: opacity .2s,background-color .2s, color .2s;
     font-weight: bold;
@@ -134,7 +150,7 @@ const MessageForm = () => {
         editorClassName={styles.editor}
         onEditorStateChange={setEditorState}
         toolbar={toolbar}
-        toolbarCustomButtons={[<SubmitMessageButton />]}
+        toolbarCustomButtons={[<SubmitMessageButton setEditorState={setEditorState} />]}
       />
     </MessageFormWrapper>
   );

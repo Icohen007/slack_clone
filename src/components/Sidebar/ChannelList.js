@@ -5,6 +5,7 @@ import ChannelCategory from './ChannelCategory';
 import Channel from './Channel';
 import { db } from '../../firebase';
 import changePublicChannel from '../../features/channels/changePublicChannel';
+import { isDummyActiveChannel } from '../../features/channels/channelSlice';
 
 const ChannelList = () => {
   const [showing, setShowing] = useState(true);
@@ -15,12 +16,12 @@ const ChannelList = () => {
   const isReady = !loading && !error;
 
   useEffect(() => {
-    if (isReady && !activeChannel) {
+    if (isReady && isDummyActiveChannel(activeChannel)) {
       dispatch(changePublicChannel(channels[0]));
     }
   }, [activeChannel, isReady]);
 
-  if (!isReady || !activeChannel) {
+  if (!isReady || isDummyActiveChannel(activeChannel)) {
     return null;
   }
 
