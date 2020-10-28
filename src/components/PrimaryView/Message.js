@@ -3,13 +3,26 @@ import styled from 'styled-components';
 import { Editor, convertFromRaw, EditorState } from 'draft-js';
 import { ButtonUnstyled, Image } from '../Shared/Shared.style';
 
+const parseDate = (date) => {
+  function pad2(d) { // always returns a string
+    return (d < 10 ? '0' : '') + d;
+  }
+
+  const fullYear = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+
+  return `${pad2(day)}/${pad2(month)}/${pad2(fullYear)} ${pad2(hours)}:${pad2(minutes)}`;
+};
+
 const Message = ({ message }) => {
-  const { formattedContent, createdBy: { displayName, photoURL } } = message;
+  const { formattedContent, createdBy: { displayName, photoURL }, createdAt } = message;
   const editorState = useMemo(() => {
     const contentState = convertFromRaw(JSON.parse(formattedContent));
     return EditorState.createWithContent(contentState);
   }, [formattedContent]);
-
   return (
     <StyledMessage>
       <div className="left">
@@ -24,7 +37,10 @@ const Message = ({ message }) => {
         <span className="user-name">
           {displayName || 'User name'}
         </span>
-        <span className="timestamp"> 2:10PM </span>
+        <span className="timestamp">
+          {' '}
+          {parseDate(createdAt.toDate())}
+        </span>
         <Editor editorState={editorState} readOnly />
       </div>
     </StyledMessage>

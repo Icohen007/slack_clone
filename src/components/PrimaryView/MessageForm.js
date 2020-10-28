@@ -3,8 +3,7 @@ import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import styled from 'styled-components';
 import { TiArrowRightOutline } from 'react-icons/ti';
-import { useSelector } from 'react-redux';
-import { auth, db, firebase } from '../../firebase';
+import { auth, firebase } from '../../firebase';
 import styles from './messageForm.module.scss';
 import { ButtonUnstyled, centeredFlex } from '../Shared/Shared.style';
 import { addToCollection } from '../../firebaseUtils';
@@ -50,17 +49,15 @@ const toolbar = {
   },
 };
 
-const SubmitMessageButton = ({ editorState, setEditorState }) => {
+const SubmitMessageButton = ({ editorState, setEditorState, messagesRef }) => {
   const content = editorState.getCurrentContent();
   const isEmptyInput = !content.hasText();
-  const { activeChannel, isPrivateChannelMode } = useSelector((state) => state.channels);
 
   const handleClick = async () => {
-    const channelMessagesRef = db.collection('channelMessages').doc(activeChannel.id).collection('messages');
     const { currentUser } = auth;
     const formattedContent = JSON.stringify(convertToRaw(content));
     const cleanContent = content.getPlainText();
-    await addToCollection(channelMessagesRef, {
+    await addToCollection(messagesRef, {
       cleanContent,
       formattedContent,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
@@ -99,9 +96,8 @@ const StyledSubmitMessageButton = styled(ButtonUnstyled)`
     }
 `;
 
-const MessageForm = () => {
+const MessageForm = ({ messagesRef }) => {
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
-  // console.log(JSON.stringify(convertToRaw(editorState.getCurrentContent())));
   return (
     <MessageFormWrapper>
       <Editor
@@ -110,7 +106,10 @@ const MessageForm = () => {
         editorClassName={styles.editor}
         onEditorStateChange={setEditorState}
         toolbar={toolbar}
-        toolbarCustomButtons={[<SubmitMessageButton setEditorState={setEditorState} />]}
+        toolbarCustomButtons={[<SubmitMessageButton
+          setEditorState={setEditorState}
+          messagesRef={messagesRef}
+        />]}
       />
     </MessageFormWrapper>
   );

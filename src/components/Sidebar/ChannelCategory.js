@@ -6,7 +6,7 @@ import AddChannelButton from './AddChannelButton';
 import SidebarAddButton from './SidebarAddButton';
 
 const ChannelCategory = ({
-  name, showing, onClick, isStarred,
+  name, showing, onClick, isChannels,
 }) => (
   <>
     <AccordionContainer onClick={onClick}>
@@ -14,7 +14,7 @@ const ChannelCategory = ({
         {showing ? <IoMdArrowDropdown /> : <IoMdArrowDropright />}
       </AccordionButton>
       <span>{name}</span>
-      {!isStarred && (
+      {isChannels && (
       <AddChannelButton>
         <IoMdAdd />
       </AddChannelButton>

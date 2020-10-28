@@ -1,14 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { useSelector } from 'react-redux';
 import Message from './Message';
-import { db } from '../../firebase';
 
-const Messages = () => {
-  const { activeChannel } = useSelector((state) => state.channels);
-  const publicMessagesRef = db.collection('channelMessages').doc(activeChannel.id).collection('messages').orderBy('createdAt');
-  const [messages, loading, error] = useCollectionData(publicMessagesRef, { idField: 'id' });
+const Messages = ({ messagesRef }) => {
+  const [messages, loading, error] = useCollectionData(messagesRef.orderBy('createdAt'), { idField: 'id' });
   const isReady = !loading && !error;
 
   if (!isReady) {

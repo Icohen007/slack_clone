@@ -2,28 +2,25 @@ import React from 'react';
 import { HiOutlineHashtag } from 'react-icons/hi';
 import { useDispatch } from 'react-redux';
 import { ChannelName, HashIconChannel, StyledChannel } from './Channel.style';
-import { changePublicChannel } from '../../features/channels/channelFlows';
+import { changePrivateChannel } from '../../features/channels/channelFlows';
 
-const Channel = ({ channel, activeChannel }) => {
-  const { name, id } = channel;
+const DirectMessage = ({ user, activeChannel }) => {
+  const { displayName, id } = user;
   const dispatch = useDispatch();
-
-  // clearNotifications
-  // remove typing
 
   return (
     <StyledChannel
-      onClick={() => dispatch(changePublicChannel(channel))}
+      onClick={() => dispatch(changePrivateChannel(user))}
       isActive={activeChannel.id === id}
     >
       <HashIconChannel>
         <HiOutlineHashtag />
       </HashIconChannel>
       <ChannelName>
-        {name}
+        {displayName}
       </ChannelName>
     </StyledChannel>
   );
 };
 
-export default Channel;
+export default DirectMessage;

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ChannelCategory from './ChannelCategory';
 import Channel from './Channel';
 import { auth, db } from '../../firebase';
-import changePublicChannel from '../../features/channels/changePublicChannel';
+import { changePublicChannel } from '../../features/channels/channelFlows';
 import { isDummyActiveChannel } from '../../features/channels/channelSlice';
 import { enhance } from '../../firebaseUtils';
 
@@ -37,10 +37,17 @@ const ChannelList = () => {
         name="Channels"
         showing={showing}
         onClick={() => setShowing((showingState) => !showingState)}
+        isChannels
       />
       {showing && (
       <ul>
-        {filteredChannels.map((channel) => <Channel key={channel.id} channel={channel} activeChannel={activeChannel} />)}
+        {filteredChannels.map((channel) => (
+          <Channel
+            key={channel.id}
+            channel={channel}
+            activeChannel={activeChannel}
+          />
+        ))}
       </ul>
       )}
     </>

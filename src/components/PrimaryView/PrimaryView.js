@@ -1,8 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import MessagesHeader from './MessagesHeader';
+import { useSelector } from 'react-redux';
+import PublicMessagesHeader from './PublicMessagesHeader';
 import Messages from './Messages';
 import MessageForm from './MessageForm';
+import PrivateMessagesHeader from './PrivateMessagesHeader';
+import { db, auth } from '../../firebase';
 
 const StyledPrimaryView = styled.section`
 grid-area: primary-view;
@@ -12,12 +15,34 @@ position: relative;
 overflow: hidden;
 `;
 
-const PrimaryView = () => (
-  <StyledPrimaryView>
-    <MessagesHeader />
-    <Messages />
-    <MessageForm />
-  </StyledPrimaryView>
-);
+const PrimaryView = () => {
+  const { activeChannel, isPrivateChannelMode } = useSelector((state) => state.channels);
+
+  const getChannelId = (userId) => {
+    const currentUserId = auth.currentUser.uid;
+    return userId < currentUserId
+      ? `${userId}-${currentUserId}`
+      : `${currentUserId}-${userId}`;
+  };
+
+  const messagesRef = isPrivateChannelMode ? db.collection('privateMessages').doc(getChannelId(activeChannel.id)).collection('messages')
+    : db.collection('channelMessages').doc(activeChannel.id).collection('messages');
+
+  return (
+    <StyledPrimaryView>
+      {isPrivateChannelMode ? (
+        <PrivateMessagesHeader activeChannel={activeChannel} />
+      ) : (
+        <PublicMessagesHeader activeChannel={activeChannel} />
+      )}
+      <Messages
+        activeChannel={activeChannel}
+        isPrivateChannelMode={isPrivateChannelMode}
+        messagesRef={messagesRef}
+      />
+      <MessageForm messagesRef={messagesRef} />
+    </StyledPrimaryView>
+  );
+};
 
 export default PrimaryView;

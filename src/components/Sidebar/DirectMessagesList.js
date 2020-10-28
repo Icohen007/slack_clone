@@ -2,33 +2,35 @@ import React, { useState } from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { useSelector } from 'react-redux';
 import ChannelCategory from './ChannelCategory';
-import Channel from './Channel';
-import { auth, db } from '../../firebase';
+import { db, auth } from '../../firebase';
+import { enhance } from '../../firebaseUtils';
+import DirectMessage from './DirectMessage';
 
-const StarredList = () => {
+const DirectMessagesList = () => {
   const [showing, setShowing] = useState(true);
-  const starredChannelsRef = db.collection('users').doc(auth.currentUser.uid).collection('starred').orderBy('createdAt');
-  const [starredChannels, loading, error] = useCollectionData(starredChannelsRef);
+  const usersRef = db.collection('users');
+  const [users, isReady] = enhance(useCollectionData(usersRef, { idField: 'id' }));
   const { activeChannel } = useSelector((state) => state.channels);
-  const isReady = !loading && !error;
 
   if (!isReady) {
     return null;
   }
 
+  const filteredUsers = users.filter((user) => user.id !== auth.currentUser.uid);
+
   return (
     <>
       <ChannelCategory
-        name="Starred"
+        name="Direct Messages"
         showing={showing}
         onClick={() => setShowing((showingState) => !showingState)}
       />
       {showing && (
       <ul>
-        {starredChannels.map((starredChannel) => (
-          <Channel
-            key={starredChannel.id}
-            channel={starredChannel}
+        {filteredUsers.map((user) => (
+          <DirectMessage
+            key={user.id}
+            user={user}
             activeChannel={activeChannel}
           />
         ))}
@@ -38,4 +40,4 @@ const StarredList = () => {
   );
 };
 
-export default StarredList;
+export default DirectMessagesList;
