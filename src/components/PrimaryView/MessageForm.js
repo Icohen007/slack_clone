@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { EditorState } from 'draft-js';
+import { EditorState, convertToRaw } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import styled from 'styled-components';
 
@@ -87,7 +87,7 @@ const toolbar = {
 
 const MessageForm = () => {
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
-
+  // console.log(JSON.stringify(convertToRaw(editorState.getCurrentContent())));
   return (
     <MessageFormWrapper>
       <Editor

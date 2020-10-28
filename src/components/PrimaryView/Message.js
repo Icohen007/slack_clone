@@ -1,13 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Editor, convertFromRaw, EditorState } from 'draft-js';
 import { ButtonUnstyled, Image } from '../Shared/Shared.style';
 import { auth } from '../../firebase';
+import storedState from './storedState.json';
+
+const contentState = convertFromRaw(storedState);
+const editorState = EditorState.createWithContent(contentState);
 
 const Message = () => (
   <StyledMessage>
     <div className="left">
       <UserImage>
-        <Image src={(auth.currentUser && auth.currentUser.photoURL) || '/dummy36.png'} alt={(auth.currentUser && auth.currentUser.displayName) || 'User name'} />
+        <Image
+          src={(auth.currentUser && auth.currentUser.photoURL) || '/dummy36.png'}
+          alt={(auth.currentUser && auth.currentUser.displayName) || 'User name'}
+        />
       </UserImage>
     </div>
     <div className="right">
@@ -15,9 +23,7 @@ const Message = () => (
         {(auth.currentUser && auth.currentUser.displayName) || 'User name'}
       </span>
       <span className="timestamp"> 2:10PM </span>
-      <div>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque eligendi expedita velit veritatis vero! Autem cum cupiditate deleniti distinctio id illum modi molestias, nihil nobis pariatur! At pariatur sint tempora?
-      </div>
+      <Editor editorState={editorState} readOnly />
     </div>
   </StyledMessage>
 );
