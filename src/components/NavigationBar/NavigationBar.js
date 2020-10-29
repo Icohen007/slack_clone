@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { CgSearch } from 'react-icons/cg';
 import { FcHome } from 'react-icons/fc';
+import { BsClock } from 'react-icons/bs';
+import { FiHelpCircle } from 'react-icons/fi';
 import { Tooltip } from 'react-tippy';
 import ProfileMenu from './ProfileMenu';
 import { Image, TooltipContent } from '../Shared/Shared.style';
@@ -10,10 +12,40 @@ import { auth } from '../../firebase';
 const NavigationBar = () => (
   <StyledNavigationBar role="navigation" aria-label="Search and info">
     <StyledSearchButtonContainer>
+      <Tooltip
+        position="bottom"
+        arrow
+        html={(
+          <TooltipContent color="#ffc518">
+            <span>History - Not Supported</span>
+          </TooltipContent>
+        )}
+      >
+        <IconButton type="button" notSupported>
+          <span className="wrapper" style={{ padding: 2 }}>
+            <BsClock color="white" />
+          </span>
+        </IconButton>
+      </Tooltip>
       <StyledSearchButton type="button">
         <CgSearch />
         <span>Search in Slack</span>
       </StyledSearchButton>
+      <Tooltip
+        position="bottom"
+        arrow
+        html={(
+          <TooltipContent color="#ffc518">
+            <span>Help - Not Supported</span>
+          </TooltipContent>
+        )}
+      >
+        <IconButton type="button" notSupported>
+          <span className="wrapper" style={{ padding: 2 }}>
+            <FiHelpCircle color="white" />
+          </span>
+        </IconButton>
+      </Tooltip>
     </StyledSearchButtonContainer>
     <StyledSideButtons>
       <Tooltip
@@ -26,11 +58,11 @@ const NavigationBar = () => (
           </TooltipContent>
         )}
       >
-        <button type="button" className="side-button">
+        <IconButton type="button">
           <span className="wrapper">
             <FcHome />
           </span>
-        </button>
+        </IconButton>
       </Tooltip>
       <Tooltip
         position="bottom"
@@ -39,11 +71,11 @@ const NavigationBar = () => (
         interactive
         html={<ProfileMenu />}
       >
-        <button type="button" className="side-button">
+        <IconButton type="button">
           <span className="wrapper image">
             <Image src={(auth.currentUser && auth.currentUser.photoURL) || '/dummy36.png'} alt={(auth.currentUser && auth.currentUser.displayName) || 'User name'} />
           </span>
-        </button>
+        </IconButton>
       </Tooltip>
     </StyledSideButtons>
   </StyledNavigationBar>
@@ -67,6 +99,8 @@ const StyledSearchButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   padding: 0 10px;
+  align-items: center;
+  gap: 4px;
 `;
 
 const StyledSearchButton = styled.button`
@@ -84,7 +118,7 @@ const StyledSearchButton = styled.button`
     outline: none;
     border-radius: 6px;
     margin: 0;
-    cursor: pointer;
+    cursor: not-allowed;
     border: 0;
     
     &:hover{
@@ -118,9 +152,10 @@ display: flex;
 justify-content: center;
 align-items: center;
 margin-right: 12px;
+`;
 
-.side-button {
-    cursor: pointer;
+const IconButton = styled.button`
+    cursor: ${({ notSupported }) => (notSupported ? 'not-allowed' : 'pointer')};
     border: 0;
     padding: 0;
     outline: none;
@@ -136,20 +171,18 @@ margin-right: 12px;
     .wrapper {
     margin: 0;
     display: inline-block;
-    padding: 6px;
-    height: 28px;
-    width: 28px;
-    
+    padding: 4px;
+
     &.image {
     padding: 0;
+    height: 28px;
+    width: 28px;
     
     &:hover {
     filter: brightness(1.1);
     }
     }
     }
-}
-
 `;
 
 export default NavigationBar;
