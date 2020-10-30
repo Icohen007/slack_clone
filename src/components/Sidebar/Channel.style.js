@@ -5,7 +5,7 @@ export const StyledChannel = styled.li`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 4px 12px 4px 30px;
+  padding: 3px 12px 3px 30px;
   user-select: none;
   cursor: pointer;
   background-color: ${({ isActive }) => (isActive ? '#1164A3' : 'inherit')};

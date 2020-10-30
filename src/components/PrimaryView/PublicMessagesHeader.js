@@ -3,6 +3,8 @@ import { AiOutlineStar, AiFillStar, AiOutlineInfoCircle } from 'react-icons/ai';
 import { RiUserAddLine } from 'react-icons/ri';
 import { Tooltip } from 'react-tippy';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { BsLayoutTextSidebar } from 'react-icons/bs';
+import { useDispatch } from 'react-redux';
 import {
   Centered, Image, TooltipContent,
 } from '../Shared/Shared.style';
@@ -14,11 +16,14 @@ import {
   Spacer,
   StyledMessagesHeader,
 } from './MessagesHeader.style';
+import { useMobile } from '../../hooks';
+import { toggleSidebar } from '../../features/sidebar/sidebarSlice';
 
 const PublicMessagesHeader = ({ activeChannel }) => {
+  const isMobile = useMobile();
   const starredChannelsRef = db.collection('users').doc(auth.currentUser.uid).collection('starred');
-
   const [starredChannels, isReady] = enhance(useCollectionData(starredChannelsRef));
+  const dispatch = useDispatch();
 
   if (!isReady) {
     return null;
@@ -37,6 +42,13 @@ const PublicMessagesHeader = ({ activeChannel }) => {
 
   return (
     <StyledMessagesHeader>
+      {isMobile && (
+        <ServiceButton style={{ marginLeft: 0, marginRight: 5 }} onClick={() => dispatch(toggleSidebar())}>
+          <span>
+            <BsLayoutTextSidebar />
+          </span>
+        </ServiceButton>
+      )}
       <Centered>
         <span className="channel-name">
           {`# ${activeChannel.name}`}

@@ -57,6 +57,8 @@ const AddChannelModal = ({ isModal, setModal }) => {
       },
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     });
+    setName('');
+    setDescription('');
     setModal(false);
   };
 

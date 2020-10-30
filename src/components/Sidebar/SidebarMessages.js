@@ -14,9 +14,12 @@ const SidebarMessages = () => (
 
 const StyledSidebarMessages = styled.nav`
   min-height: 0;
-  max-height: 100%;
-  width: 100%; 
-  color: ${({ theme }) => theme.colors.purpleLight};
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  max-height: calc(100vh - 38px - 64px);
+  padding-bottom: 12px;
+  color: ${({ theme }) => theme.colors.purpleLight}
 `;
 
 export default SidebarMessages;

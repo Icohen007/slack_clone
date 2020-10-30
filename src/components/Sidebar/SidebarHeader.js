@@ -1,18 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FaSlackHash } from 'react-icons/fa';
-import { ButtonUnstyled, Centered } from '../Shared/Shared.style';
+import { ButtonUnstyled, Centered, Image } from '../Shared/Shared.style';
 import NewMessageButton from './NewMessageButton';
 
 const SidebarHeader = () => (
   <StyledSidebarHeader>
     <HeaderButton type="button">
-      <Centered gap={6}>
-        <span>
-          Slack
-          {' '}
-        </span>
-        <FaSlackHash />
+      <Centered style={{ height: 50 }}>
+        <Image src="./slack_text_logo.svg" style={{ width: 'auto' }} />
       </Centered>
     </HeaderButton>
     <NewMessageButton />
@@ -36,6 +31,7 @@ const StyledSidebarHeader = styled.div`
 const HeaderButton = styled(ButtonUnstyled)`
       font-weight: 900;
       user-select: none;
+      cursor: auto;
 `;
 
 export default SidebarHeader;

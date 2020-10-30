@@ -1,6 +1,8 @@
 import React from 'react';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
+import { BsLayoutTextSidebar } from 'react-icons/bs';
 import { Tooltip } from 'react-tippy';
+import { useDispatch } from 'react-redux';
 import {
   Centered, TooltipContent,
 } from '../Shared/Shared.style';
@@ -10,40 +12,54 @@ import {
   Spacer,
   StyledMessagesHeader,
 } from './MessagesHeader.style';
+import { useMobile } from '../../hooks';
+import { toggleSidebar } from '../../features/sidebar/sidebarSlice';
 
-const PrivateMessagesHeader = ({ activeChannel }) => (
-  <StyledMessagesHeader>
-    <Centered>
-      <span className="channel-name">
-        {`@ ${activeChannel.displayName}`}
-      </span>
-    </Centered>
-    <Spacer />
-    <Tooltip
-      position="bottom"
-      arrow
-      delay={100}
-      html={<TooltipContent> Show channel details </TooltipContent>}
-    >
-      <ServiceButton>
+const PrivateMessagesHeader = ({ activeChannel }) => {
+  const isMobile = useMobile();
+  const dispatch = useDispatch();
+
+  return (
+    <StyledMessagesHeader>
+      {isMobile && (
+      <ServiceButton style={{ marginLeft: 0, marginRight: 5 }} onClick={() => dispatch(toggleSidebar())}>
         <span>
-          <AiOutlineInfoCircle />
+          <BsLayoutTextSidebar />
         </span>
       </ServiceButton>
-    </Tooltip>
-    <Tooltip
-      position="bottom"
-      arrow
-      delay={100}
-      html={<TooltipContent> Show channel details </TooltipContent>}
-    >
-      <ServiceButton>
-        <span>
-          <AiOutlineInfoCircle />
+      )}
+      <Centered>
+        <span className="channel-name">
+          {`@ ${activeChannel.displayName}`}
         </span>
-      </ServiceButton>
-    </Tooltip>
-  </StyledMessagesHeader>
-);
+      </Centered>
+      <Spacer />
+      <Tooltip
+        position="bottom"
+        arrow
+        delay={100}
+        html={<TooltipContent> Show channel details </TooltipContent>}
+      >
+        <ServiceButton>
+          <span>
+            <AiOutlineInfoCircle />
+          </span>
+        </ServiceButton>
+      </Tooltip>
+      <Tooltip
+        position="bottom"
+        arrow
+        delay={100}
+        html={<TooltipContent> Show channel details </TooltipContent>}
+      >
+        <ServiceButton>
+          <span>
+            <AiOutlineInfoCircle />
+          </span>
+        </ServiceButton>
+      </Tooltip>
+    </StyledMessagesHeader>
+  );
+};
 
 export default PrivateMessagesHeader;
