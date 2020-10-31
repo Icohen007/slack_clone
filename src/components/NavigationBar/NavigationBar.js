@@ -74,7 +74,7 @@ const NavigationBar = () => (
       >
         <IconButton type="button">
           <span className="wrapper image">
-            <Image src={(auth.currentUser && auth.currentUser.photoURL) || '/dummy36.png'} alt={(auth.currentUser && auth.currentUser.displayName) || 'User name'} />
+            <Image src={auth.currentUser.photoURL || '/dummy36.png'} alt={(auth.currentUser.displayName) || 'User name'} />
           </span>
         </IconButton>
       </Tooltip>

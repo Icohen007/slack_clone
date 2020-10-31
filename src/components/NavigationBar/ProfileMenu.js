@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import Divider from '../Auth/Divider';
 import { auth } from '../../firebase';
 import { Image } from '../Shared/Shared.style';
-// color: ${({ theme }) => theme.colors.black1};
+import theme from '../../theme';
+
 const StyledProfileMenu = styled.div`
 width: 300px;
 max-width: 360px;
@@ -20,7 +21,7 @@ padding: 12px 0;
   align-items: center;
   gap: 10px;
   padding: 8px 20px 12px 24px;
-  color: #1D1C1D;
+  color: ${theme.colors.black1};
   
   .img-container {
   width: 36px;
@@ -66,9 +67,9 @@ const ProfileMenu = () => (
   <StyledProfileMenu>
     <div className="user">
       <div className="img-container">
-        <Image src={(auth.currentUser && auth.currentUser.photoURL) || '/dummy36.png'} alt={(auth.currentUser && auth.currentUser.displayName) || 'User name'} />
+        <Image src={auth.currentUser.photoURL || '/dummy36.png'} alt={auth.currentUser.displayName || 'User name'} />
       </div>
-      <div className="user-name">{(auth.currentUser && auth.currentUser.displayName) || 'User name'}</div>
+      <div className="user-name">{auth.currentUser.displayName || 'User name'}</div>
     </div>
     <Divider />
     <StyledProfileMenuButtonContainer>

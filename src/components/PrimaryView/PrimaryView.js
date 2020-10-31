@@ -35,7 +35,7 @@ const PrimaryView = () => {
       {isPrivateChannelMode ? (
         <PrivateMessagesHeader activeChannel={activeChannel} />
       ) : (
-        <PublicMessagesHeader activeChannel={activeChannel} />
+        <PublicMessagesHeader activeChannel={activeChannel} messagesRef={messagesRef} />
       )}
       <Messages
         activeChannel={activeChannel}

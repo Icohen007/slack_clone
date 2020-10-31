@@ -7,6 +7,7 @@ import PrimaryView from './PrimaryView/PrimaryView';
 import { toggleSidebar } from '../features/sidebar/sidebarSlice';
 import { useMobile } from '../hooks';
 import { navigationBarHeight } from './Shared/Shared.style';
+import { auth } from '../firebase';
 
 const AppContainer = styled.div`
 display: grid;
@@ -33,6 +34,10 @@ const App = () => {
     e.stopPropagation();
     dispatch(toggleSidebar());
   };
+
+  if (!auth.currentUser) {
+    return null;
+  }
 
   return (
     <>

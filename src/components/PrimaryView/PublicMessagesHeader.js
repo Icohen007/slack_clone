@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { AiOutlineStar, AiFillStar, AiOutlineInfoCircle } from 'react-icons/ai';
 import { RiUserAddLine } from 'react-icons/ri';
 import { Tooltip } from 'react-tippy';
@@ -19,14 +19,49 @@ import {
 import { useMobile } from '../../hooks';
 import { toggleSidebar } from '../../features/sidebar/sidebarSlice';
 import TooltipContent from '../Shared/TooltipContent';
+import theme from '../../theme';
 
-const PublicMessagesHeader = ({ activeChannel }) => {
+const getNested = (obj, path) => {
+  const properties = path.split('.');
+  return properties.reduce((prev, key) => prev[key], obj);
+};
+
+const groupBY = (objArray, path) => objArray.reduce((acc, cur) => {
+  const value = getNested(cur, path);
+  if (!acc[value]) {
+    acc[value] = [];
+  }
+  acc[value].push(cur);
+  return acc;
+}, {});
+
+const PublicMessagesHeader = ({ activeChannel, messagesRef }) => {
   const isMobile = useMobile();
   const starredChannelsRef = db.collection('users').doc(auth.currentUser.uid).collection('starred');
-  const [starredChannels, isReady] = enhance(useCollectionData(starredChannelsRef));
+  const [starredChannels, isStarredReady] = enhance(useCollectionData(starredChannelsRef));
+  const [messages, isMessagesReady] = enhance(useCollectionData(messagesRef));
+
+  const messagesByUser = useMemo(() => {
+    if (!isMessagesReady) {
+      return {};
+    }
+    return groupBY(messages, 'createdBy.id');
+  }, [messages]);
+
+  const users = Object.keys(messagesByUser).map((userKey) => messagesByUser[userKey][0].createdBy);
+
+  const participantPics = useMemo(() => users.map((user) => (
+    <span className="participant" key={user.id}>
+      <Image
+        src={(user.photoURL) || '/dummy36.png'}
+        alt={(user.displayName) || 'User name'}
+      />
+    </span>
+  )).slice(0, 3), [messagesByUser]);
+
   const dispatch = useDispatch();
 
-  if (!isReady) {
+  if (!isStarredReady || !isMessagesReady) {
     return null;
   }
 
@@ -60,39 +95,31 @@ const PublicMessagesHeader = ({ activeChannel }) => {
         {isChannelStarred ? <AiFillStar color="orange" className="icon-star" onClick={unStarChannel} /> : <AiOutlineStar className="icon-star" onClick={starChannel} />}
       </Centered>
       <Spacer />
+      {users.length > 0 && (
       <Tooltip
         position="bottom"
         delay={100}
         arrow
-        html={<TooltipContent notSupported> View all 3 members </TooltipContent>}
+        html={<Members users={users} />}
       >
         <ParticipantButtons>
-          <span className="participant">
-            <Image
-              src={(auth.currentUser && auth.currentUser.photoURL) || '/dummy36.png'}
-              alt={(auth.currentUser && auth.currentUser.displayName) || 'User name'}
-            />
+          {participantPics}
+          <span className="participant-count">
+            {Object.keys(messagesByUser).length}
           </span>
-          <span className="participant">
-            <Image
-              src={(auth.currentUser && auth.currentUser.photoURL) || '/dummy36.png'}
-              alt={(auth.currentUser && auth.currentUser.displayName) || 'User name'}
-            />
-          </span>
-          <span className="participant">
-            <Image
-              src={(auth.currentUser && auth.currentUser.photoURL) || '/dummy36.png'}
-              alt={(auth.currentUser && auth.currentUser.displayName) || 'User name'}
-            />
-          </span>
-          <span className="participant-count"> 3</span>
         </ParticipantButtons>
       </Tooltip>
+      )}
       <Tooltip
         position="bottom"
         arrow
         delay={100}
-        html={<TooltipContent notSupported> add people to # pingpong_tournament </TooltipContent>}
+        html={(
+          <TooltipContent notSupported>
+            add people to #
+            {activeChannel.name}
+          </TooltipContent>
+)}
       >
         <ServiceButton>
           <span>
@@ -115,5 +142,21 @@ const PublicMessagesHeader = ({ activeChannel }) => {
     </StyledMessagesHeader>
   );
 };
+
+const Members = ({ users }) => (
+  <TooltipContent>
+    <div>
+      {`View all ${users.length} members`}
+      <br />
+      <span style={{ color: theme.colors.grayLight }}>
+        includes
+        {' '}
+        {users.map(
+          (user, idx) => (idx !== users.length - 1 ? `${user.displayName}, ` : user.displayName),
+        )}
+      </span>
+    </div>
+  </TooltipContent>
+);
 
 export default PublicMessagesHeader;
