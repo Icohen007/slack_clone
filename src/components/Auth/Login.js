@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-import { FaSpinner } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import Fade from 'react-reveal/Fade';
 import { Link } from 'react-router-dom';
@@ -16,6 +15,8 @@ import {
 } from './Form.style';
 import DividerWithText from './DividerWithText';
 import { STATUS } from '../consts';
+import Spinner from '../Shared/Spinner';
+import theme from '../../theme';
 
 const mainColor = 'rgba(66, 133, 244, 1)';
 
@@ -88,7 +89,7 @@ const Login = () => {
   return (
     <FormContainer ref={formContainerRef} onMouseMove={!isMobile && mouseMoveListener}>
       <Fade bottom>
-        <h1 className="header">
+        <h1 className="header login">
           Login
           {' </>'}
         </h1>
@@ -132,7 +133,7 @@ const Login = () => {
           <SubmitButton type="submit" color={mainColor}>
             Login
             {' '}
-            {status === 'loading' && <FaSpinner className="fa-spin" size="26px" style={{ marginLeft: 20 }} />}
+            {status === 'loading' && <Spinner size={30} primaryColor={theme.colors.purpleDark} style={{ marginLeft: 20 }} />}
           </SubmitButton>
           <span style={{ textAlign: 'center' }}>
             {'Don\'t have an account? '}

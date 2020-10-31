@@ -7,6 +7,7 @@ import Register from './Auth/Register';
 import Login from './Auth/Login';
 import { auth } from '../firebase';
 import App from './App';
+import Spinner from './Shared/Spinner';
 
 const Root = () => {
   const [user, loading] = useAuthState(auth);
@@ -18,7 +19,7 @@ const Root = () => {
   }
 
   if (loading) {
-    return <div>loading....</div>;
+    return <Spinner secondaryColor="white" fullWindow />;
   }
 
   return (

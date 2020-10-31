@@ -10,14 +10,22 @@ background: url('./slack_logo.svg'), ${({ theme }) => theme.colors.purpleDark};
 padding: 10px;
 
 .header {
-text-align: center;
-font-size: 40px;
-margin-bottom: 10px;
-color: white;
-background: rgba(95,21,97,0.9);
-padding: 5px 15px;
-border-radius: 10px;
-box-shadow: 0 0 5px;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  font-size: 40px;
+  margin-bottom: 10px;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px;
+  &.login {
+    background: rgba(66,133,244,0.85);
+  }
+    
+  &.register {
+    background: rgba(0, 160, 23, 0.85);
+  }
 }
 
 `;
@@ -92,7 +100,7 @@ export const SubmitButton = styled.button`
       
       &:after {
          transform: scaleX(1);
-         transform-origin: 0%;
+         transform-origin: 0;
          transition: transform 200ms ease-in-out;
       }
    }

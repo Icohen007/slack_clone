@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { AiOutlineClose } from 'react-icons/ai';
 import styled from 'styled-components';
-import { centeredFlex } from '../Shared/Shared.style';
+import { centeredFlex, FixedFullscreen } from '../Shared/Shared.style';
 
 const Modal = ({
   isVisible = false, title, content, footer, onClose,
@@ -40,17 +40,7 @@ const Modal = ({
   );
 };
 
-const StyledModal = styled.div`
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+const StyledModal = styled(FixedFullscreen)`
   background-color: rgba(0, 0, 0, 0.25);
   animation-name: appear;
   animation-duration: 300ms;

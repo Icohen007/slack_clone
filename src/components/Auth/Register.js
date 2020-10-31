@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react';
 import md5 from 'md5';
-import { FaSpinner } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import Fade from 'react-reveal/Fade';
 import { Link } from 'react-router-dom';
@@ -16,6 +15,8 @@ import {
 } from './Form.style';
 import DividerWithText from './DividerWithText';
 import { STATUS } from '../consts';
+import Spinner from '../Shared/Spinner';
+import theme from '../../theme';
 
 function validateForm(values) {
   const errors = {};
@@ -101,7 +102,7 @@ const Register = () => {
   return (
     <FormContainer ref={formContainerRef} onMouseMove={!isMobile && mouseMoveListener}>
       <Fade bottom>
-        <h1 className="header">
+        <h1 className="header register">
           Registration
           {' </>'}
         </h1>
@@ -155,7 +156,7 @@ const Register = () => {
           <SubmitButton type="submit">
             Sign Up
             {' '}
-            {status === 'loading' && <FaSpinner className="fa-spin" size="26px" style={{ marginLeft: 20 }} />}
+            {status === 'loading' && <Spinner size={30} primaryColor={theme.colors.purpleDark} style={{ marginLeft: 20 }} />}
           </SubmitButton>
           <span style={{ textAlign: 'center' }}>
             Already have an account?
@@ -165,7 +166,7 @@ const Register = () => {
         </Fade>
         <Fade when={status !== STATUS.IDLE} bottom>
           <>
-            {status === STATUS.SUCCESS && <ResponseText success> Login successfully! </ResponseText>}
+            {status === STATUS.SUCCESS && <ResponseText success>Login successfully!</ResponseText>}
             {status === STATUS.ERROR && <ResponseText>{serverError}</ResponseText>}
           </>
         </Fade>

@@ -51,3 +51,16 @@ export const AccordionButton = styled(ButtonUnstyled)`
       font-size: 18px;
   }
 `;
+
+export const FixedFullscreen = styled.div`
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;

@@ -25,7 +25,12 @@ const Messages = ({ messagesRef, formHeight }) => {
 
   return (
     <StyledMessages formHeight={formHeight}>
-      {messagesSnapshot.docs.map((message) => <Message key={message.id} message={message.data()} />)}
+      {messagesSnapshot.docs.map((message) => (
+        <Message
+          key={message.id}
+          message={message.data()}
+        />
+      ))}
       <div ref={bottomContainerRef} />
     </StyledMessages>
 

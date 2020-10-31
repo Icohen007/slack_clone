@@ -16,19 +16,22 @@ position: relative;
 overflow: hidden;
 `;
 
+const getChannelId = (currentUserId, otherUserId) => (
+  otherUserId < currentUserId
+    ? `${otherUserId}-${currentUserId}`
+    : `${currentUserId}-${otherUserId}`
+);
+
 const PrimaryView = () => {
   const { activeChannel, isPrivateChannelMode } = useSelector((state) => state.channels);
   const { ref: containerRef, height = 1 } = useResizeObserver();
-
-  const getChannelId = (userId) => {
-    const currentUserId = auth.currentUser.uid;
-    return userId < currentUserId
-      ? `${userId}-${currentUserId}`
-      : `${currentUserId}-${userId}`;
-  };
-
-  const messagesRef = isPrivateChannelMode ? db.collection('privateMessages').doc(getChannelId(activeChannel.id)).collection('messages')
-    : db.collection('channelMessages').doc(activeChannel.id).collection('messages');
+  const messagesRef = isPrivateChannelMode
+    ? db.collection('privateMessages')
+      .doc(getChannelId(auth.currentUser.uid, activeChannel.id))
+      .collection('messages')
+    : db.collection('channelMessages')
+      .doc(activeChannel.id)
+      .collection('messages');
 
   return (
     <StyledPrimaryView>
