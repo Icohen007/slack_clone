@@ -6,10 +6,11 @@ import Sidebar from './Sidebar/Sidebar';
 import PrimaryView from './PrimaryView/PrimaryView';
 import { toggleSidebar } from '../features/sidebar/sidebarSlice';
 import { useMobile } from '../hooks';
+import { navigationBarHeight } from './Shared/Shared.style';
 
 const AppContainer = styled.div`
 display: grid;
-height: calc(100% - 38px);
+height: calc(100% - ${navigationBarHeight}px);
 grid-template-rows: auto;
 overflow: hidden;
 position: relative;

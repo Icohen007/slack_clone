@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { ButtonUnstyled, centeredFlex } from '../Shared/Shared.style';
+import { ButtonUnstyled, centeredFlex, headerHeight } from '../Shared/Shared.style';
 
 const StyledMessagesHeader = styled.header`
-height: 64px;
+height: ${headerHeight}px;
 padding: 0 20px;
 display: flex;
 align-items: center;

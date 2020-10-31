@@ -1,5 +1,8 @@
 import styled, { css } from 'styled-components';
 
+export const navigationBarHeight = 38;
+export const headerHeight = 64;
+
 export const Centered = styled.div`
 display: flex;
 align-items: center;

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ChannelList from './ChannelList';
 import StarredList from './StarredList';
 import DirectMessagesList from './DirectMessagesList';
+import { headerHeight, navigationBarHeight } from '../Shared/Shared.style';
 
 const SidebarMessages = () => (
   <StyledSidebarMessages>
@@ -17,7 +18,7 @@ const StyledSidebarMessages = styled.nav`
   height: 100%;
   width: 100%;
   overflow-y: auto;
-  max-height: calc(100vh - 38px - 64px);
+  max-height: calc(100vh - ${navigationBarHeight}px - ${headerHeight}px);
   padding-bottom: 12px;
   color: ${({ theme }) => theme.colors.purpleLight}
 `;

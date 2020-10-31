@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+import useResizeObserver from 'use-resize-observer';
 import PublicMessagesHeader from './PublicMessagesHeader';
 import Messages from './Messages';
 import MessageForm from './MessageForm';
@@ -17,6 +18,7 @@ overflow: hidden;
 
 const PrimaryView = () => {
   const { activeChannel, isPrivateChannelMode } = useSelector((state) => state.channels);
+  const { ref: containerRef, height = 1 } = useResizeObserver();
 
   const getChannelId = (userId) => {
     const currentUserId = auth.currentUser.uid;
@@ -39,8 +41,9 @@ const PrimaryView = () => {
         activeChannel={activeChannel}
         isPrivateChannelMode={isPrivateChannelMode}
         messagesRef={messagesRef}
+        formHeight={height}
       />
-      <MessageForm messagesRef={messagesRef} />
+      <MessageForm messagesRef={messagesRef} containerRef={containerRef} />
     </StyledPrimaryView>
   );
 };

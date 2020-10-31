@@ -96,10 +96,10 @@ const StyledSubmitMessageButton = styled(ButtonUnstyled)`
     }
 `;
 
-const MessageForm = ({ messagesRef }) => {
+const MessageForm = ({ messagesRef, containerRef }) => {
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
   return (
-    <MessageFormWrapper>
+    <MessageFormWrapper ref={containerRef}>
       <Editor
         editorState={editorState}
         wrapperClassName={styles.wrapper}

@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ButtonUnstyled, Centered, Image } from '../Shared/Shared.style';
+import {
+  ButtonUnstyled, Centered, headerHeight, Image,
+} from '../Shared/Shared.style';
 import NewMessageButton from './NewMessageButton';
 
 const SidebarHeader = () => (
@@ -18,7 +20,7 @@ const StyledSidebarHeader = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 64px;
+    height: ${headerHeight}px;
     padding: 0 16px;
     box-shadow: 0 1px 0 0 rgba(255,255,255,0.1);
     

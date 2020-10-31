@@ -6,7 +6,7 @@ import { BsClock } from 'react-icons/bs';
 import { FiHelpCircle } from 'react-icons/fi';
 import { Tooltip } from 'react-tippy';
 import ProfileMenu from './ProfileMenu';
-import { Image } from '../Shared/Shared.style';
+import { Image, navigationBarHeight } from '../Shared/Shared.style';
 import { auth } from '../../firebase';
 import TooltipContent from '../Shared/TooltipContent';
 
@@ -83,7 +83,7 @@ const NavigationBar = () => (
 );
 
 const StyledNavigationBar = styled.nav`
-height: 38px;
+height: ${navigationBarHeight}px;
 display: flex;
 align-items: center;
 justify-content: space-between;
