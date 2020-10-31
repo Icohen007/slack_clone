@@ -13,7 +13,7 @@ import {
   StyledMessagesHeader,
 } from './MessagesHeader.style';
 import { useMobile } from '../../hooks';
-import { toggleSidebar } from '../../features/sidebar/sidebarSlice';
+import { toggleMetaPanel, toggleSidebar } from '../../features/sidebar/sidebarSlice';
 import TooltipContent from '../Shared/TooltipContent';
 
 const PrivateMessagesHeader = ({ activeChannel }) => {
@@ -60,7 +60,7 @@ const PrivateMessagesHeader = ({ activeChannel }) => {
         delay={100}
         html={<TooltipContent notSupported> Show channel details </TooltipContent>}
       >
-        <ServiceButton>
+        <ServiceButton onClick={() => dispatch(toggleMetaPanel())}>
           <span>
             <AiOutlineInfoCircle />
           </span>

@@ -10,6 +10,14 @@ border-bottom: 1px solid rgba(29,28,29,0.13);
 
 .channel-name {
   font-weight: 900;
+  display: inline-block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 400px;
+  @media only screen and (max-width: 768px) {
+    max-width: 200px;
+  }
 }
 
 .icon-star {

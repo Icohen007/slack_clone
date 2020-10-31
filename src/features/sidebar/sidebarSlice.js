@@ -3,22 +3,23 @@ import { createSlice } from '@reduxjs/toolkit';
 const sidebarSlice = createSlice({
   name: 'sidebar',
   initialState: {
-    sidebarOpen: true,
+    sidebarOpen: false,
+    metaPanelOpen: false,
   },
   reducers: {
-    setSidebarOpen: {
-      reducer(state, action) {
-        state.sidebarOpen = action.payload;
-      },
-    },
     toggleSidebar: {
       reducer(state) {
         state.sidebarOpen = !state.sidebarOpen;
       },
     },
+    toggleMetaPanel: {
+      reducer(state) {
+        state.metaPanelOpen = !state.metaPanelOpen;
+      },
+    },
   },
 });
 
-export const { setSidebarOpen, toggleSidebar } = sidebarSlice.actions;
+export const { toggleSidebar, toggleMetaPanel } = sidebarSlice.actions;
 
 export default sidebarSlice.reducer;

@@ -44,7 +44,7 @@ const AddChannelModal = ({ isModal, setModal }) => {
   const [description, setDescription] = useState('');
 
   const handleClick = async () => {
-    if (name.length === 0) return;
+    if (name.length === 0 || name.length > 24) return;
     const { currentUser } = auth;
 
     await addToCollection(channelsRef, {
@@ -76,7 +76,7 @@ const AddChannelModal = ({ isModal, setModal }) => {
 )}
       footer={(
         <CreateButton
-          isEmptyInput={name.length === 0}
+          isValidInput={name.length === 0 || name.length > 24}
           onClick={handleClick}
         >
           Create
@@ -131,10 +131,10 @@ const CreateButton = styled(ButtonUnstyled)`
     padding: 0 12px;
     transition: all 80ms linear;
     font-weight: bold;
-    color: ${({ isEmptyInput }) => (isEmptyInput ? 'rgb(29, 28, 29)' : 'white')};
+    color: ${({ isValidInput }) => (isValidInput ? 'rgb(29, 28, 29)' : 'white')};
     border-radius: 4px;
-    background: ${({ isEmptyInput }) => (isEmptyInput ? 'rgb(221, 221 ,221)' : 'rgb(0, 122, 90)')};
-    cursor: ${({ isEmptyInput }) => (isEmptyInput ? 'auto' : 'pointer')};
+    background: ${({ isValidInput }) => (isValidInput ? 'rgb(221, 221 ,221)' : 'rgb(0, 122, 90)')};
+    cursor: ${({ isValidInput }) => (isValidInput ? 'auto' : 'pointer')};
 `;
 
 export default AddChannelModal;

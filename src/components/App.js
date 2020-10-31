@@ -4,10 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import NavigationBar from './NavigationBar/NavigationBar';
 import Sidebar from './Sidebar/Sidebar';
 import PrimaryView from './PrimaryView/PrimaryView';
-import { toggleSidebar } from '../features/sidebar/sidebarSlice';
+import { toggleMetaPanel, toggleSidebar } from '../features/sidebar/sidebarSlice';
 import { useMobile } from '../hooks';
 import { navigationBarHeight } from './Shared/Shared.style';
 import { auth } from '../firebase';
+import MetaPanel from './MetaPanel/MetaPanel';
 
 const AppContainer = styled.div`
 display: grid;
@@ -15,18 +16,27 @@ height: calc(100% - ${navigationBarHeight}px);
 grid-template-rows: auto;
 overflow: hidden;
 position: relative;
-grid-template-columns: 260px auto;
+grid-template-columns: ${({ metaPanelOpen }) => (metaPanelOpen ? '260px auto 400px' : '260px auto')};
 grid-template-areas: 'sidebar primary-view';
 transition: all 2s linear;
+color: ${({ theme }) => theme.colors.black1};
+
+@media only screen and (max-width: 1200px) {
+grid-template-columns: ${({ metaPanelOpen }) => (metaPanelOpen ? '260px auto 300px' : '260px auto')};
+}
+
+@media only screen and (max-width: 860px) {
+grid-template-columns: ${({ metaPanelOpen }) => (metaPanelOpen ? '260px auto 260px' : '260px auto')};
+}
 
 @media only screen and (max-width: 768px) {
-grid-template-columns: auto;
+grid-template-columns: ${({ metaPanelOpen }) => (metaPanelOpen ? 'auto 260px' : 'auto')};
 grid-template-areas: 'primary-view';
 }
 `;
 
 const App = () => {
-  const { sidebarOpen } = useSelector((state) => state.sidebar);
+  const { sidebarOpen, metaPanelOpen } = useSelector((state) => state.sidebar);
   const dispatch = useDispatch();
   const isMobile = useMobile();
 
@@ -43,9 +53,10 @@ const App = () => {
     <>
       {sidebarOpen && isMobile && <ClickBlocker onClick={handleClick} />}
       <NavigationBar />
-      <AppContainer>
+      <AppContainer metaPanelOpen={metaPanelOpen}>
         <Sidebar />
         <PrimaryView />
+        {metaPanelOpen && <MetaPanel onClose={() => dispatch(toggleMetaPanel())} />}
       </AppContainer>
     </>
   );
