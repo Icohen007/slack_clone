@@ -1,12 +1,12 @@
 import React from 'react';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { BsLayoutTextSidebar } from 'react-icons/bs';
+import { BiPhone } from 'react-icons/bi';
 import { Tooltip } from 'react-tippy';
 import { useDispatch } from 'react-redux';
 import {
-  Centered, TooltipContent,
+  Centered,
 } from '../Shared/Shared.style';
-
 import {
   ServiceButton,
   Spacer,
@@ -14,6 +14,7 @@ import {
 } from './MessagesHeader.style';
 import { useMobile } from '../../hooks';
 import { toggleSidebar } from '../../features/sidebar/sidebarSlice';
+import TooltipContent from '../Shared/TooltipContent';
 
 const PrivateMessagesHeader = ({ activeChannel }) => {
   const isMobile = useMobile();
@@ -22,7 +23,10 @@ const PrivateMessagesHeader = ({ activeChannel }) => {
   return (
     <StyledMessagesHeader>
       {isMobile && (
-      <ServiceButton style={{ marginLeft: 0, marginRight: 5 }} onClick={() => dispatch(toggleSidebar())}>
+      <ServiceButton
+        style={{ marginLeft: 0, marginRight: 5 }}
+        onClick={() => dispatch(toggleSidebar())}
+      >
         <span>
           <BsLayoutTextSidebar />
         </span>
@@ -38,11 +42,15 @@ const PrivateMessagesHeader = ({ activeChannel }) => {
         position="bottom"
         arrow
         delay={100}
-        html={<TooltipContent> Show channel details </TooltipContent>}
+        html={(
+          <TooltipContent notSupported>
+            {`call ${activeChannel.displayName}`}
+          </TooltipContent>
+)}
       >
         <ServiceButton>
           <span>
-            <AiOutlineInfoCircle />
+            <BiPhone />
           </span>
         </ServiceButton>
       </Tooltip>
@@ -50,7 +58,7 @@ const PrivateMessagesHeader = ({ activeChannel }) => {
         position="bottom"
         arrow
         delay={100}
-        html={<TooltipContent> Show channel details </TooltipContent>}
+        html={<TooltipContent notSupported> Show channel details </TooltipContent>}
       >
         <ServiceButton>
           <span>

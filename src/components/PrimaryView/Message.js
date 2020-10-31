@@ -4,9 +4,7 @@ import { Editor, convertFromRaw, EditorState } from 'draft-js';
 import { ButtonUnstyled, Image } from '../Shared/Shared.style';
 
 const parseDate = (date) => {
-  function pad2(d) { // always returns a string
-    return (d < 10 ? '0' : '') + d;
-  }
+  const pad2 = (d) => (d < 10 ? '0' : '') + d;
 
   const fullYear = date.getFullYear();
   const month = date.getMonth() + 1;
@@ -23,6 +21,7 @@ const Message = ({ message }) => {
     const contentState = convertFromRaw(JSON.parse(formattedContent));
     return EditorState.createWithContent(contentState);
   }, [formattedContent]);
+
   return (
     <StyledMessage>
       <div className="left">
@@ -39,7 +38,7 @@ const Message = ({ message }) => {
         </span>
         <span className="timestamp">
           {' '}
-          {parseDate(createdAt.toDate())}
+          {createdAt && parseDate(createdAt.toDate())}
         </span>
         <Editor editorState={editorState} readOnly />
       </div>

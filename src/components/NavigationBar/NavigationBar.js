@@ -6,8 +6,9 @@ import { BsClock } from 'react-icons/bs';
 import { FiHelpCircle } from 'react-icons/fi';
 import { Tooltip } from 'react-tippy';
 import ProfileMenu from './ProfileMenu';
-import { Image, TooltipContent } from '../Shared/Shared.style';
+import { Image } from '../Shared/Shared.style';
 import { auth } from '../../firebase';
+import TooltipContent from '../Shared/TooltipContent';
 
 const NavigationBar = () => (
   <StyledNavigationBar role="navigation" aria-label="Search and info">
@@ -16,8 +17,8 @@ const NavigationBar = () => (
         position="bottom"
         arrow
         html={(
-          <TooltipContent color="#ffc518">
-            <span>History - Not Supported</span>
+          <TooltipContent notSupported>
+            History
           </TooltipContent>
         )}
       >
@@ -35,8 +36,8 @@ const NavigationBar = () => (
         position="bottom"
         arrow
         html={(
-          <TooltipContent color="#ffc518">
-            <span>Help - Not Supported</span>
+          <TooltipContent notSupported>
+            Help
           </TooltipContent>
         )}
       >

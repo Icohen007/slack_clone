@@ -34,12 +34,6 @@ export const Image = styled.img`
   width: 100%;
 `;
 
-export const TooltipContent = styled(Centered)`
-font-size: 14px;
-font-weight: bold;
-color: ${({ color }) => (color || 'white')}
-`;
-
 export const AccordionButton = styled(ButtonUnstyled)`
   ${centeredFlex};
   border-radius: 4px;

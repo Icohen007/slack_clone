@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { FiEdit } from 'react-icons/fi';
 import { Tooltip } from 'react-tippy';
-import { ButtonUnstyled, centeredFlex, TooltipContent } from '../Shared/Shared.style';
+import { ButtonUnstyled, centeredFlex } from '../Shared/Shared.style';
+import TooltipContent from '../Shared/TooltipContent';
 
 const StyledNewMessageButton = styled(ButtonUnstyled)`
 ${centeredFlex};

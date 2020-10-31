@@ -6,7 +6,7 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { BsLayoutTextSidebar } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
 import {
-  Centered, Image, TooltipContent,
+  Centered, Image,
 } from '../Shared/Shared.style';
 import { auth, db } from '../../firebase';
 import { enhance } from '../../firebaseUtils';
@@ -18,6 +18,7 @@ import {
 } from './MessagesHeader.style';
 import { useMobile } from '../../hooks';
 import { toggleSidebar } from '../../features/sidebar/sidebarSlice';
+import TooltipContent from '../Shared/TooltipContent';
 
 const PublicMessagesHeader = ({ activeChannel }) => {
   const isMobile = useMobile();
@@ -43,7 +44,10 @@ const PublicMessagesHeader = ({ activeChannel }) => {
   return (
     <StyledMessagesHeader>
       {isMobile && (
-        <ServiceButton style={{ marginLeft: 0, marginRight: 5 }} onClick={() => dispatch(toggleSidebar())}>
+        <ServiceButton
+          style={{ marginLeft: 0, marginRight: 5 }}
+          onClick={() => dispatch(toggleSidebar())}
+        >
           <span>
             <BsLayoutTextSidebar />
           </span>
@@ -60,7 +64,7 @@ const PublicMessagesHeader = ({ activeChannel }) => {
         position="bottom"
         delay={100}
         arrow
-        html={<TooltipContent> View all 3 members </TooltipContent>}
+        html={<TooltipContent notSupported> View all 3 members </TooltipContent>}
       >
         <ParticipantButtons>
           <span className="participant">
@@ -88,7 +92,7 @@ const PublicMessagesHeader = ({ activeChannel }) => {
         position="bottom"
         arrow
         delay={100}
-        html={<TooltipContent> add people to # pingpong_tournament </TooltipContent>}
+        html={<TooltipContent notSupported> add people to # pingpong_tournament </TooltipContent>}
       >
         <ServiceButton>
           <span>
@@ -100,7 +104,7 @@ const PublicMessagesHeader = ({ activeChannel }) => {
         position="bottom"
         arrow
         delay={100}
-        html={<TooltipContent> Show channel details </TooltipContent>}
+        html={<TooltipContent notSupported> Show channel details </TooltipContent>}
       >
         <ServiceButton>
           <span>
