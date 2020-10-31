@@ -1,12 +1,23 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { useCollection } from 'react-firebase-hooks/firestore';
 import Message from './Message';
 import { headerHeight, navigationBarHeight } from '../Shared/Shared.style';
 
 const Messages = ({ messagesRef, formHeight }) => {
-  const [messages, loading, error] = useCollectionData(messagesRef.orderBy('createdAt'), { idField: 'id' });
+  const [messagesSnapshot, loading, error] = useCollection(messagesRef.orderBy('createdAt'));
+  const bottomContainerRef = useRef();
   const isReady = !loading && !error;
+
+  useEffect(() => {
+    if (isReady) {
+      messagesSnapshot.docChanges().forEach((change) => {
+        if (change.type === 'added') {
+          bottomContainerRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    }
+  }, [messagesSnapshot]);
 
   if (!isReady) {
     return null;
@@ -14,7 +25,8 @@ const Messages = ({ messagesRef, formHeight }) => {
 
   return (
     <StyledMessages formHeight={formHeight}>
-      {messages.map((message) => <Message key={message.id} message={message} />)}
+      {messagesSnapshot.docs.map((message) => <Message key={message.id} message={message.data()} />)}
+      <div ref={bottomContainerRef} />
     </StyledMessages>
 
   );
