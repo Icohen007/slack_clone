@@ -58,7 +58,8 @@ const PrivateMessagesHeader = ({ activeChannel }) => {
         position="bottom"
         arrow
         delay={100}
-        html={<TooltipContent notSupported> Show channel details </TooltipContent>}
+        disabled={isMobile}
+        html={<TooltipContent notSupported> Show conversation details </TooltipContent>}
       >
         <ServiceButton onClick={() => dispatch(toggleMetaPanel())}>
           <span>

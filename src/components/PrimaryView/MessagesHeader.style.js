@@ -16,7 +16,7 @@ border-bottom: 1px solid rgba(29,28,29,0.13);
   white-space: nowrap;
   max-width: 400px;
   @media only screen and (max-width: 768px) {
-    max-width: 200px;
+    max-width: 170px;
   }
 }
 

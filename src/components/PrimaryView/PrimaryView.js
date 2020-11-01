@@ -6,7 +6,6 @@ import PublicMessagesHeader from './PublicMessagesHeader';
 import Messages from './Messages';
 import MessageForm from './MessageForm';
 import PrivateMessagesHeader from './PrivateMessagesHeader';
-import { db, auth } from '../../firebase';
 
 const StyledPrimaryView = styled.section`
 grid-area: primary-view;
@@ -16,22 +15,9 @@ position: relative;
 overflow: hidden;
 `;
 
-const getChannelId = (currentUserId, otherUserId) => (
-  otherUserId < currentUserId
-    ? `${otherUserId}-${currentUserId}`
-    : `${currentUserId}-${otherUserId}`
-);
-
-const PrimaryView = () => {
+const PrimaryView = ({ messagesRef }) => {
   const { activeChannel, isPrivateChannelMode } = useSelector((state) => state.channels);
   const { ref: containerRef, height = 1 } = useResizeObserver();
-  const messagesRef = isPrivateChannelMode
-    ? db.collection('privateMessages')
-      .doc(getChannelId(auth.currentUser.uid, activeChannel.id))
-      .collection('messages')
-    : db.collection('channelMessages')
-      .doc(activeChannel.id)
-      .collection('messages');
 
   return (
     <StyledPrimaryView>

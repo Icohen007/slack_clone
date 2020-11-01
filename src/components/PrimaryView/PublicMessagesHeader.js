@@ -1,13 +1,11 @@
 import React, { useMemo } from 'react';
-import { AiOutlineStar, AiFillStar, AiOutlineInfoCircle } from 'react-icons/ai';
+import { AiFillStar, AiOutlineInfoCircle, AiOutlineStar } from 'react-icons/ai';
 import { RiUserAddLine } from 'react-icons/ri';
 import { Tooltip } from 'react-tippy';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { BsLayoutTextSidebar } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
-import {
-  Centered, Image,
-} from '../Shared/Shared.style';
+import { Centered, Image, } from '../Shared/Shared.style';
 import { auth, db } from '../../firebase';
 import { enhance } from '../../firebaseUtils';
 import {
@@ -20,20 +18,7 @@ import { useMobile } from '../../hooks';
 import { toggleMetaPanel, toggleSidebar } from '../../features/sidebar/sidebarSlice';
 import TooltipContent from '../Shared/TooltipContent';
 import theme from '../../theme';
-
-const getNested = (obj, path) => {
-  const properties = path.split('.');
-  return properties.reduce((prev, key) => prev[key], obj);
-};
-
-const groupBY = (objArray, path) => objArray.reduce((acc, cur) => {
-  const value = getNested(cur, path);
-  if (!acc[value]) {
-    acc[value] = [];
-  }
-  acc[value].push(cur);
-  return acc;
-}, {});
+import { groupBY } from '../../utils';
 
 const PublicMessagesHeader = ({ activeChannel, messagesRef }) => {
   const isMobile = useMobile();
@@ -50,14 +35,14 @@ const PublicMessagesHeader = ({ activeChannel, messagesRef }) => {
 
   const users = Object.keys(messagesByUser).map((userKey) => messagesByUser[userKey][0].createdBy);
 
-  const participantPics = useMemo(() => users.map((user) => (
+  const participantPics = useMemo(() => users.slice(0, 3).map((user) => (
     <span className="participant" key={user.id}>
       <Image
         src={(user.photoURL) || '/dummy36.png'}
         alt={(user.displayName) || 'User name'}
       />
     </span>
-  )).slice(0, 3), [messagesByUser]);
+  )), [messagesByUser]);
 
   const dispatch = useDispatch();
 
@@ -103,7 +88,7 @@ const PublicMessagesHeader = ({ activeChannel, messagesRef }) => {
         html={<Members users={users} />}
       >
         <ParticipantButtons>
-          {participantPics}
+          {!isMobile && participantPics}
           <span className="participant-count">
             {Object.keys(messagesByUser).length}
           </span>
@@ -131,7 +116,8 @@ const PublicMessagesHeader = ({ activeChannel, messagesRef }) => {
         position="bottom"
         arrow
         delay={100}
-        html={<TooltipContent notSupported> Show channel details </TooltipContent>}
+        disabled={isMobile}
+        html={<TooltipContent> Show channel details </TooltipContent>}
       >
         <ServiceButton onClick={() => dispatch(toggleMetaPanel())}>
           <span>

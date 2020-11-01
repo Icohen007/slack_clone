@@ -1,19 +1,8 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
-import { Editor, convertFromRaw, EditorState } from 'draft-js';
+import { convertFromRaw, Editor, EditorState } from 'draft-js';
 import { ButtonUnstyled, Image } from '../Shared/Shared.style';
-
-const parseDate = (date) => {
-  const pad2 = (d) => (d < 10 ? '0' : '') + d;
-
-  const fullYear = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-
-  return `${pad2(day)}/${pad2(month)}/${pad2(fullYear)} ${pad2(hours)}:${pad2(minutes)}`;
-};
+import { parseDate } from '../../utils';
 
 const Message = ({ message }) => {
   const { formattedContent, createdBy: { displayName, photoURL }, createdAt } = message;

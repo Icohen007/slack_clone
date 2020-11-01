@@ -42,9 +42,10 @@ const AddChannelModal = ({ isModal, setModal }) => {
   const channelsRef = db.collection('channels');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const isValidInput = name.length > 0 && name.length <= 24 && description.length < 80;
 
   const handleClick = async () => {
-    if (name.length === 0 || name.length > 24) return;
+    if (!isValidInput) return;
     const { currentUser } = auth;
 
     await addToCollection(channelsRef, {
@@ -76,7 +77,7 @@ const AddChannelModal = ({ isModal, setModal }) => {
 )}
       footer={(
         <CreateButton
-          isValidInput={name.length === 0 || name.length > 24}
+          isValidInput={isValidInput}
           onClick={handleClick}
         >
           Create
@@ -131,10 +132,10 @@ const CreateButton = styled(ButtonUnstyled)`
     padding: 0 12px;
     transition: all 80ms linear;
     font-weight: bold;
-    color: ${({ isValidInput }) => (isValidInput ? 'rgb(29, 28, 29)' : 'white')};
+    color: ${({ isValidInput }) => (!isValidInput ? 'rgb(29, 28, 29)' : 'white')};
     border-radius: 4px;
-    background: ${({ isValidInput }) => (isValidInput ? 'rgb(221, 221 ,221)' : 'rgb(0, 122, 90)')};
-    cursor: ${({ isValidInput }) => (isValidInput ? 'auto' : 'pointer')};
+    background: ${({ isValidInput }) => (!isValidInput ? 'rgb(221, 221 ,221)' : 'rgb(0, 122, 90)')};
+    cursor: ${({ isValidInput }) => (!isValidInput ? 'auto' : 'pointer')};
 `;
 
 export default AddChannelModal;

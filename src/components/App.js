@@ -7,7 +7,7 @@ import PrimaryView from './PrimaryView/PrimaryView';
 import { toggleMetaPanel, toggleSidebar } from '../features/sidebar/sidebarSlice';
 import { useMobile } from '../hooks';
 import { navigationBarHeight } from './Shared/Shared.style';
-import { auth } from '../firebase';
+import { auth, db } from '../firebase';
 import MetaPanel from './MetaPanel/MetaPanel';
 
 const AppContainer = styled.div`
@@ -35,10 +35,25 @@ grid-template-areas: 'primary-view';
 }
 `;
 
+const getChannelId = (currentUserId, otherUserId) => (
+  otherUserId < currentUserId
+    ? `${otherUserId}-${currentUserId}`
+    : `${currentUserId}-${otherUserId}`
+);
+
 const App = () => {
   const { sidebarOpen, metaPanelOpen } = useSelector((state) => state.sidebar);
+  const { activeChannel, isPrivateChannelMode } = useSelector((state) => state.channels);
   const dispatch = useDispatch();
   const isMobile = useMobile();
+
+  const messagesRef = isPrivateChannelMode
+    ? db.collection('privateMessages')
+      .doc(getChannelId(auth.currentUser.uid, activeChannel.id))
+      .collection('messages')
+    : db.collection('channelMessages')
+      .doc(activeChannel.id)
+      .collection('messages');
 
   const handleClick = (e) => {
     e.stopPropagation();
@@ -55,8 +70,8 @@ const App = () => {
       <NavigationBar />
       <AppContainer metaPanelOpen={metaPanelOpen}>
         <Sidebar />
-        <PrimaryView />
-        {metaPanelOpen && <MetaPanel onClose={() => dispatch(toggleMetaPanel())} />}
+        <PrimaryView messagesRef={messagesRef} />
+        {metaPanelOpen && <MetaPanel messagesRef={messagesRef} onClose={() => dispatch(toggleMetaPanel())} />}
       </AppContainer>
     </>
   );
