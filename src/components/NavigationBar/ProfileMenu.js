@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { FcHome } from 'react-icons/fc';
 import Divider from '../Auth/Divider';
 import { auth } from '../../firebase';
 import { Image } from '../Shared/Shared.style';
-import theme from '../../theme';
 
 const StyledProfileMenu = styled.div`
 width: 300px;
@@ -21,7 +21,8 @@ padding: 12px 0;
   align-items: center;
   gap: 10px;
   padding: 8px 20px 12px 24px;
-  color: ${theme.colors.black1};
+  text-align: left;
+  line-height: 1.2;
   
   .img-container {
   width: 36px;
@@ -35,8 +36,41 @@ padding: 12px 0;
     overflow: hidden;
     white-space: nowrap;
     font-weight: 900;
+    
+    .active {
+    font-weight: 400;
+    font-size: 14px;
+    
+    .dot {
+    color: green;
+    font-size: 20px;
+    }
+    }
   }
 }
+
+.status-container {
+  padding: 0 24px 8px;
+  .status {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: white;
+  padding: 7px;
+  
+    .status-name {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  
+  svg {
+  font-size: 18px;
+  }
+  }
+}
+
+
 `;
 const StyledProfileMenuButtonContainer = styled.div`
     color: rgb(29,28,29);
@@ -69,7 +103,22 @@ const ProfileMenu = () => (
       <div className="img-container">
         <Image src={auth.currentUser.photoURL || '/dummy36.png'} alt={auth.currentUser.displayName || 'User name'} />
       </div>
-      <div className="user-name">{auth.currentUser.displayName || 'User name'}</div>
+      <div className="user-name">
+        {auth.currentUser.displayName || 'User name'}
+        <div className="active">
+          <span className="dot">
+            ●
+            {' '}
+          </span>
+          Active
+        </div>
+      </div>
+    </div>
+    <div className="status-container">
+      <div className="status">
+        <FcHome />
+        <div className="status-name">Working remotely</div>
+      </div>
     </div>
     <Divider />
     <StyledProfileMenuButtonContainer>

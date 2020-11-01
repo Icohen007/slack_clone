@@ -6,7 +6,7 @@ export const headerHeight = 64;
 export const Centered = styled.div`
 display: flex;
 align-items: center;
-justify-content: center;
+justify-content: ${({ justify }) => justify || 'center'};
 gap: ${({ gap }) => gap}px;
 `;
 

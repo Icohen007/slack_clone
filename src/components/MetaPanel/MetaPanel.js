@@ -3,9 +3,14 @@ import styled from 'styled-components';
 import { AiOutlineClose } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { centeredFlex, headerHeight, Image } from '../Shared/Shared.style';
+import {
+  Centered, centeredFlex, headerHeight, Image, navigationBarHeight,
+} from '../Shared/Shared.style';
 import { enhance } from '../../firebaseUtils';
 import { groupBY, parseDate } from '../../utils';
+import Accordion from '../Shared/Accordion';
+
+const getPluralOrdinal = (size, baseText) => (size === 1 ? `${size} ${baseText}` : `${size} ${baseText}s`);
 
 const MetaPanel = ({ onClose, messagesRef }) => {
   const { activeChannel } = useSelector((state) => state.channels);
@@ -37,54 +42,72 @@ const MetaPanel = ({ onClose, messagesRef }) => {
         </span>
       </div>
       <div className="content">
-        <div className="about">
-          {activeChannel.description
-         && (
-           <>
-             <div className="description-title">
-               Description
-             </div>
-             <div>
-               {activeChannel.description}
-             </div>
-           </>
-         )}
-          {activeChannel.createdAt && (
-          <span className="timestamp">
-            Created at:
-            {' '}
-            {parseDate(activeChannel.createdAt.toDate())}
-          </span>
-          )}
-        </div>
-        {Object.keys(messagesByUser).length > 0
-         && (
-         <>
-           <div className="description-title">
-             Top Posters
-           </div>
-           <div>
-             {Object.keys(messagesByUser).slice(0, 3).map((userKey) => {
-               const user = messagesByUser[userKey][0].createdBy;
-               return (
-                 <>
-                   <p>
-                     {user.displayName}
-                   </p>
-                   <p>
-                     {messagesByUser[userKey].length}
-                   </p>
-                   <span className="participant" key={user.id}>
+        <Accordion title="About">
+          <div className="about">
+            {activeChannel.createdAt
+             && (
+               <div className="about-section">
+                 <div className="title">
+                   Description
+                 </div>
+                 <div>
+                   {activeChannel.description}
+                 </div>
+               </div>
+             )}
+            {activeChannel.createdAt && (
+              <div className="about-section">
+                <div className="title">
+                  Created at
+                </div>
+                <span className="timestamp">
+                  {parseDate(activeChannel.createdAt.toDate())}
+                </span>
+              </div>
+            )}
+            {activeChannel.createdBy
+             && (
+               <div className="about-section">
+                 <div className="title">
+                   Created by
+                 </div>
+                 <Centered gap={6} justify="flex-start">
+                   <span className="created-image">
                      <Image
-                       src={(user.photoURL) || '/dummy36.png'}
-                       alt={(user.displayName) || 'User name'}
+                       src={(activeChannel.createdBy.photoURL) || '/dummy36.png'}
+                       alt={(activeChannel.createdBy.displayName) || 'User name'}
                      />
                    </span>
-                 </>
-               );
-             })}
-           </div>
-         </>
+                   {activeChannel.createdBy.displayName}
+                 </Centered>
+               </div>
+             )}
+          </div>
+        </Accordion>
+        {Object.keys(messagesByUser).length > 0
+         && (
+           <Accordion title="Top posters">
+             <div>
+               {Object.keys(messagesByUser).slice(0, 3).map((userKey) => {
+                 const user = messagesByUser[userKey][0].createdBy;
+                 return (
+                   <div className="poster">
+                     <span className="poster-image" key={user.id}>
+                       <Image
+                         src={(user.photoURL) || '/dummy36.png'}
+                         alt={(user.displayName) || 'User name'}
+                       />
+                     </span>
+
+                     <div className="poster-details">
+                       <div className="poster-name">{user.displayName}</div>
+                       <div>{getPluralOrdinal(messagesByUser[userKey].length, 'message')}</div>
+                     </div>
+                   </div>
+                 );
+               })}
+             </div>
+           </Accordion>
          )}
       </div>
     </StyledMetaPanel>
@@ -119,8 +142,16 @@ color: rgba(29,28,29,0.7);
 .content {
 padding: 5px 12px;
 
+height: 100%;
+max-height: calc(100vh - ${navigationBarHeight}px - ${headerHeight}px);
+overflow: auto;
+
 .about {
 padding: 10px 0;
+
+.about-section {
+padding: 5px 0;
+}
 }
 
   .timestamp {
@@ -129,16 +160,37 @@ padding: 10px 0;
     font-weight: 400;
   }
 
-.description-title {
-text-align: center;
-font-weight: 900;
+.title {
+font-weight: 700;
 }
 
-.participant {
+.created-image {
     display: inline-block;
-    height: 24px;
-    width: 24px;
+    height: 40px;
+    width: 40px;
     overflow: hidden;
+}
+
+.poster {
+display: flex;
+gap: 6px;
+align-items: center;
+height: 50px;
+padding: 4px 0;
+margin: 6px 0;
+
+.poster-image {
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    overflow: hidden;
+}
+
+.poster-details {
+ .poster-name {
+ font-weight: 700;
+ }
+}
 }
 
 }
