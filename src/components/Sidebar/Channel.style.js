@@ -4,7 +4,6 @@ import { centeredFlex } from '../Shared/Shared.style';
 export const StyledChannel = styled.li`
   display: flex;
   align-items: center;
-  justify-content: flex-start;
   padding: 3px 12px 3px 30px;
   user-select: none;
   cursor: pointer;
@@ -29,4 +28,11 @@ export const ChannelName = styled.span`
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+`;
+
+export const StatusIndicator = styled.span`
+font-size: 20px;
+color: ${({ isOnline, theme }) => (isOnline ? theme.colors.greenLight : theme.colors.redDark)};
+margin-left: auto;
+margin-right: 15px;
 `;

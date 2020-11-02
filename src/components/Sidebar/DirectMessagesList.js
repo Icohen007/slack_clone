@@ -6,13 +6,20 @@ import { db, auth } from '../../firebase';
 import { enhance } from '../../firebaseUtils';
 import DirectMessage from './DirectMessage';
 
+const isUserOnline = (user, statusCollection) => {
+  const foundStatus = statusCollection.find((status) => status.id === user.id);
+  return Boolean(foundStatus) && foundStatus.state === 'online';
+};
+
 const DirectMessagesList = () => {
   const [showing, setShowing] = useState(true);
   const usersRef = db.collection('users');
+  const statusRef = db.collection('status');
   const [users, isReady] = enhance(useCollectionData(usersRef, { idField: 'id' }));
+  const [statuses, isStatusesReady] = enhance(useCollectionData(statusRef, { idField: 'id' }));
   const { activeChannel } = useSelector((state) => state.channels);
 
-  if (!isReady) {
+  if (!isReady || !isStatusesReady) {
     return null;
   }
 
@@ -32,6 +39,7 @@ const DirectMessagesList = () => {
             key={user.id}
             user={user}
             activeChannel={activeChannel}
+            isOnline={isUserOnline(user, statuses)}
           />
         ))}
       </ul>

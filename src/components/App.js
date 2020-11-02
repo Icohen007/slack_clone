@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import NavigationBar from './NavigationBar/NavigationBar';
@@ -9,6 +9,7 @@ import { useMobile } from '../hooks';
 import { navigationBarHeight } from './Shared/Shared.style';
 import { auth, db } from '../firebase';
 import MetaPanel from './MetaPanel/MetaPanel';
+import { watchForStatus } from '../firebaseUtils';
 
 const AppContainer = styled.div`
 display: grid;
@@ -46,6 +47,12 @@ const App = () => {
   const { activeChannel, isPrivateChannelMode } = useSelector((state) => state.channels);
   const dispatch = useDispatch();
   const isMobile = useMobile();
+
+  useEffect(() => {
+    if (auth.currentUser) {
+      watchForStatus();
+    }
+  }, [auth.currentUser]);
 
   const messagesRef = isPrivateChannelMode
     ? db.collection('privateMessages')
