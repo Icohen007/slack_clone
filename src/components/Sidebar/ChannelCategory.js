@@ -37,6 +37,12 @@ const AccordionContainer = styled(Centered)`
       display: block;
     }
   }
+  
+      @media only screen and (max-width: 768px) {
+    ${SidebarAddButton} {
+      display: block;
+    }
+    }
 `;
 
 export default ChannelCategory;

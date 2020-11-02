@@ -5,7 +5,7 @@ import { Tooltip } from 'react-tippy';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { BsLayoutTextSidebar } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
-import { Centered, Image, } from '../Shared/Shared.style';
+import { Centered, Image } from '../Shared/Shared.style';
 import { auth, db } from '../../firebase';
 import { enhance } from '../../firebaseUtils';
 import {
@@ -130,14 +130,14 @@ const PublicMessagesHeader = ({ activeChannel, messagesRef }) => {
 };
 
 const Members = ({ users }) => (
-  <TooltipContent>
+  <TooltipContent notSupported>
     <div>
       {`View all ${users.length} members`}
       <br />
       <span style={{ color: theme.colors.grayLight }}>
         includes
         {' '}
-        {users.map(
+        {users.slice(0, 3).map(
           (user, idx) => (idx !== users.length - 1 ? `${user.displayName}, ` : user.displayName),
         )}
       </span>

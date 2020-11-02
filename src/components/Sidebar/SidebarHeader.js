@@ -34,6 +34,10 @@ const HeaderButton = styled(ButtonUnstyled)`
       font-weight: 900;
       user-select: none;
       cursor: auto;
+      
+      svg {
+      font-size: 16px;
+      }
 `;
 
 export default SidebarHeader;

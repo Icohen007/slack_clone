@@ -6,7 +6,7 @@ import { BsClock } from 'react-icons/bs';
 import { FiHelpCircle } from 'react-icons/fi';
 import { Tooltip } from 'react-tippy';
 import ProfileMenu from './ProfileMenu';
-import { Image, navigationBarHeight } from '../Shared/Shared.style';
+import { Centered, Image, navigationBarHeight } from '../Shared/Shared.style';
 import { auth } from '../../firebase';
 import TooltipContent from '../Shared/TooltipContent';
 
@@ -93,14 +93,9 @@ background: ${({ theme }) => theme.colors.purpleDark2};
 color: white;
 box-shadow: 0 1px 0 0 rgba(255,255,255,0.1);
 `;
-
-const StyledSearchButtonContainer = styled.div`
-  max-width: 70%;
+const StyledSearchButtonContainer = styled(Centered)`
   flex: 1;
-  display: flex;
-  justify-content: flex-end;
   padding: 0 10px;
-  align-items: center;
   gap: 4px;
 `;
 
@@ -109,7 +104,7 @@ const StyledSearchButton = styled.button`
     justify-content: center;
     align-items: center; 
     min-width: 0;
-    max-width: 500px;
+    max-width: clamp(300px, 50%, 500px);
     width: 100%;
     background: #431e44;
     box-shadow: inset 0 0 0 1px #684a68;
@@ -163,7 +158,6 @@ const IconButton = styled.button`
     border-radius: 4px 0 0 4px;
     background: rgb(73,37,74);
     margin: 0 2px;
-    font-size: 18px;
     
     &:hover {
     background: rgb(99,69,100);
@@ -183,6 +177,10 @@ const IconButton = styled.button`
     filter: brightness(1.1);
     }
     }
+    }
+    
+    svg {
+    font-size: 18px;
     }
 `;
 

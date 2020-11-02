@@ -22,6 +22,7 @@ export const HashIconChannel = styled.span`
   width: 20px;
   border-radius: 4px;
   margin-right: 8px;
+  position: relative;
 `;
 
 export const ChannelName = styled.span`
@@ -33,6 +34,7 @@ export const ChannelName = styled.span`
 export const StatusIndicator = styled.span`
 font-size: 20px;
 color: ${({ isOnline, theme }) => (isOnline ? theme.colors.greenLight : theme.colors.redDark)};
-margin-left: auto;
-margin-right: 15px;
+position: absolute;
+bottom: -10px;
+right: -4px;
 `;

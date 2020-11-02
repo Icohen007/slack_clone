@@ -25,6 +25,7 @@ color: ${({ color }) => (color || 'white')};
 color: #ff4949;
 margin-left: 4px;
 font-size: 12px;
+font-style: italic;
 }
 
 `;

@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import Fade from 'react-reveal/Fade';
 import { Link } from 'react-router-dom';
-import md5 from 'md5';
 import InputField from './InputField';
 import { useForm, useMobile } from '../../hooks';
 import { auth, db, firebase } from '../../firebase';
@@ -76,7 +75,7 @@ const Login = () => {
       const createdUser = await auth.signInWithPopup(provider);
       await usersRef.doc(createdUser.user.uid).set({
         displayName: createdUser.user.displayName,
-        photoURL: `http://gravatar.com/avatar/${md5(createdUser.user.email)}?d=identicon`,
+        photoURL: createdUser.user.photoURL,
       }, { merge: true });
       setStatus(STATUS.SUCCESS);
     } catch (error) {

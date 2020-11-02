@@ -89,7 +89,7 @@ const Register = () => {
       const createdUser = await auth.signInWithPopup(provider);
       await usersRef.doc(createdUser.user.uid).set({
         displayName: createdUser.user.displayName,
-        photoURL: `http://gravatar.com/avatar/${md5(createdUser.user.email)}?d=identicon`,
+        photoURL: createdUser.user.photoURL,
       }, { merge: true });
       setStatus(STATUS.SUCCESS);
     } catch (error) {
