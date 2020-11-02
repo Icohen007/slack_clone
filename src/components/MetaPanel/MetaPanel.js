@@ -23,6 +23,9 @@ const MetaPanel = ({ onClose, messagesRef }) => {
     return groupBY(messages, 'createdBy.id');
   }, [messages]);
 
+  const topPostersSorted = Object.keys(messagesByUser).slice(0, 3)
+    .sort((a, b) => messagesByUser[b].length - messagesByUser[a].length);
+
   if (!isMessagesReady) {
     return null;
   }
@@ -88,7 +91,7 @@ const MetaPanel = ({ onClose, messagesRef }) => {
          && (
            <Accordion title="Top posters">
              <div>
-               {Object.keys(messagesByUser).slice(0, 3).map((userKey) => {
+               {topPostersSorted.map((userKey) => {
                  const user = messagesByUser[userKey][0].createdBy;
                  return (
                    <div className="poster">

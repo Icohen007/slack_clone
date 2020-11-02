@@ -1,11 +1,14 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useCollection } from 'react-firebase-hooks/firestore';
+import { useSelector } from 'react-redux';
 import Message from './Message';
 import { headerHeight, navigationBarHeight } from '../Shared/Shared.style';
 
 const Messages = ({ messagesRef, formHeight }) => {
   const [messagesSnapshot, loading, error] = useCollection(messagesRef.orderBy('createdAt'));
+  const { activeChannelSearch } = useSelector((state) => state.channels);
+
   const bottomContainerRef = useRef();
   const isReady = !loading && !error;
 
@@ -22,15 +25,19 @@ const Messages = ({ messagesRef, formHeight }) => {
   if (!isReady) {
     return null;
   }
+  console.log(messagesSnapshot.docs);
 
   return (
     <StyledMessages formHeight={formHeight}>
-      {messagesSnapshot.docs.map((message) => (
-        <Message
-          key={message.id}
-          message={message.data()}
-        />
-      ))}
+      {messagesSnapshot.docs
+        .map((message) => ({ id: message.id, ...message.data() }))
+        .filter((message) => !message.cleanContent || message.cleanContent.includes(activeChannelSearch))
+        .map((message) => (
+          <Message
+            key={message.id}
+            message={message}
+          />
+        ))}
       <div ref={bottomContainerRef} />
     </StyledMessages>
 

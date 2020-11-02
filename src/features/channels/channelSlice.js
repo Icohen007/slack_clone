@@ -5,8 +5,9 @@ export const isDummyActiveChannel = (activeChannel) => activeChannel.id === '123
 const channelSlice = createSlice({
   name: 'channels',
   initialState: {
-    activeChannel: { id: '123' },
+    activeChannel: { id: '123', name: '', displayName: '' },
     isPrivateChannelMode: false,
+    activeChannelSearch: '',
   },
   reducers: {
     setActiveChannel: {
@@ -18,8 +19,11 @@ const channelSlice = createSlice({
     setIsPrivateChannelMode(state, action) {
       state.isPrivateChannelMode = action.payload;
     },
+    setActiveChannelSearch(state, action) {
+      state.activeChannelSearch = action.payload;
+    },
   },
 });
 
-export const { setActiveChannel, setIsPrivateChannelMode } = channelSlice.actions;
+export const { setActiveChannel, setIsPrivateChannelMode, setActiveChannelSearch } = channelSlice.actions;
 export default channelSlice.reducer;

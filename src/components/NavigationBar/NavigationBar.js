@@ -1,86 +1,102 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { CgSearch } from 'react-icons/cg';
 import { FcHome } from 'react-icons/fc';
 import { BsClock } from 'react-icons/bs';
 import { FiHelpCircle } from 'react-icons/fi';
 import { Tooltip } from 'react-tippy';
+import { useSelector } from 'react-redux';
 import ProfileMenu from './ProfileMenu';
-import { Centered, Image, navigationBarHeight } from '../Shared/Shared.style';
+import {
+  Centered, centeredFlex, ClickBlocker, Image, navigationBarHeight,
+} from '../Shared/Shared.style';
 import { auth } from '../../firebase';
 import TooltipContent from '../Shared/TooltipContent';
+import Search from './Search';
 
-const NavigationBar = () => (
-  <StyledNavigationBar role="navigation" aria-label="Search and info">
-    <StyledSearchButtonContainer>
-      <Tooltip
-        position="bottom"
-        arrow
-        html={(
-          <TooltipContent notSupported>
-            History
-          </TooltipContent>
-        )}
-      >
-        <IconButton type="button" notSupported>
-          <span className="wrapper" style={{ padding: 2 }}>
-            <BsClock color="white" />
+const NavigationBar = () => {
+  const [showSearch, setShowSearch] = useState(false);
+  const { activeChannel, isPrivateChannelMode } = useSelector((state) => state.channels);
+
+  return (
+    <StyledNavigationBar role="navigation" aria-label="Search and info">
+      <StyledSearchButtonContainer>
+        <Tooltip
+          position="bottom"
+          arrow
+          html={(
+            <TooltipContent notSupported>
+              History
+            </TooltipContent>
+          )}
+        >
+          <IconButton type="button" notSupported>
+            <span className="wrapper" style={{ padding: 2 }}>
+              <BsClock color="white" />
+            </span>
+          </IconButton>
+        </Tooltip>
+        {showSearch && <ClickBlocker onClick={() => setShowSearch(false)} />}
+        <StyledSearchButton type="button" onClick={() => setShowSearch((show) => !show)}>
+          <CgSearch className="search-icon" />
+          <span>
+            {isPrivateChannelMode ? `Search in @ ${activeChannel.displayName}` : `Search in # ${activeChannel.name}`}
           </span>
-        </IconButton>
-      </Tooltip>
-      <StyledSearchButton type="button">
-        <CgSearch />
-        <span>Search in Slack</span>
-      </StyledSearchButton>
-      <Tooltip
-        position="bottom"
-        arrow
-        html={(
-          <TooltipContent notSupported>
-            Help
-          </TooltipContent>
-        )}
-      >
-        <IconButton type="button" notSupported>
-          <span className="wrapper" style={{ padding: 2 }}>
-            <FiHelpCircle color="white" />
-          </span>
-        </IconButton>
-      </Tooltip>
-    </StyledSearchButtonContainer>
-    <StyledSideButtons>
-      <Tooltip
-        position="bottom"
-        arrow
-        html={(
-          <TooltipContent gap={6}>
-            <FcHome />
-            <span>Working remotely </span>
-          </TooltipContent>
-        )}
-      >
-        <IconButton type="button">
-          <span className="wrapper">
-            <FcHome />
-          </span>
-        </IconButton>
-      </Tooltip>
-      <Tooltip
-        position="bottom"
-        theme="light"
-        trigger="click"
-        interactive
-        html={<ProfileMenu />}
-      >
-        <IconButton type="button">
-          <span className="wrapper image">
-            <Image src={auth.currentUser.photoURL || '/dummy36.png'} alt={(auth.currentUser.displayName) || 'User name'} />
-          </span>
-        </IconButton>
-      </Tooltip>
-    </StyledSideButtons>
-  </StyledNavigationBar>
-);
+          {showSearch && <Search closeSearch={() => setShowSearch(false)} />}
+        </StyledSearchButton>
+        <Tooltip
+          position="bottom"
+          arrow
+          html={(
+            <TooltipContent notSupported>
+              Help
+            </TooltipContent>
+          )}
+        >
+          <IconButton type="button" notSupported>
+            <span className="wrapper" style={{ padding: 2 }}>
+              <FiHelpCircle color="white" />
+            </span>
+          </IconButton>
+        </Tooltip>
+      </StyledSearchButtonContainer>
+      <StyledSideButtons>
+        <Tooltip
+          position="bottom"
+          arrow
+          html={(
+            <TooltipContent gap={6}>
+              <FcHome />
+              <span>Working remotely </span>
+            </TooltipContent>
+          )}
+        >
+          <IconButton type="button">
+            <span className="wrapper">
+              <FcHome />
+            </span>
+          </IconButton>
+        </Tooltip>
+        <Tooltip
+          position="bottom"
+          theme="light"
+          trigger="click"
+          interactive
+          html={<ProfileMenu />}
+        >
+          <IconButton type="button">
+            <span className="wrapper image">
+              <Image
+                src={auth.currentUser.photoURL || '/dummy36.png'}
+                alt={(auth.currentUser.displayName) || 'User name'}
+              />
+            </span>
+          </IconButton>
+        </Tooltip>
+      </StyledSideButtons>
+    </StyledNavigationBar>
+  );
+};
 
 const StyledNavigationBar = styled.nav`
 height: ${navigationBarHeight}px;
@@ -100,9 +116,7 @@ const StyledSearchButtonContainer = styled(Centered)`
 `;
 
 const StyledSearchButton = styled.button`
-    display: flex;
-    justify-content: center;
-    align-items: center; 
+    ${centeredFlex};
     min-width: 0;
     max-width: clamp(300px, 50%, 500px);
     width: 100%;
@@ -114,8 +128,9 @@ const StyledSearchButton = styled.button`
     outline: none;
     border-radius: 6px;
     margin: 0;
-    cursor: not-allowed;
+    cursor: pointer;
     border: 0;
+    position: relative;
     
     &:hover{
     background: #49254a;
@@ -137,7 +152,7 @@ const StyledSearchButton = styled.button`
       opacity: .8;
     }
     
-    svg {
+    .search-icon {
       margin-right: 8px;
       opacity: .8;
     }

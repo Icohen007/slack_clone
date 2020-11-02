@@ -6,7 +6,7 @@ import Sidebar from './Sidebar/Sidebar';
 import PrimaryView from './PrimaryView/PrimaryView';
 import { toggleMetaPanel, toggleSidebar } from '../features/sidebar/sidebarSlice';
 import { useMobile } from '../hooks';
-import { navigationBarHeight } from './Shared/Shared.style';
+import { ClickBlocker, navigationBarHeight } from './Shared/Shared.style';
 import { auth, db } from '../firebase';
 import MetaPanel from './MetaPanel/MetaPanel';
 import { watchForStatus } from '../firebaseUtils';
@@ -78,20 +78,11 @@ const App = () => {
       <AppContainer metaPanelOpen={metaPanelOpen}>
         <Sidebar />
         <PrimaryView messagesRef={messagesRef} />
-        {metaPanelOpen && <MetaPanel messagesRef={messagesRef} onClose={() => dispatch(toggleMetaPanel())} />}
+        {metaPanelOpen
+         && <MetaPanel messagesRef={messagesRef} onClose={() => dispatch(toggleMetaPanel())} />}
       </AppContainer>
     </>
   );
 };
-
-const ClickBlocker = styled.div`
-  content: ' ';
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 1;
-`;
 
 export default App;

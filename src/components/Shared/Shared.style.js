@@ -64,3 +64,13 @@ export const FixedFullscreen = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
+export const ClickBlocker = styled.div`
+  content: ' ';
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+`;
