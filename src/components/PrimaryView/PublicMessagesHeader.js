@@ -5,7 +5,7 @@ import { Tooltip } from 'react-tippy';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { BsLayoutTextSidebar } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
-import { Centered, Image } from '../Shared/Shared.style';
+import { Centered } from '../Shared/Shared.style';
 import { auth, db } from '../../firebase';
 import { enhance } from '../../firebaseUtils';
 import {
@@ -18,6 +18,7 @@ import { useMobile } from '../../hooks';
 import { toggleMetaPanel, toggleSidebar } from '../../features/sidebar/sidebarSlice';
 import TooltipContent from '../Shared/TooltipContent';
 import { groupBY } from '../../utils';
+import { Image } from '../Shared';
 
 const PublicMessagesHeader = ({ activeChannel, messagesRef }) => {
   const isMobile = useMobile();

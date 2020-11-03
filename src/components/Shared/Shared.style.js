@@ -31,12 +31,6 @@ export const centeredFlex = css`
   justify-content: center;
 `;
 
-export const Image = styled.img`
-  display: block;
-  height: 100%;
-  width: 100%;
-`;
-
 export const AccordionButton = styled(ButtonUnstyled)`
   ${centeredFlex};
   border-radius: 4px;

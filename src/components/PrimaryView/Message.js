@@ -1,8 +1,9 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { convertFromRaw, Editor, EditorState } from 'draft-js';
-import { ButtonUnstyled, Image } from '../Shared/Shared.style';
+import { ButtonUnstyled } from '../Shared/Shared.style';
 import { parseDate } from '../../utils';
+import { Image } from '../Shared';
 
 const Message = ({ message }) => {
   const { formattedContent, createdBy: { displayName, photoURL }, createdAt } = message;

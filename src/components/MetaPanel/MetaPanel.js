@@ -4,11 +4,12 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import {
-  Centered, centeredFlex, headerHeight, Image, navigationBarHeight,
+  Centered, centeredFlex, headerHeight, navigationBarHeight,
 } from '../Shared/Shared.style';
 import { enhance } from '../../firebaseUtils';
 import { groupBY, parseDate } from '../../utils';
 import Accordion from '../Shared/Accordion';
+import { Image } from '../Shared';
 
 const getPluralOrdinal = (size, baseText) => (size === 1 ? `${size} ${baseText}` : `${size} ${baseText}s`);
 

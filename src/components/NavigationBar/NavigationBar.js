@@ -8,11 +8,12 @@ import { Tooltip } from 'react-tippy';
 import { useSelector } from 'react-redux';
 import ProfileMenu from './ProfileMenu';
 import {
-  Centered, centeredFlex, ClickBlocker, Image, navigationBarHeight,
+  Centered, centeredFlex, ClickBlocker, navigationBarHeight,
 } from '../Shared/Shared.style';
 import { auth } from '../../firebase';
 import TooltipContent from '../Shared/TooltipContent';
 import Search from './Search';
+import { Image } from '../Shared';
 
 const NavigationBar = () => {
   const [showSearch, setShowSearch] = useState(false);

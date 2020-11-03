@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import { FcHome } from 'react-icons/fc';
 import Divider from '../Auth/Divider';
 import { auth } from '../../firebase';
-import { ButtonUnstyled, Image } from '../Shared/Shared.style';
+import { ButtonUnstyled } from '../Shared/Shared.style';
 import { ThemeContext } from '../ThemeProvider';
+import { Image } from '../Shared';
 
 const StyledProfileMenu = styled.div`
 width: 300px;

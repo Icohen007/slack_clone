@@ -5,7 +5,8 @@ import {
 } from './Channel.style';
 import { changePrivateChannel } from '../../features/channels/channelFlows';
 import { toggleSidebar } from '../../features/sidebar/sidebarSlice';
-import { Centered, Image } from '../Shared/Shared.style';
+import { Centered } from '../Shared/Shared.style';
+import { Image } from '../Shared';
 
 const DirectMessage = ({ user, activeChannel, isOnline }) => {
   const { displayName, id, photoURL } = user;

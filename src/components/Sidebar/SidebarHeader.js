@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import {
-  ButtonUnstyled, Centered, headerHeight, Image,
+  ButtonUnstyled, Centered, headerHeight,
 } from '../Shared/Shared.style';
 import NewMessageButton from './NewMessageButton';
+import { Image } from '../Shared';
 
 const SidebarHeader = () => (
   <StyledSidebarHeader>
