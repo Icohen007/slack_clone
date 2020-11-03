@@ -136,6 +136,11 @@ const MessageFormWrapper = styled.div`
       filter: ${({ lightTheme }) => (lightTheme ? 'none' : 'invert(100%)')}
     }
     }
+    
+    .rdw-emoji-modal {
+      background: ${({ theme }) => theme.colors.white};
+      box-shadow: ${({ lightTheme }) => (lightTheme ? '3px 3px 5px #BFBDBD' : 'none')};
+    }
 `;
 
 export default MessageForm;

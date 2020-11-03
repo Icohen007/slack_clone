@@ -1,12 +1,16 @@
+const baseColors = {
+  purpleLight: '#cfc3cf',
+  purpleDark: '#3f0e40',
+  purpleDark2: '#350d36',
+  greenLight: '#00a017',
+  redDark: '#c20000',
+  redLight: '#ff0000',
+  blueLight: '#4285f4',
+};
+
 export const lightTheme = {
   colors: {
-    purpleLight: '#cfc3cf',
-    purpleDark: '#3f0e40',
-    purpleDark2: '#350d36',
-    greenLight: '#00a017',
-    redDark: '#c20000',
-    redLight: '#ff0000',
-    blueLight: '#4285f4',
+    ...baseColors,
     white: '#FFF',
     white2: 'rgb(248,248,248)',
     black1: '#1D1C1D',
@@ -19,20 +23,14 @@ export const lightTheme = {
     borderBlack1: 'rgba(255,255,255,0.13)',
     grayDark: '#505563',
     grayLight: 'rgba(255,255,255,0.7)',
-    toggleBorder: '#FFF',
+    toggleBorder: '#01729d',
     gradient: 'linear-gradient(#39598A, #79D7ED)',
   },
 };
 
 export const darkTheme = {
   colors: {
-    purpleLight: '#cfc3cf',
-    purpleDark: '#3f0e40',
-    purpleDark2: '#350d36',
-    greenLight: '#00a017',
-    redDark: '#c20000',
-    redLight: '#ff0000',
-    blueLight: '#4285f4',
+    ...baseColors,
     white: '#1A1D21',
     white2: 'rgb(34,37,42)',
     black1: '#FFF',

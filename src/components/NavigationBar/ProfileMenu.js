@@ -112,12 +112,12 @@ const ToggleContainer = styled(ButtonUnstyled)`
   overflow: hidden;
   padding: 3px;
   position: relative;
-  width: 90px;
-  height: 40px;
+  width: 70px;
+  height: 30px;
 
   img {
     height: auto;
-    width: 30px;
+    width: 22px;
     transition: all 0.3s linear;
     
     // sun icon

@@ -40,7 +40,7 @@ const Search = ({ closeSearch }) => {
             />
           </Input>
         </FormContainer>
-        <ClearText onClick={handleClear} visisble={search.length > 0}>Clear</ClearText>
+        <ClearText onClick={handleClear} visible={search.length > 0}>Clear</ClearText>
         <span className="close-button" onClick={closeSearch}>
           <AiOutlineClose />
         </span>
@@ -73,7 +73,7 @@ font-size: 20px;
   transition: all 0.2s;
 
   &:hover {
-  background-color: rgba(0,0,0, 0.07);
+  background-color: ${({ theme }) => theme.colors.whiteHover2};
   }
 
   svg {
@@ -97,10 +97,9 @@ const Input = styled.div`
   overflow: hidden;
   white-space: nowrap;
   font-size: 16px;
-  padding: 0 12px;
+  padding: 0 12px 4px 12px;
   background: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.black1};
-
   }
 `;
 
@@ -111,12 +110,12 @@ width: 80%;
 
 const ClearText = styled.span`
 font-size: 13px;
-cursor: ${({ visisble }) => (visisble ? 'pointer' : 'auto')};
+cursor: ${({ visible }) => (visible ? 'pointer' : 'auto')};
 user-select: none;
-visibility: ${({ visisble }) => (visisble ? 'visible' : 'hidden')};
+visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
 
 &:hover {
-color: #105d87;
+color: #008fff;
 }
 `;
 
