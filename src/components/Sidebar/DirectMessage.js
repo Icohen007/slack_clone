@@ -6,7 +6,7 @@ import {
 import { changePrivateChannel } from '../../features/channels/channelFlows';
 import { toggleSidebar } from '../../features/sidebar/sidebarSlice';
 import { Centered } from '../Shared/Shared.style';
-import { Image } from '../Shared';
+import { UserImage } from '../Shared';
 
 const DirectMessage = ({ user, activeChannel, isOnline }) => {
   const { displayName, id, photoURL } = user;
@@ -23,7 +23,7 @@ const DirectMessage = ({ user, activeChannel, isOnline }) => {
     >
       <Centered justify="flex-start">
         <HashIconChannel>
-          <Image
+          <UserImage
             src={photoURL || '/dummy36.png'}
             alt={displayName || 'User name'}
           />

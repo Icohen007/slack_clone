@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { convertFromRaw, Editor, EditorState } from 'draft-js';
 import { ButtonUnstyled } from '../Shared/Shared.style';
 import { parseDate } from '../../utils';
-import { Image } from '../Shared';
+import { UserImage } from '../Shared';
 
 const Message = ({ message }) => {
   const { formattedContent, createdBy: { displayName, photoURL }, createdAt } = message;
@@ -15,12 +15,12 @@ const Message = ({ message }) => {
   return (
     <StyledMessage>
       <div className="left">
-        <UserImage>
-          <Image
+        <MessageUserImage>
+          <UserImage
             src={photoURL || '/dummy36.png'}
             alt={displayName || 'User name'}
           />
-        </UserImage>
+        </MessageUserImage>
       </div>
       <div className="right">
         <span className="user-name">
@@ -66,7 +66,7 @@ const StyledMessage = styled.div`
   }
 `;
 
-const UserImage = styled(ButtonUnstyled)`
+const MessageUserImage = styled(ButtonUnstyled)`
 border-radius: 4px;
 width: 36px;
 height: 36px;

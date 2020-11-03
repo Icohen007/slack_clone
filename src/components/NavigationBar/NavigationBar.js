@@ -13,7 +13,7 @@ import {
 import { auth } from '../../firebase';
 import TooltipContent from '../Shared/TooltipContent';
 import Search from './Search';
-import { Image } from '../Shared';
+import { UserImage } from '../Shared';
 
 const NavigationBar = () => {
   const [showSearch, setShowSearch] = useState(false);
@@ -88,7 +88,7 @@ const NavigationBar = () => {
         >
           <IconButton type="button">
             <span className="wrapper image">
-              <Image
+              <UserImage
                 src={auth.currentUser.photoURL || '/dummy36.png'}
                 alt={(auth.currentUser.displayName) || 'User name'}
               />

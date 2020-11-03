@@ -5,7 +5,7 @@ import Divider from '../Auth/Divider';
 import { auth } from '../../firebase';
 import { ButtonUnstyled } from '../Shared/Shared.style';
 import { ThemeContext } from '../ThemeProvider';
-import { Image } from '../Shared';
+import { UserImage } from '../Shared';
 
 const StyledProfileMenu = styled.div`
 width: 300px;
@@ -143,7 +143,7 @@ const ProfileMenu = () => {
     <StyledProfileMenu>
       <div className="user">
         <div className="img-container">
-          <Image
+          <UserImage
             src={auth.currentUser.photoURL || '/dummy36.png'}
             alt={auth.currentUser.displayName || 'User name'}
           />
@@ -168,8 +168,8 @@ const ProfileMenu = () => {
       <StyledProfileMenuButton>
         <ChangeThemeText>Change theme</ChangeThemeText>
         <ToggleContainer type="button" onClick={toggleTheme} lightTheme={theme === 'light'}>
-          <Image src="./sun.svg" />
-          <Image src="./moon.svg" />
+          <UserImage src="./sun.svg" />
+          <UserImage src="./moon.svg" />
         </ToggleContainer>
       </StyledProfileMenuButton>
       <Divider />

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Image = ({ ...rest }) => {
+const UserImage = ({ ...rest }) => {
   const handleError = (e) => {
     e.target.onerror = null;
     e.target.src = './placeholder-user.jpg';
@@ -16,4 +16,4 @@ const StyledImage = styled.img`
   width: 100%;
 `;
 
-export default Image;
+export default UserImage;

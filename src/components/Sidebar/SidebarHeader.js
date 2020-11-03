@@ -4,13 +4,13 @@ import {
   ButtonUnstyled, Centered, headerHeight,
 } from '../Shared/Shared.style';
 import NewMessageButton from './NewMessageButton';
-import { Image } from '../Shared';
+import { UserImage } from '../Shared';
 
 const SidebarHeader = () => (
   <StyledSidebarHeader>
     <HeaderButton type="button">
       <Centered style={{ height: 50 }}>
-        <Image src="./slack_text_logo.svg" style={{ width: 'auto' }} />
+        <UserImage src="./slack_text_logo.svg" style={{ width: 'auto' }} />
       </Centered>
     </HeaderButton>
     <NewMessageButton />

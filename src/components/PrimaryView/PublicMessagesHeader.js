@@ -18,7 +18,7 @@ import { useMobile } from '../../hooks';
 import { toggleMetaPanel, toggleSidebar } from '../../features/sidebar/sidebarSlice';
 import TooltipContent from '../Shared/TooltipContent';
 import { groupBY } from '../../utils';
-import { Image } from '../Shared';
+import { UserImage } from '../Shared';
 
 const PublicMessagesHeader = ({ activeChannel, messagesRef }) => {
   const isMobile = useMobile();
@@ -37,7 +37,7 @@ const PublicMessagesHeader = ({ activeChannel, messagesRef }) => {
 
   const participantPics = useMemo(() => users.slice(0, 3).map((user, idx) => (
     <span className="participant" key={user.id} style={{ zIndex: 2 - idx }}>
-      <Image
+      <UserImage
         src={(user.photoURL) || '/dummy36.png'}
         alt={(user.displayName) || 'User name'}
       />

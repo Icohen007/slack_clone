@@ -9,7 +9,7 @@ import {
 import { enhance } from '../../firebaseUtils';
 import { groupBY, parseDate } from '../../utils';
 import Accordion from '../Shared/Accordion';
-import { Image } from '../Shared';
+import { UserImage } from '../Shared';
 
 const getPluralOrdinal = (size, baseText) => (size === 1 ? `${size} ${baseText}` : `${size} ${baseText}s`);
 
@@ -77,7 +77,7 @@ const MetaPanel = ({ onClose, messagesRef }) => {
                  </div>
                  <Centered gap={6} justify="flex-start">
                    <span className="created-image">
-                     <Image
+                     <UserImage
                        src={(activeChannel.createdBy.photoURL) || '/dummy36.png'}
                        alt={(activeChannel.createdBy.displayName) || 'User name'}
                      />
@@ -97,7 +97,7 @@ const MetaPanel = ({ onClose, messagesRef }) => {
                  return (
                    <div className="poster">
                      <span className="poster-image" key={user.id}>
-                       <Image
+                       <UserImage
                          src={(user.photoURL) || '/dummy36.png'}
                          alt={(user.displayName) || 'User name'}
                        />
