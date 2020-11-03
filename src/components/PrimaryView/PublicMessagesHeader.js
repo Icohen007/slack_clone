@@ -35,8 +35,8 @@ const PublicMessagesHeader = ({ activeChannel, messagesRef }) => {
 
   const users = Object.keys(messagesByUser).map((userKey) => messagesByUser[userKey][0].createdBy);
 
-  const participantPics = useMemo(() => users.slice(0, 3).map((user) => (
-    <span className="participant" key={user.id}>
+  const participantPics = useMemo(() => users.slice(0, 3).map((user, idx) => (
+    <span className="participant" key={user.id} style={{ zIndex: 2 - idx }}>
       <Image
         src={(user.photoURL) || '/dummy36.png'}
         alt={(user.displayName) || 'User name'}

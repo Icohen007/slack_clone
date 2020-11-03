@@ -25,7 +25,6 @@ const Messages = ({ messagesRef, formHeight }) => {
   if (!isReady) {
     return null;
   }
-  console.log(messagesSnapshot.docs);
 
   return (
     <StyledMessages formHeight={formHeight}>

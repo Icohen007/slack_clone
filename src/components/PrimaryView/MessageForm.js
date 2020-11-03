@@ -51,9 +51,12 @@ const toolbar = {
 
 const SubmitMessageButton = ({ editorState, setEditorState, messagesRef }) => {
   const content = editorState.getCurrentContent();
-  const isEmptyInput = !content.hasText();
+  const isEmptyInput = content.getPlainText().trim().length === 0;
 
   const handleClick = async () => {
+    if (isEmptyInput) {
+      return;
+    }
     const { currentUser } = auth;
     const formattedContent = JSON.stringify(convertToRaw(content));
     const cleanContent = content.getPlainText();

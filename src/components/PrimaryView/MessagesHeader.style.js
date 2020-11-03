@@ -37,7 +37,9 @@ ${centeredFlex};
 margin-right: 12px;
 
 .participant {
-    margin-left: 2px;
+    margin-right: -4px;
+    border-radius: 4px;
+    box-shadow: 0 0 0 2px white;
     display: inline-block;
     height: 24px;
     width: 24px;
