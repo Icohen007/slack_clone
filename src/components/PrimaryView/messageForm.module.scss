@@ -1,18 +1,44 @@
-.wrapper {
+.wrapper-light {
   min-height: 80px;
-
   display: flex;
   flex-direction: column;
-  border: 1px solid black;
   border-radius: 8px;
-  background: white;
+  background: #FFF;
+  border: 1px solid black;
 }
 
-.editor {
+.wrapper-dark {
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  background: #25272b;
+  border: 1px solid rgb(209, 209, 209);
+}
+
+.editor-light {
   order: -1;
   line-height: 1.5;
   padding: 10px;
   z-index: 1;
+}
+
+.editor-dark {
+  order: -1;
+  line-height: 1.5;
+  padding: 10px;
+  z-index: 1;
+}
+
+.toolbar-light {
+    background: #FFF !important;
+}
+
+.toolbar-dark {
+  background: #25272b !important;
+  border: 0 !important;
+  border-top: 1px solid #7b7b7b !important;
+
 }
 
 .popup {

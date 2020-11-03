@@ -16,9 +16,7 @@ const Search = ({ closeSearch }) => {
     if (!search.length) {
       return;
     }
-    console.log(search);
     dispatch(setActiveChannelSearch(search));
-    // setSearch('');
     closeSearch();
   };
 
@@ -55,10 +53,10 @@ const StyledSearch = styled(Centered)`
 position: absolute;
 top: 0;
 border-radius: 8px;
-border: 2px solid rgba(29,28,29,0.13);
+border: 2px solid ${({ theme }) => theme.colors.borderWhite1};
 z-index: 100;
 width: 100%;
-background: white;
+background: ${({ theme }) => theme.colors.white};
 color: ${({ theme }) => theme.colors.black1};
 padding: 0 10px;
 
@@ -100,6 +98,8 @@ const Input = styled.div`
   white-space: nowrap;
   font-size: 16px;
   padding: 0 12px;
+  background: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.black1};
 
   }
 `;

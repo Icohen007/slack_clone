@@ -82,6 +82,7 @@ const NavigationBar = () => {
           theme="light"
           trigger="click"
           interactive
+          useContext
           html={<ProfileMenu />}
         >
           <IconButton type="button">

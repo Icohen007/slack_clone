@@ -15,7 +15,7 @@ import {
 import DividerWithText from './DividerWithText';
 import { STATUS } from '../consts';
 import Spinner from '../Shared/Spinner';
-import theme from '../../theme';
+import { lightTheme } from '../../theme';
 
 const mainColor = 'rgba(66, 133, 244, 1)';
 
@@ -132,7 +132,7 @@ const Login = () => {
           <SubmitButton type="submit" color={mainColor}>
             Login
             {' '}
-            {status === 'loading' && <Spinner size={30} primaryColor={theme.colors.purpleDark} style={{ marginLeft: 20 }} />}
+            {status === 'loading' && <Spinner size={30} primaryColor={lightTheme.colors.purpleDark} style={{ marginLeft: 20 }} />}
           </SubmitButton>
           <span style={{ textAlign: 'center' }}>
             {'Don\'t have an account? '}
@@ -141,7 +141,8 @@ const Login = () => {
         </Fade>
         <Fade when={status !== STATUS.IDLE} bottom>
           <>
-            {status === STATUS.SUCCESS && <ResponseText success> Registered successfully! </ResponseText>}
+            {status === STATUS.SUCCESS
+             && <ResponseText success> Registered successfully! </ResponseText>}
             {status === STATUS.ERROR && <ResponseText>{serverError}</ResponseText>}
           </>
         </Fade>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import styled from 'styled-components';
@@ -7,6 +7,7 @@ import { auth, firebase } from '../../firebase';
 import styles from './messageForm.module.scss';
 import { ButtonUnstyled, centeredFlex } from '../Shared/Shared.style';
 import { addToCollection } from '../../firebaseUtils';
+import { ThemeContext } from '../ThemeProvider';
 
 const toolbar = {
   options: ['inline', 'list', 'emoji', 'history'],
@@ -25,7 +26,6 @@ const toolbar = {
     options: ['unordered', 'ordered'],
   },
   emoji: {
-    className: undefined,
     component: undefined,
     popupClassName: styles.popup,
     emojis: [
@@ -101,12 +101,14 @@ const StyledSubmitMessageButton = styled(ButtonUnstyled)`
 
 const MessageForm = ({ messagesRef, containerRef }) => {
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
+  const { theme } = useContext(ThemeContext);
   return (
-    <MessageFormWrapper ref={containerRef}>
+    <MessageFormWrapper lightTheme={theme === 'light'} ref={containerRef}>
       <Editor
         editorState={editorState}
-        wrapperClassName={styles.wrapper}
-        editorClassName={styles.editor}
+        wrapperClassName={theme === 'light' ? styles['wrapper-light'] : styles['wrapper-dark']}
+        editorClassName={theme === 'light' ? styles['editor-light'] : styles['editor-dark']}
+        toolbarClassName={theme === 'light' ? styles['toolbar-light'] : styles['toolbar-dark']}
         onEditorStateChange={setEditorState}
         toolbar={toolbar}
         toolbarCustomButtons={[<SubmitMessageButton
@@ -124,6 +126,16 @@ const MessageFormWrapper = styled.div`
     width: 100%;
     padding: 10px;
     z-index: 1;
+    background: ${({ theme }) => theme.colors.white};
+    color: ${({ theme }) => theme.colors.black1};
+    
+    .rdw-option-wrapper {
+     background: ${({ lightTheme }) => (lightTheme ? '#FFF' : '#25272b')} !important;
+
+    img {
+      filter: ${({ lightTheme }) => (lightTheme ? 'none' : 'invert(100%)')}
+    }
+    }
 `;
 
 export default MessageForm;

@@ -16,7 +16,7 @@ import {
 import DividerWithText from './DividerWithText';
 import { STATUS } from '../consts';
 import Spinner from '../Shared/Spinner';
-import theme from '../../theme';
+import { lightTheme } from '../../theme';
 
 function validateForm(values) {
   const errors = {};
@@ -156,7 +156,7 @@ const Register = () => {
           <SubmitButton type="submit">
             Sign Up
             {' '}
-            {status === 'loading' && <Spinner size={30} primaryColor={theme.colors.purpleDark} style={{ marginLeft: 20 }} />}
+            {status === 'loading' && <Spinner size={30} primaryColor={lightTheme.colors.purpleDark} style={{ marginLeft: 20 }} />}
           </SubmitButton>
           <span style={{ textAlign: 'center' }}>
             Already have an account?

@@ -30,14 +30,14 @@ const AccordionTitleContainer = styled.div`
   padding: 0 10px;
   cursor: pointer;
   user-select: none;
-  border-bottom: 1px solid rgba(29,28,29,0.13);
+  border-bottom: 1px solid ${({ theme }) => theme.colors.borderWhite1};
   
   svg {
   font-size: 20px;
   }
   
       &:hover {
-    background: rgba(29,28,29,0.04);
+    background: ${({ theme }) => theme.colors.whiteHover1};
     }
   
   .accordion-title {
@@ -52,7 +52,7 @@ const AccordionItem = styled.div`
   max-height: ${({ isOpen }) => (isOpen ? '9999px' : 0)};
   
   .accordion-content {
-    border-bottom: 1px solid rgba(29,28,29,0.13);
+    border-bottom: 1px solid ${({ theme }) => theme.colors.borderWhite1};
     padding: 10px;
   }
   

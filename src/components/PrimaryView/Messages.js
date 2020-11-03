@@ -30,7 +30,8 @@ const Messages = ({ messagesRef, formHeight }) => {
     <StyledMessages formHeight={formHeight}>
       {messagesSnapshot.docs
         .map((message) => ({ id: message.id, ...message.data() }))
-        .filter((message) => !message.cleanContent || message.cleanContent.includes(activeChannelSearch))
+        .filter((message) => !message.cleanContent
+                             || message.cleanContent.includes(activeChannelSearch))
         .map((message) => (
           <Message
             key={message.id}
@@ -48,6 +49,8 @@ flex: 1;
 overflow-y: auto;
 max-height: calc(100vh - ${navigationBarHeight}px - ${headerHeight}px - ${({ formHeight }) => formHeight}px - 10px);
 position: relative;
+background: ${({ theme }) => theme.colors.white};
+color: ${({ theme }) => theme.colors.black1};
 `;
 
 export default Messages;

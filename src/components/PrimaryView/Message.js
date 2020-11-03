@@ -40,7 +40,7 @@ const StyledMessage = styled.div`
   padding: 8px 20px;
   
       &:hover {
-    background: rgba(29,28,29,0.04);
+    background: ${({ theme }) => theme.colors.whiteHover1};
     }
   
   .left {
@@ -57,7 +57,7 @@ const StyledMessage = styled.div`
   }
   
   .timestamp {
-    color: #616061;
+    color: ${({ theme }) => theme.colors.grayDark};
     font-size: 12px;
     font-weight: 400;
   }

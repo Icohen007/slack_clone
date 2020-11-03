@@ -20,6 +20,7 @@ position: relative;
 grid-template-columns: ${({ metaPanelOpen }) => (metaPanelOpen ? '260px auto 400px' : '260px auto')};
 grid-template-areas: 'sidebar primary-view';
 transition: all 2s linear;
+background: ${({ theme }) => theme.colors.white};
 color: ${({ theme }) => theme.colors.black1};
 
 @media only screen and (max-width: 1200px) {

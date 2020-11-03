@@ -121,14 +121,16 @@ const StyledMetaPanel = styled.section`
 display: flex;
 flex-direction: column;
 border-radius: 6px;
-border-left: 1px solid rgba(29,28,29,0.13);
+border-left: 1px solid ${({ theme }) => theme.colors.borderWhite1};
+background: ${({ theme }) => theme.colors.white};
+color: ${({ theme }) => theme.colors.black1};
 
 .header {
 height: ${headerHeight}px;
 display: flex;
 align-items: center;
 justify-content: space-between;
-border-bottom: 1px solid rgba(29,28,29,0.13);
+border-bottom: 1px solid ${({ theme }) => theme.colors.borderWhite1};
 padding: 0 12px 0 16px;
 
 .header-details {
@@ -138,7 +140,7 @@ font-weight: 900;
 .header-channel-name {
 font-size: 13px;
 font-weight: 400;
-color: rgba(29,28,29,0.7);
+color: ${({ theme }) => theme.colors.grayDark};
 }
 }
 
@@ -158,7 +160,7 @@ padding: 5px 0;
 }
 
   .timestamp {
-    color: #616061;
+    color: ${({ theme }) => theme.colors.grayDark};
     font-size: 12px;
     font-weight: 400;
   }
@@ -206,7 +208,7 @@ margin: 6px 0;
   transition: all 0.2s;
   
   &:hover {
-  background-color: rgba(0,0,0, 0.07);
+  background-color: ${({ theme }) => theme.colors.whiteHover2};
   }
   svg {
   font-size: 20px;

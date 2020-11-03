@@ -17,7 +17,6 @@ import {
 import { useMobile } from '../../hooks';
 import { toggleMetaPanel, toggleSidebar } from '../../features/sidebar/sidebarSlice';
 import TooltipContent from '../Shared/TooltipContent';
-import theme from '../../theme';
 import { groupBY } from '../../utils';
 
 const PublicMessagesHeader = ({ activeChannel, messagesRef }) => {
@@ -134,7 +133,7 @@ const Members = ({ users }) => (
     <div>
       {`View all ${users.length} members`}
       <br />
-      <span style={{ color: theme.colors.grayLight }}>
+      <span style={{ color: 'rgba(255,255,255,0.7)' }}>
         includes
         {' '}
         {users.slice(0, 3).map(

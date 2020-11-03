@@ -6,7 +6,9 @@ height: ${headerHeight}px;
 padding: 0 20px;
 display: flex;
 align-items: center;
-border-bottom: 1px solid rgba(29,28,29,0.13);
+border-bottom: 1px solid ${({ theme }) => theme.colors.borderWhite1};
+background: ${({ theme }) => theme.colors.white};
+color: ${({ theme }) => theme.colors.black1};
 
 .channel-name {
   font-weight: 900;
@@ -39,7 +41,7 @@ margin-right: 12px;
 .participant {
     margin-right: -4px;
     border-radius: 4px;
-    box-shadow: 0 0 0 2px white;
+    box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.borderWhite1};
     display: inline-block;
     height: 24px;
     width: 24px;
@@ -47,7 +49,7 @@ margin-right: 12px;
 }
 
 .participant-count {
-margin-left: 6px;
+margin-left: 12px;
 font-size: 13px;
 font-weight: 700;
 }
@@ -57,7 +59,7 @@ const ServiceButton = styled(ButtonUnstyled)`
 ${centeredFlex};
     margin-left: 4px;
     &:hover {
-    background: rgba(29,28,29,0.04);
+    background: ${({ theme }) => theme.colors.whiteHover1};
     }
     
     span {

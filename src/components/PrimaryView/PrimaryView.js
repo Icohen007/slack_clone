@@ -9,6 +9,7 @@ import PrivateMessagesHeader from './PrivateMessagesHeader';
 
 const StyledPrimaryView = styled.section`
 grid-area: primary-view;
+background: ${({ theme }) => theme.colors.white};
 color: ${({ theme }) => theme.colors.black1};
 height: 100%;
 position: relative;
