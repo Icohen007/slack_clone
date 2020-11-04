@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { CgSearch } from 'react-icons/cg';
 import { AiOutlineClose } from 'react-icons/ai';
@@ -13,6 +13,11 @@ const Search = ({ closeSearch }) => {
   } = useSelector((state) => state.channels);
   const [search, setSearch] = useState(activeChannelSearch);
   const dispatch = useDispatch();
+  const inputRef = useRef();
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,22 +36,27 @@ const Search = ({ closeSearch }) => {
   return (
     <>
       <StyledSearch onClick={(e) => e.stopPropagation()}>
-        <CgSearch />
-        <FormContainer onSubmit={handleSubmit}>
-          <Input>
-            <input
-              id="search"
-              value={search}
-              onChange={({ target }) => setSearch(target.value)}
-              autoComplete="off"
-              placeholder={isPrivateChannelMode ? `Search in @ ${activeChannel.displayName}` : `Search in # ${activeChannel.name}`}
-            />
-          </Input>
-        </FormContainer>
-        <ClearText onClick={handleClear} visible={search.length > 0}>Clear</ClearText>
-        <span className="close-button" onClick={closeSearch}>
-          <AiOutlineClose />
-        </span>
+        <Centered justify="flex-start" style={{ flex: 1 }}>
+          <CgSearch />
+          <FormContainer onSubmit={handleSubmit}>
+            <Input>
+              <input
+                id="search"
+                value={search}
+                onChange={({ target }) => setSearch(target.value)}
+                autoComplete="off"
+                placeholder={isPrivateChannelMode ? `Search in @ ${activeChannel.displayName}` : `Search in # ${activeChannel.name}`}
+                ref={inputRef}
+              />
+            </Input>
+          </FormContainer>
+        </Centered>
+        <Centered>
+          {search.length > 0 && <ClearText onClick={handleClear}>Clear</ClearText> }
+          <span className="close-button" onClick={closeSearch}>
+            <AiOutlineClose className="close-icon" />
+          </span>
+        </Centered>
       </StyledSearch>
     </>
   );
@@ -62,10 +72,15 @@ width: 100%;
 background: ${({ theme }) => theme.colors.white};
 color: ${({ theme }) => theme.colors.black1};
 padding: 0 10px;
+justify-content: space-between;
 
 svg {
-cursor: auto;
 font-size: 20px;
+cursor: auto;
+}
+
+.close-icon {
+cursor: pointer;
 }
 
 .close-button {
@@ -108,14 +123,14 @@ const Input = styled.div`
 
 const FormContainer = styled.form`
 height: 100%;
-width: 80%;
+width: 100%;
 `;
 
 const ClearText = styled.span`
 font-size: 13px;
-cursor: ${({ visible }) => (visible ? 'pointer' : 'auto')};
+cursor: pointer;
 user-select: none;
-visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
+margin: 0 4px;
 
 &:hover {
 color: #008fff;
