@@ -7,7 +7,10 @@ import { Centered, centeredFlex } from '../Shared/Shared.style';
 import { setActiveChannelSearch } from '../../features/channels/channelSlice';
 
 const Search = ({ closeSearch }) => {
-  const { activeChannelSearch } = useSelector((state) => state.channels);
+  const {
+    activeChannelSearch,
+    activeChannel, isPrivateChannelMode,
+  } = useSelector((state) => state.channels);
   const [search, setSearch] = useState(activeChannelSearch);
   const dispatch = useDispatch();
 
@@ -36,7 +39,7 @@ const Search = ({ closeSearch }) => {
               value={search}
               onChange={({ target }) => setSearch(target.value)}
               autoComplete="off"
-              placeholder="Search for..."
+              placeholder={isPrivateChannelMode ? `Search in @ ${activeChannel.displayName}` : `Search in # ${activeChannel.name}`}
             />
           </Input>
         </FormContainer>

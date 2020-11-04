@@ -1,20 +1,20 @@
 import React, { useMemo } from 'react';
-import styled from 'styled-components';
 import { AiOutlineClose } from 'react-icons/ai';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import {
-  Centered, centeredFlex, headerHeight, navigationBarHeight,
-} from '../Shared/Shared.style';
+import { Centered } from '../Shared/Shared.style';
 import { enhance } from '../../firebaseUtils';
 import { groupBY, parseDate } from '../../utils';
 import Accordion from '../Shared/Accordion';
 import { UserImage } from '../Shared';
+import { StyledMetaPanel } from './MetaPanel.style';
+import { toggleMetaPanel } from '../../features/sidebar/sidebarSlice';
 
 const getPluralOrdinal = (size, baseText) => (size === 1 ? `${size} ${baseText}` : `${size} ${baseText}s`);
 
-const MetaPanel = ({ onClose, messagesRef }) => {
+const PublicMetaPanel = ({ messagesRef }) => {
   const { activeChannel } = useSelector((state) => state.channels);
+  const dispatch = useDispatch();
   const [messages, isMessagesReady] = enhance(useCollectionData(messagesRef));
 
   const messagesByUser = useMemo(() => {
@@ -38,17 +38,18 @@ const MetaPanel = ({ onClose, messagesRef }) => {
           <div className="header-details">Details</div>
           <div className="header-channel-name">
             #
+            {' '}
             {activeChannel.name}
           </div>
         </div>
-        <span className="meta-panel-close" onClick={onClose}>
+        <span className="meta-panel-close" onClick={() => dispatch(toggleMetaPanel())}>
           <AiOutlineClose />
         </span>
       </div>
       <div className="content">
         <Accordion title="About">
           <div className="about">
-            {activeChannel.createdAt
+            {activeChannel.description
              && (
                <div className="about-section">
                  <div className="title">
@@ -118,103 +119,4 @@ const MetaPanel = ({ onClose, messagesRef }) => {
   );
 };
 
-const StyledMetaPanel = styled.section`
-display: flex;
-flex-direction: column;
-border-radius: 6px;
-border-left: 1px solid ${({ theme }) => theme.colors.borderWhite1};
-background: ${({ theme }) => theme.colors.white};
-color: ${({ theme }) => theme.colors.black1};
-
-.header {
-height: ${headerHeight}px;
-display: flex;
-align-items: center;
-justify-content: space-between;
-border-bottom: 1px solid ${({ theme }) => theme.colors.borderWhite1};
-padding: 0 12px 0 16px;
-
-.header-details {
-font-weight: 900;
-}
-
-.header-channel-name {
-font-size: 13px;
-font-weight: 400;
-color: ${({ theme }) => theme.colors.grayDark};
-}
-}
-
-.content {
-padding: 5px 12px;
-
-height: 100%;
-max-height: calc(100vh - ${navigationBarHeight}px - ${headerHeight}px);
-overflow: auto;
-
-.about {
-padding: 10px 0;
-
-.about-section {
-padding: 5px 0;
-}
-}
-
-  .timestamp {
-    color: ${({ theme }) => theme.colors.grayDark};
-    font-size: 12px;
-    font-weight: 400;
-  }
-
-.title {
-font-weight: 700;
-}
-
-.created-image {
-    display: inline-block;
-    height: 40px;
-    width: 40px;
-    overflow: hidden;
-}
-
-.poster {
-display: flex;
-gap: 6px;
-align-items: center;
-height: 50px;
-padding: 4px 0;
-margin: 6px 0;
-
-.poster-image {
-    display: inline-block;
-    height: 40px;
-    width: 40px;
-    overflow: hidden;
-}
-
-.poster-details {
- .poster-name {
- font-weight: 700;
- }
-}
-}
-
-}
-
-.meta-panel-close {
-  ${centeredFlex};
-  cursor: pointer;
-  padding: 6px;
-  border-radius: 6px;
-  transition: all 0.2s;
-  
-  &:hover {
-  background-color: ${({ theme }) => theme.colors.whiteHover2};
-  }
-  svg {
-  font-size: 20px;
-  }
-}
-`;
-
-export default MetaPanel;
+export default PublicMetaPanel;

@@ -27,7 +27,7 @@ transition: transform .15s ease-in-out;
 position: absolute;
 left: 0;
 top: 0;
-z-index: 2;
+z-index: 2; // to override ClickBlocker
 width: 260px;
 transform: ${({ sidebarOpen }) => (sidebarOpen ? 'translateX(0px)' : 'translateX(-260px)')};
 }

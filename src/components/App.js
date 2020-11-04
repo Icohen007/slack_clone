@@ -4,12 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import NavigationBar from './NavigationBar/NavigationBar';
 import Sidebar from './Sidebar/Sidebar';
 import PrimaryView from './PrimaryView/PrimaryView';
-import { toggleMetaPanel, toggleSidebar } from '../features/sidebar/sidebarSlice';
+import { toggleSidebar } from '../features/sidebar/sidebarSlice';
 import { useMobile } from '../hooks';
 import { ClickBlocker, navigationBarHeight } from './Shared/Shared.style';
 import { auth, db } from '../firebase';
-import MetaPanel from './MetaPanel/MetaPanel';
+import PublicMetaPanel from './MetaPanel/PublicMetaPanel';
 import { watchForStatus } from '../firebaseUtils';
+import PrivateMetaPanel from './MetaPanel/PrivateMetaPanel';
 
 const AppContainer = styled.div`
 display: grid;
@@ -33,6 +34,11 @@ grid-template-columns: ${({ metaPanelOpen }) => (metaPanelOpen ? '260px auto 260
 
 @media only screen and (max-width: 768px) {
 grid-template-columns: ${({ metaPanelOpen }) => (metaPanelOpen ? 'auto 260px' : 'auto')};
+grid-template-areas: 'primary-view';
+}
+
+@media only screen and (max-width: 560px) {
+grid-template-columns: ${({ metaPanelOpen }) => (metaPanelOpen ? 'auto 200px' : 'auto')};
 grid-template-areas: 'primary-view';
 }
 `;
@@ -80,7 +86,8 @@ const App = () => {
         <Sidebar />
         <PrimaryView messagesRef={messagesRef} />
         {metaPanelOpen
-         && <MetaPanel messagesRef={messagesRef} onClose={() => dispatch(toggleMetaPanel())} />}
+         && (isPrivateChannelMode ? <PrivateMetaPanel />
+           : <PublicMetaPanel messagesRef={messagesRef} />)}
       </AppContainer>
     </>
   );
