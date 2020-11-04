@@ -20,7 +20,7 @@ const Messages = ({ messagesRef, formHeight }) => {
         }
       });
     }
-  }, [messagesSnapshot]);
+  }, [messagesSnapshot, isReady]);
 
   if (!isReady) {
     return null;

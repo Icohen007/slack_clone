@@ -59,7 +59,7 @@ const App = () => {
     if (auth.currentUser) {
       watchForStatus();
     }
-  }, [auth.currentUser]);
+  }, []);
 
   const messagesRef = isPrivateChannelMode
     ? db.collection('privateMessages')

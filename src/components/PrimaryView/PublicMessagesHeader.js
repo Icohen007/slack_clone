@@ -31,7 +31,7 @@ const PublicMessagesHeader = ({ activeChannel, messagesRef }) => {
       return {};
     }
     return groupBY(messages, 'createdBy.id');
-  }, [messages]);
+  }, [messages, isMessagesReady]);
 
   const users = Object.keys(messagesByUser).map((userKey) => messagesByUser[userKey][0].createdBy);
 
@@ -42,7 +42,7 @@ const PublicMessagesHeader = ({ activeChannel, messagesRef }) => {
         alt={(user.displayName) || 'User name'}
       />
     </span>
-  )), [messagesByUser]);
+  )), [users]);
 
   const dispatch = useDispatch();
 

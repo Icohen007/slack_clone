@@ -22,7 +22,7 @@ const ChannelList = () => {
     if (isChannelsReady && isStarredChannelsReady && isDummyActiveChannel(activeChannel)) {
       dispatch(changePublicChannel(channels[0]));
     }
-  }, [activeChannel, isChannelsReady, isStarredChannelsReady]);
+  }, [activeChannel, isChannelsReady, isStarredChannelsReady, channels, dispatch]);
 
   if (!isChannelsReady || !isStarredChannelsReady || isDummyActiveChannel(activeChannel)) {
     return null;

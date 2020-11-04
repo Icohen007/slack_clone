@@ -18,13 +18,13 @@ const useForm = (onSubmit, validate) => {
       submittedOnceRef.current = false;
     }
     setSubmitting(false);
-  }, [submitting]);
+  }, [submitting, hasErrors, onSubmit, values]);
 
   useEffect(() => {
     if (submittedOnceRef.current && !isEmptyObject(values)) {
       setErrors(validate(values));
     }
-  }, [setErrors, values]);
+  }, [setErrors, values, validate]);
 
   const handleSubmit = (event) => {
     if (event) {

@@ -22,7 +22,7 @@ const PublicMetaPanel = ({ messagesRef }) => {
       return {};
     }
     return groupBY(messages, 'createdBy.id');
-  }, [messages]);
+  }, [messages, isMessagesReady]);
 
   const topPostersSorted = Object.keys(messagesByUser).slice(0, 3)
     .sort((a, b) => messagesByUser[b].length - messagesByUser[a].length);
