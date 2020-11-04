@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { FcHome } from 'react-icons/fc';
+import { BsCircleFill } from 'react-icons/bs';
 import Divider from '../Auth/Divider';
 import { auth } from '../../firebase';
 import { ButtonUnstyled } from '../Shared/Shared.style';
@@ -39,14 +40,20 @@ padding: 12px 0;
     overflow: hidden;
     white-space: nowrap;
     font-weight: 900;
+    line-height: 1.5;
     
     .active {
+    display: flex;
+    align-items: center;
+    gap: 4px;
     font-weight: 400;
-    font-size: 14px;
+    font-size: 13px;
     
     .dot {
     color: ${({ theme }) => theme.colors.greenLight};
-    font-size: 20px;
+      svg {
+       font-size: 8px;
+      }
     }
     }
   }
@@ -152,8 +159,7 @@ const ProfileMenu = () => {
           {auth.currentUser.displayName || 'User name'}
           <div className="active">
             <span className="dot">
-              ●
-              {' '}
+              <BsCircleFill />
             </span>
             Active
           </div>

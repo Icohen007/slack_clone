@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { lightTheme } from '../../theme';
 
 const StyledInputField = styled.div`
   width: 100%;
@@ -46,7 +47,7 @@ const StyledInputField = styled.div`
     border-bottom: 1px solid black;
     pointer-events: none;
     font-family: Roboto, sans-serif;
-    color: ${({ theme }) => theme.colors.grayDark};
+    color: ${lightTheme.colors.grayDark};
     &:after {
       content: '';
       position: absolute;
@@ -68,7 +69,7 @@ const StyledInputField = styled.div`
     left: 0;
     transition: all 0.3s ease;
     font-family: Roboto, sans-serif;
-    color: ${({ theme }) => theme.colors.grayLight};
+    color: #898989;
   }
 `;
 

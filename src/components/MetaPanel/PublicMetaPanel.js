@@ -83,7 +83,7 @@ const PublicMetaPanel = ({ messagesRef }) => {
                        alt={(activeChannel.createdBy.displayName) || 'User name'}
                      />
                    </span>
-                   {activeChannel.createdBy.displayName}
+                   <span>{activeChannel.createdBy.displayName}</span>
                  </Centered>
                </div>
              )}

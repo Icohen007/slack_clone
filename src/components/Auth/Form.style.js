@@ -7,7 +7,7 @@ flex-direction: column;
 align-items: center;
 justify-content: center;
 background: url('./slack_logo.svg'), ${({ theme }) => theme.colors.purpleDark};
-padding: 10px;
+padding: 40px 25px;
 
 .header {
   width: 100%;

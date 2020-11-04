@@ -32,9 +32,12 @@ export const ChannelName = styled.span`
 `;
 
 export const StatusIndicator = styled.span`
-font-size: 20px;
 color: ${({ isOnline, theme }) => (isOnline ? theme.colors.greenLight : theme.colors.redDark)};
 position: absolute;
-bottom: -10px;
-right: -4px;
+bottom: -7px;
+right: -3px;
+
+svg {
+font-size: 10px;
+}
 `;

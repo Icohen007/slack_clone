@@ -31,7 +31,8 @@ const Messages = ({ messagesRef, formHeight }) => {
       {messagesSnapshot.docs
         .map((message) => ({ id: message.id, ...message.data() }))
         .filter((message) => !message.cleanContent
-                             || message.cleanContent.includes(activeChannelSearch))
+                             || message.cleanContent.toLowerCase()
+                               .includes(activeChannelSearch.toLowerCase()))
         .map((message) => (
           <Message
             key={message.id}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { BsCircleFill } from 'react-icons/bs';
 import {
   ChannelName, HashIconChannel, StatusIndicator, StyledChannel,
 } from './Channel.style';
@@ -27,7 +28,7 @@ const DirectMessage = ({ user, activeChannel, isOnline }) => {
             src={photoURL || '/dummy36.png'}
             alt={displayName || 'User name'}
           />
-          <StatusIndicator isOnline={isOnline}>●</StatusIndicator>
+          <StatusIndicator isOnline={isOnline}><BsCircleFill /></StatusIndicator>
         </HashIconChannel>
         <ChannelName>
           {displayName}
