@@ -1,26 +1,32 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { useCollection } from 'react-firebase-hooks/firestore';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { useSelector } from 'react-redux';
 import Message from './Message';
 import { headerHeight, navigationBarHeight } from '../Shared/Shared.style';
 
 const Messages = ({ messagesRef, formHeight }) => {
-  const [messagesSnapshot, loading, error] = useCollection(messagesRef.orderBy('createdAt'));
+  const [messages, loading, error] = useCollectionData(messagesRef.orderBy('createdAt'), { idField: 'id' });
   const { activeChannelSearch } = useSelector((state) => state.channels);
 
   const bottomContainerRef = useRef();
   const isReady = !loading && !error;
 
   useEffect(() => {
-    if (isReady) {
-      messagesSnapshot.docChanges().forEach((change) => {
-        if (change.type === 'added') {
-          bottomContainerRef.current.scrollIntoView({ behavior: 'smooth' });
+    messagesRef.onSnapshot((snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        if (bottomContainerRef.current && change.type === 'added') {
+          setTimeout(() => bottomContainerRef.current.scrollIntoView({ behavior: 'smooth' }));
         }
       });
+    });
+  }, [messagesRef]);
+
+  useEffect(() => {
+    if (isReady) {
+      bottomContainerRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [messagesSnapshot, isReady]);
+  }, [isReady]);
 
   if (!isReady) {
     return null;
@@ -28,8 +34,7 @@ const Messages = ({ messagesRef, formHeight }) => {
 
   return (
     <StyledMessages formHeight={formHeight}>
-      {messagesSnapshot.docs
-        .map((message) => ({ id: message.id, ...message.data() }))
+      {messages
         .filter((message) => !message.cleanContent
                              || message.cleanContent.toLowerCase()
                                .includes(activeChannelSearch.toLowerCase()))
