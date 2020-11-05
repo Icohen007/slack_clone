@@ -48,7 +48,7 @@ const App = ({ user }) => {
       mounted.current = true;
       watchForStatus();
     }
-  }, [user]);
+  }, [userConnected]);
 
   const handleClickBlocker = (e) => {
     e.stopPropagation();

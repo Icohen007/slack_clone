@@ -15,7 +15,7 @@ import TooltipContent from '../Shared/TooltipContent';
 import Search from './Search';
 import { UserImage } from '../Shared';
 
-const NavigationBar = () => {
+const NavigationBar = React.memo(() => {
   const [showSearch, setShowSearch] = useState(false);
   const { activeChannel, isPrivateChannelMode } = useSelector((state) => state.channels);
 
@@ -98,7 +98,7 @@ const NavigationBar = () => {
       </StyledSideButtons>
     </StyledNavigationBar>
   );
-};
+});
 
 const StyledNavigationBar = styled.nav`
 height: ${navigationBarHeight}px;

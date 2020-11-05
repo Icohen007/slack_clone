@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import SidebarHeader from './SidebarHeader';
 import SidebarMessages from './SidebarMessages';
 
-const Sidebar = () => {
+const Sidebar = React.memo(() => {
   const { sidebarOpen } = useSelector((state) => state.sidebar);
   return (
     <StyledSidebar onClick={(e) => e.stopPropagation()} sidebarOpen={sidebarOpen}>
@@ -12,7 +12,7 @@ const Sidebar = () => {
       <SidebarMessages />
     </StyledSidebar>
   );
-};
+});
 
 const StyledSidebar = styled.section`
 grid-area: sidebar;
