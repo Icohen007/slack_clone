@@ -28,8 +28,6 @@ const PrimaryView = ({ messagesRef }) => {
         <PublicMessagesHeader activeChannel={activeChannel} messagesRef={messagesRef} />
       )}
       <Messages
-        activeChannel={activeChannel}
-        isPrivateChannelMode={isPrivateChannelMode}
         messagesRef={messagesRef}
         formHeight={height}
       />

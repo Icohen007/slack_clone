@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import NavigationBar from '../NavigationBar/NavigationBar';
@@ -26,7 +26,7 @@ const App = ({ user }) => {
   const mounted = useRef(false);
   const userConnected = user && user.uid;
 
-  const getMessagesRef = () => {
+  const messagesRef = useMemo(() => {
     if (!userConnected) {
       return null;
     }
@@ -39,9 +39,7 @@ const App = ({ user }) => {
     return db.collection('channelMessages')
       .doc(activeChannel.id)
       .collection('messages');
-  };
-
-  const messagesRef = getMessagesRef();
+  }, [userConnected, isPrivateChannelMode, user, activeChannel]);
 
   useEffect(() => {
     if (userConnected && !mounted.current) {

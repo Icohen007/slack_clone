@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import Message from './Message';
 import { headerHeight, navigationBarHeight } from '../Shared/Shared.style';
 
-const Messages = ({ messagesRef, formHeight }) => {
+const Messages = React.memo(({ messagesRef, formHeight }) => {
   const [messages, loading, error] = useCollectionData(messagesRef.orderBy('createdAt'), { idField: 'id' });
   const { activeChannelSearch } = useSelector((state) => state.channels);
 
@@ -48,7 +48,7 @@ const Messages = ({ messagesRef, formHeight }) => {
     </StyledMessages>
 
   );
-};
+});
 
 const StyledMessages = styled.div`
 flex: 1;
