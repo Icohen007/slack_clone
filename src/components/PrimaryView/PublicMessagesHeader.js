@@ -6,8 +6,8 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { BsLayoutTextSidebar } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
 import { Centered } from '../Shared/Shared.style';
-import { auth, db } from '../../firebase';
-import { enhance } from '../../firebaseUtils';
+import { auth, db } from '../../firebaseConfig';
+import { enhance } from '../../lib/firebaseUtils';
 import {
   ParticipantButtons,
   ServiceButton,
@@ -17,7 +17,7 @@ import {
 import { useMobile } from '../../hooks';
 import { toggleMetaPanel, toggleSidebar } from '../../features/sidebar/sidebarSlice';
 import TooltipContent from '../Shared/TooltipContent';
-import { groupBY } from '../../utils';
+import { groupBY } from '../../lib/helpers';
 import { UserImage } from '../Shared';
 
 const PublicMessagesHeader = ({ activeChannel, messagesRef }) => {

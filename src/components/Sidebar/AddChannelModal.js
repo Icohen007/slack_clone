@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Modal from '../Modal/Modal';
 import { ButtonUnstyled, centeredFlex } from '../Shared/Shared.style';
-import { auth, db, firebase } from '../../firebase';
-import { addToCollection } from '../../firebaseUtils';
+import { auth, db, firebase } from '../../firebaseConfig';
+import { addToCollection } from '../../lib/firebaseUtils';
 
 const ModalContent = ({
   name, setName, description, setDescription,

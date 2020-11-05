@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { FcHome } from 'react-icons/fc';
 import { BsCircleFill } from 'react-icons/bs';
 import Divider from '../Auth/Divider';
-import { auth } from '../../firebase';
+import { auth } from '../../firebaseConfig';
 import { ButtonUnstyled } from '../Shared/Shared.style';
-import { ThemeContext } from '../ThemeProvider';
+import { ThemeContext } from '../App/ThemeProvider';
 import { UserImage } from '../Shared';
 
 const StyledProfileMenu = styled.div`
@@ -88,6 +88,7 @@ const StyledProfileMenuButtonContainer = styled.div`
     cursor: pointer;
     &:hover {
     background: rgb(18,100,163);
+    color: white;
     }
 `;
 

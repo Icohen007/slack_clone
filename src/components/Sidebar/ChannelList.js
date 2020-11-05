@@ -3,10 +3,10 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { useDispatch, useSelector } from 'react-redux';
 import ChannelCategory from './ChannelCategory';
 import Channel from './Channel';
-import { auth, db } from '../../firebase';
+import { auth, db } from '../../firebaseConfig';
 import { changePublicChannel } from '../../features/channels/channelFlows';
 import { isDummyActiveChannel } from '../../features/channels/channelSlice';
-import { enhance } from '../../firebaseUtils';
+import { enhance } from '../../lib/firebaseUtils';
 
 const ChannelList = () => {
   const [showing, setShowing] = useState(true);

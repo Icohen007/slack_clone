@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import NavigationBar from './NavigationBar/NavigationBar';
-import Sidebar from './Sidebar/Sidebar';
-import PrimaryView from './PrimaryView/PrimaryView';
-import { toggleSidebar } from '../features/sidebar/sidebarSlice';
-import { useMobile } from '../hooks';
-import { ClickBlocker, navigationBarHeight } from './Shared/Shared.style';
-import { auth, db } from '../firebase';
-import PublicMetaPanel from './MetaPanel/PublicMetaPanel';
-import { watchForStatus } from '../firebaseUtils';
-import PrivateMetaPanel from './MetaPanel/PrivateMetaPanel';
+import NavigationBar from '../NavigationBar/NavigationBar';
+import Sidebar from '../Sidebar/Sidebar';
+import PrimaryView from '../PrimaryView/PrimaryView';
+import { toggleSidebar } from '../../features/sidebar/sidebarSlice';
+import { useMobile } from '../../hooks';
+import { ClickBlocker, navigationBarHeight } from '../Shared/Shared.style';
+import { db } from '../../firebaseConfig';
+import PublicMetaPanel from '../MetaPanel/PublicMetaPanel';
+import { watchForStatus } from '../../lib/firebaseUtils';
+import PrivateMetaPanel from '../MetaPanel/PrivateMetaPanel';
 
 const AppContainer = styled.div`
 display: grid;
@@ -49,30 +49,32 @@ const getChannelId = (currentUserId, otherUserId) => (
     : `${currentUserId}-${otherUserId}`
 );
 
-const App = () => {
+const App = ({ user }) => {
   const { sidebarOpen, metaPanelOpen } = useSelector((state) => state.sidebar);
   const { activeChannel, isPrivateChannelMode } = useSelector((state) => state.channels);
   const dispatch = useDispatch();
   const isMobile = useMobile();
+  const mounted = useRef(false);
 
   useEffect(() => {
-    if (auth.currentUser) {
+    if (user && user.displayName && !mounted.current) {
+      mounted.current = true;
       watchForStatus();
     }
-  }, []);
+  }, [user]);
 
   const handleClick = (e) => {
     e.stopPropagation();
     dispatch(toggleSidebar());
   };
 
-  if (!auth.currentUser) {
+  if (!user || !user.uid || !user.uid) {
     return null;
   }
 
   const messagesRef = isPrivateChannelMode
     ? db.collection('privateMessages')
-      .doc(getChannelId(auth.currentUser.uid, activeChannel.id))
+      .doc(getChannelId(user.uid, activeChannel.id))
       .collection('messages')
     : db.collection('channelMessages')
       .doc(activeChannel.id)

@@ -1,4 +1,4 @@
-import { auth, firebase } from './firebase';
+import { auth, firebase } from '../firebaseConfig';
 
 export const enhance = (hookResult) => {
   const [value, loading, error] = hookResult;
@@ -10,7 +10,19 @@ export const addToCollection = async (collectionRef, doc) => {
   try {
     await collectionRef.add(doc);
   } catch (serverError) {
-    console.log(serverError);
+    console.error(serverError);
+  }
+};
+
+export const updateUserCollection = async (usersRef, user) => {
+  try {
+    await usersRef.doc(user.uid)
+      .set({
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+      }, { merge: true });
+  } catch (serverError) {
+    console.error(serverError);
   }
 };
 

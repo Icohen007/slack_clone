@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { convertFromRaw, Editor, EditorState } from 'draft-js';
 import { ButtonUnstyled } from '../Shared/Shared.style';
-import { parseDate } from '../../utils';
+import { parseDate } from '../../lib/helpers';
 import { UserImage } from '../Shared';
 
 const Message = ({ message }) => {
@@ -30,7 +30,7 @@ const Message = ({ message }) => {
           {' '}
           {createdAt && parseDate(createdAt.toDate())}
         </span>
-        <Editor editorState={editorState} readOnly />
+        <Editor textAlignment="left" editorState={editorState} readOnly />
       </div>
     </StyledMessage>
   );

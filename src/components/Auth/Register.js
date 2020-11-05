@@ -5,7 +5,7 @@ import Fade from 'react-reveal/Fade';
 import { Link } from 'react-router-dom';
 import InputField from './InputField';
 import { useForm, useMobile } from '../../hooks';
-import { auth, firebase } from '../../firebase';
+import { auth, db, firebase } from '../../firebaseConfig';
 import {
   FormContainer,
   ResponseText,
@@ -14,9 +14,10 @@ import {
   SubmitButton,
 } from './Form.style';
 import DividerWithText from './DividerWithText';
-import { STATUS } from '../consts';
+import { STATUS } from './consts';
 import Spinner from '../Shared/Spinner';
 import { lightTheme } from '../../theme';
+import { updateUserCollection } from '../../lib/firebaseUtils';
 
 function validateForm(values) {
   const errors = {};
@@ -46,6 +47,7 @@ const Register = () => {
   const [status, setStatus] = useState(STATUS.IDLE);
   const [serverError, setServerError] = useState('');
   const isMobile = useMobile();
+  const usersRef = db.collection('users');
 
   const formContainerRef = useRef(null);
   const mouseMoveListener = (e) => {
@@ -53,11 +55,11 @@ const Register = () => {
     formContainerRef.current.style.backgroundPositionY = `${-e.clientY / 3}px`;
   };
 
-  const onSubmit = async (values) => {
-    if (status === 'loading') {
+  const signUpWithEmailAndPassword = async (values) => {
+    if (status === STATUS.LOADING) {
       return;
     }
-    setStatus('loading');
+    setStatus(STATUS.LOADING);
     setServerError('');
     try {
       const createdUser = await auth.createUserWithEmailAndPassword(values.email, values.password);
@@ -65,8 +67,10 @@ const Register = () => {
         displayName: values.displayName,
         photoURL: `http://gravatar.com/avatar/${md5(createdUser.user.email)}?d=identicon`,
       });
+      await updateUserCollection(usersRef, createdUser.user);
+      setStatus(STATUS.SUCCESS);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       setServerError(error.message);
       setStatus(STATUS.ERROR);
     }
@@ -74,14 +78,15 @@ const Register = () => {
 
   const {
     values, errors, handleChange, handleSubmit,
-  } = useForm(onSubmit, validateForm);
+  } = useForm(signUpWithEmailAndPassword, validateForm);
 
   const signInWithGoogle = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
-      await auth.signInWithPopup(provider);
+      const createdUser = await auth.signInWithPopup(provider);
+      await updateUserCollection(usersRef, createdUser.user);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       setServerError(error.message);
       setStatus(STATUS.ERROR);
     }
@@ -154,7 +159,7 @@ const Register = () => {
         </Fade>
         <Fade when={status !== STATUS.IDLE} bottom>
           <>
-            {status === STATUS.SUCCESS && <ResponseText success>Login successfully!</ResponseText>}
+            {status === STATUS.SUCCESS && <ResponseText success>Register successfully!</ResponseText>}
             {status === STATUS.ERROR && <ResponseText>{serverError}</ResponseText>}
           </>
         </Fade>

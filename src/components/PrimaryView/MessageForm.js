@@ -3,11 +3,11 @@ import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import styled from 'styled-components';
 import { TiArrowRightOutline } from 'react-icons/ti';
-import { auth, firebase } from '../../firebase';
+import { auth, firebase } from '../../firebaseConfig';
 import styles from './messageForm.module.scss';
 import { ButtonUnstyled, centeredFlex } from '../Shared/Shared.style';
-import { addToCollection } from '../../firebaseUtils';
-import { ThemeContext } from '../ThemeProvider';
+import { addToCollection } from '../../lib/firebaseUtils';
+import { ThemeContext } from '../App/ThemeProvider';
 
 const toolbar = {
   options: ['inline', 'list', 'emoji', 'history'],
@@ -111,6 +111,7 @@ const MessageForm = ({ messagesRef, containerRef }) => {
         toolbarClassName={theme === 'light' ? styles['toolbar-light'] : styles['toolbar-dark']}
         onEditorStateChange={setEditorState}
         toolbar={toolbar}
+        textAlignment="left"
         toolbarCustomButtons={[<SubmitMessageButton
           setEditorState={setEditorState}
           messagesRef={messagesRef}

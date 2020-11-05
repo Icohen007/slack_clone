@@ -10,7 +10,7 @@ import ProfileMenu from './ProfileMenu';
 import {
   Centered, centeredFlex, ClickBlocker, navigationBarHeight,
 } from '../Shared/Shared.style';
-import { auth } from '../../firebase';
+import { auth } from '../../firebaseConfig';
 import TooltipContent from '../Shared/TooltipContent';
 import Search from './Search';
 import { UserImage } from '../Shared';

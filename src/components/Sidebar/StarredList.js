@@ -3,7 +3,7 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { useSelector } from 'react-redux';
 import ChannelCategory from './ChannelCategory';
 import Channel from './Channel';
-import { auth, db } from '../../firebase';
+import { auth, db } from '../../firebaseConfig';
 
 const StarredList = () => {
   const [showing, setShowing] = useState(true);

@@ -4,7 +4,7 @@ import Fade from 'react-reveal/Fade';
 import { Link } from 'react-router-dom';
 import InputField from './InputField';
 import { useForm, useMobile } from '../../hooks';
-import { auth, firebase } from '../../firebase';
+import { auth, db, firebase } from '../../firebaseConfig';
 import {
   FormContainer,
   ResponseText,
@@ -13,9 +13,10 @@ import {
   SubmitButton,
 } from './Form.style';
 import DividerWithText from './DividerWithText';
-import { STATUS } from '../consts';
+import { STATUS } from './consts';
 import Spinner from '../Shared/Spinner';
 import { lightTheme } from '../../theme';
+import { updateUserCollection } from '../../lib/firebaseUtils';
 
 const mainColor = 'rgba(66, 133, 244, 1)';
 
@@ -41,6 +42,7 @@ const Login = () => {
   const [status, setStatus] = useState(STATUS.IDLE);
   const [serverError, setServerError] = useState('');
   const isMobile = useMobile();
+  const usersRef = db.collection('users');
 
   const formContainerRef = useRef(null);
   const mouseMoveListener = (e) => {
@@ -48,7 +50,7 @@ const Login = () => {
     formContainerRef.current.style.backgroundPositionY = `${-e.clientY / 3}px`;
   };
 
-  const onSubmit = async (values) => {
+  const signInWithEmailAndPassword = async (values) => {
     if (status === STATUS.LOADING) {
       return;
     }
@@ -57,7 +59,7 @@ const Login = () => {
     try {
       await auth.signInWithEmailAndPassword(values.email, values.password);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       setServerError(error.message);
       setStatus(STATUS.ERROR);
     }
@@ -65,14 +67,15 @@ const Login = () => {
 
   const {
     values, errors, handleChange, handleSubmit,
-  } = useForm(onSubmit, validateForm);
+  } = useForm(signInWithEmailAndPassword, validateForm);
 
   const signInWithGoogle = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
-      await auth.signInWithPopup(provider);
+      const createdUser = await auth.signInWithPopup(provider);
+      await updateUserCollection(usersRef, createdUser.user);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       setServerError(error.message);
       setStatus(STATUS.ERROR);
     }

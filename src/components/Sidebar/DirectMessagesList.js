@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { useSelector } from 'react-redux';
 import ChannelCategory from './ChannelCategory';
-import { db, auth } from '../../firebase';
-import { enhance } from '../../firebaseUtils';
+import { db, auth } from '../../firebaseConfig';
+import { enhance } from '../../lib/firebaseUtils';
 import DirectMessage from './DirectMessage';
 
 const isUserOnline = (user, statusCollection) => {
