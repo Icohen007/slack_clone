@@ -7,15 +7,11 @@ const sidebarSlice = createSlice({
     metaPanelOpen: false,
   },
   reducers: {
-    toggleSidebar: {
-      reducer(state) {
-        state.sidebarOpen = !state.sidebarOpen;
-      },
+    toggleSidebar(state) {
+      state.sidebarOpen = !state.sidebarOpen;
     },
-    toggleMetaPanel: {
-      reducer(state) {
-        state.metaPanelOpen = !state.metaPanelOpen;
-      },
+    toggleMetaPanel(state) {
+      state.metaPanelOpen = !state.metaPanelOpen;
     },
   },
 });

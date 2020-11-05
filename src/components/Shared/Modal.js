@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { AiOutlineClose } from 'react-icons/ai';
 import styled from 'styled-components';
-import { centeredFlex, FixedFullscreen } from '../Shared/Shared.style';
+import { centeredFlex, FixedFullscreen } from './Shared.style';
 
 const Modal = ({
   isVisible = false, title, content, footer, onClose,

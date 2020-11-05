@@ -6,7 +6,7 @@ import {
 import NewMessageButton from './NewMessageButton';
 import { UserImage } from '../Shared';
 
-const SidebarHeader = () => (
+const SidebarHeader = React.memo(() => (
   <StyledSidebarHeader>
     <HeaderButton type="button">
       <Centered style={{ height: 50 }}>
@@ -15,7 +15,7 @@ const SidebarHeader = () => (
     </HeaderButton>
     <NewMessageButton />
   </StyledSidebarHeader>
-);
+));
 
 const StyledSidebarHeader = styled.div`
     display: flex;

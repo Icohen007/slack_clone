@@ -96,8 +96,8 @@ const PublicMetaPanel = ({ messagesRef }) => {
                {topPostersSorted.map((userKey) => {
                  const user = messagesByUser[userKey][0].createdBy;
                  return (
-                   <div className="poster">
-                     <span className="poster-image" key={user.id}>
+                   <div className="poster" key={user.id}>
+                     <span className="poster-image">
                        <UserImage
                          src={(user.photoURL) || '/dummy36.png'}
                          alt={(user.displayName) || 'User name'}

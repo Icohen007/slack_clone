@@ -9,9 +9,6 @@ const Channel = ({ channel, activeChannel }) => {
   const { name, id } = channel;
   const dispatch = useDispatch();
 
-  // clearNotifications
-  // remove typing
-
   const handleClick = () => {
     dispatch(toggleSidebar());
     dispatch(changePublicChannel(channel));

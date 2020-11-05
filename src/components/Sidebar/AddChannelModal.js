@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Modal from '../Modal/Modal';
+import Modal from '../Shared/Modal';
 import { ButtonUnstyled, centeredFlex } from '../Shared/Shared.style';
 import { auth, db, firebase } from '../../firebaseConfig';
 import { addToCollection } from '../../lib/firebaseUtils';

@@ -10,11 +10,9 @@ const channelSlice = createSlice({
     activeChannelSearch: '',
   },
   reducers: {
-    setActiveChannel: {
-      reducer(state, action) {
-        const { channel } = action.payload;
-        state.activeChannel = channel;
-      },
+    setActiveChannel(state, action) {
+      const { channel } = action.payload;
+      state.activeChannel = channel;
     },
     setIsPrivateChannelMode(state, action) {
       state.isPrivateChannelMode = action.payload;

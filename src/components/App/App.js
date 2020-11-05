@@ -12,6 +12,68 @@ import PublicMetaPanel from '../MetaPanel/PublicMetaPanel';
 import { watchForStatus } from '../../lib/firebaseUtils';
 import PrivateMetaPanel from '../MetaPanel/PrivateMetaPanel';
 
+const getChannelId = (currentUserId, otherUserId) => (
+  otherUserId < currentUserId
+    ? `${otherUserId}-${currentUserId}`
+    : `${currentUserId}-${otherUserId}`
+);
+
+const App = ({ user }) => {
+  const { sidebarOpen, metaPanelOpen } = useSelector((state) => state.sidebar);
+  const { activeChannel, isPrivateChannelMode } = useSelector((state) => state.channels);
+  const dispatch = useDispatch();
+  const isMobile = useMobile();
+  const mounted = useRef(false);
+  const userConnected = user && user.uid;
+
+  const getMessagesRef = () => {
+    if (!userConnected) {
+      return null;
+    }
+    if (isPrivateChannelMode) {
+      return db.collection('privateMessages')
+        .doc(getChannelId(user.uid, activeChannel.id))
+        .collection('messages');
+    }
+
+    return db.collection('channelMessages')
+      .doc(activeChannel.id)
+      .collection('messages');
+  };
+
+  const messagesRef = getMessagesRef();
+
+  useEffect(() => {
+    if (userConnected && !mounted.current) {
+      mounted.current = true;
+      watchForStatus();
+    }
+  }, [user]);
+
+  const handleClickBlocker = (e) => {
+    e.stopPropagation();
+    dispatch(toggleSidebar());
+  };
+
+  if (!userConnected) {
+    return null;
+  }
+
+  return (
+    <>
+      {sidebarOpen && isMobile && <ClickBlocker onClick={handleClickBlocker} />}
+      <NavigationBar />
+      <AppContainer metaPanelOpen={metaPanelOpen}>
+        <Sidebar />
+        <PrimaryView messagesRef={messagesRef} />
+        {metaPanelOpen
+         && (isPrivateChannelMode ? <PrivateMetaPanel />
+           : <PublicMetaPanel messagesRef={messagesRef} />)}
+      </AppContainer>
+    </>
+  );
+};
+
 const AppContainer = styled.div`
 display: grid;
 height: calc(100% - ${navigationBarHeight}px);
@@ -42,57 +104,5 @@ grid-template-columns: ${({ metaPanelOpen }) => (metaPanelOpen ? 'auto 200px' : 
 grid-template-areas: 'primary-view';
 }
 `;
-
-const getChannelId = (currentUserId, otherUserId) => (
-  otherUserId < currentUserId
-    ? `${otherUserId}-${currentUserId}`
-    : `${currentUserId}-${otherUserId}`
-);
-
-const App = ({ user }) => {
-  const { sidebarOpen, metaPanelOpen } = useSelector((state) => state.sidebar);
-  const { activeChannel, isPrivateChannelMode } = useSelector((state) => state.channels);
-  const dispatch = useDispatch();
-  const isMobile = useMobile();
-  const mounted = useRef(false);
-
-  useEffect(() => {
-    if (user && user.displayName && !mounted.current) {
-      mounted.current = true;
-      watchForStatus();
-    }
-  }, [user]);
-
-  const handleClick = (e) => {
-    e.stopPropagation();
-    dispatch(toggleSidebar());
-  };
-
-  if (!user || !user.uid || !user.uid) {
-    return null;
-  }
-
-  const messagesRef = isPrivateChannelMode
-    ? db.collection('privateMessages')
-      .doc(getChannelId(user.uid, activeChannel.id))
-      .collection('messages')
-    : db.collection('channelMessages')
-      .doc(activeChannel.id)
-      .collection('messages');
-
-  return (
-    <>
-      {sidebarOpen && isMobile && <ClickBlocker onClick={handleClick} />}
-      <NavigationBar />
-      <AppContainer metaPanelOpen={metaPanelOpen}>
-        <Sidebar />
-        <PrimaryView messagesRef={messagesRef} />
-        {metaPanelOpen
-         && (isPrivateChannelMode ? <PrivateMetaPanel />
-           : <PublicMetaPanel messagesRef={messagesRef} />)}
-      </AppContainer>
-    </>
-  );
-};
 
 export default App;

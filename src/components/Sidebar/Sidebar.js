@@ -6,7 +6,6 @@ import SidebarMessages from './SidebarMessages';
 
 const Sidebar = () => {
   const { sidebarOpen } = useSelector((state) => state.sidebar);
-
   return (
     <StyledSidebar onClick={(e) => e.stopPropagation()} sidebarOpen={sidebarOpen}>
       <SidebarHeader />

@@ -5,13 +5,13 @@ import StarredList from './StarredList';
 import DirectMessagesList from './DirectMessagesList';
 import { headerHeight, navigationBarHeight } from '../Shared/Shared.style';
 
-const SidebarMessages = () => (
+const SidebarMessages = React.memo(() => (
   <StyledSidebarMessages>
     <StarredList />
     <ChannelList />
     <DirectMessagesList />
   </StyledSidebarMessages>
-);
+));
 
 const StyledSidebarMessages = styled.nav`
   min-height: 0;
