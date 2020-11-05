@@ -108,6 +108,14 @@ const StyledProfileMenuButton = styled.button`
     outline: none;
 `;
 
+const ChangeThemeContainer = styled.div`
+    display: flex;
+    align-items: center;
+    min-height: 28px;
+    width: 100%;
+    padding: 0 24px;
+`;
+
 const ToggleContainer = styled(ButtonUnstyled)`
   background: ${({ theme }) => theme.colors.gradient};
   border: 2px solid ${({ theme }) => theme.colors.toggleBorder};
@@ -171,13 +179,13 @@ const ProfileMenu = () => {
           <div className="status-name">Working remotely</div>
         </div>
       </div>
-      <StyledProfileMenuButton>
+      <ChangeThemeContainer>
         <ChangeThemeText>Change theme</ChangeThemeText>
         <ToggleContainer type="button" onClick={toggleTheme} lightTheme={theme === 'light'}>
           <UserImage src="./sun.svg" />
           <UserImage src="./moon.svg" />
         </ToggleContainer>
-      </StyledProfileMenuButton>
+      </ChangeThemeContainer>
       <Divider />
       <StyledProfileMenuButtonContainer>
         <StyledProfileMenuButton type="button" onClick={() => auth.signOut()}>

@@ -5,7 +5,7 @@ import Fade from 'react-reveal/Fade';
 import { Link } from 'react-router-dom';
 import InputField from './InputField';
 import { useForm, useMobile } from '../../hooks';
-import { auth, firebase, db } from '../../firebase';
+import { auth, firebase } from '../../firebase';
 import {
   FormContainer,
   ResponseText,
@@ -46,7 +46,6 @@ const Register = () => {
   const [status, setStatus] = useState(STATUS.IDLE);
   const [serverError, setServerError] = useState('');
   const isMobile = useMobile();
-  const usersRef = db.collection('users');
 
   const formContainerRef = useRef(null);
   const mouseMoveListener = (e) => {
@@ -66,12 +65,6 @@ const Register = () => {
         displayName: values.displayName,
         photoURL: `http://gravatar.com/avatar/${md5(createdUser.user.email)}?d=identicon`,
       });
-      await usersRef.doc(createdUser.user.uid).set({
-        displayName: createdUser.user.displayName,
-        photoURL: `http://gravatar.com/avatar/${md5(createdUser.user.email)}?d=identicon`,
-      }, { merge: true });
-
-      setStatus(STATUS.SUCCESS);
     } catch (error) {
       console.log(error);
       setServerError(error.message);
@@ -86,12 +79,7 @@ const Register = () => {
   const signInWithGoogle = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
-      const createdUser = await auth.signInWithPopup(provider);
-      await usersRef.doc(createdUser.user.uid).set({
-        displayName: createdUser.user.displayName,
-        photoURL: createdUser.user.photoURL,
-      }, { merge: true });
-      setStatus(STATUS.SUCCESS);
+      await auth.signInWithPopup(provider);
     } catch (error) {
       console.log(error);
       setServerError(error.message);

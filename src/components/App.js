@@ -61,14 +61,6 @@ const App = () => {
     }
   }, []);
 
-  const messagesRef = isPrivateChannelMode
-    ? db.collection('privateMessages')
-      .doc(getChannelId(auth.currentUser.uid, activeChannel.id))
-      .collection('messages')
-    : db.collection('channelMessages')
-      .doc(activeChannel.id)
-      .collection('messages');
-
   const handleClick = (e) => {
     e.stopPropagation();
     dispatch(toggleSidebar());
@@ -77,6 +69,14 @@ const App = () => {
   if (!auth.currentUser) {
     return null;
   }
+
+  const messagesRef = isPrivateChannelMode
+    ? db.collection('privateMessages')
+      .doc(getChannelId(auth.currentUser.uid, activeChannel.id))
+      .collection('messages')
+    : db.collection('channelMessages')
+      .doc(activeChannel.id)
+      .collection('messages');
 
   return (
     <>

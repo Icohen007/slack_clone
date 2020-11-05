@@ -4,7 +4,7 @@ import Fade from 'react-reveal/Fade';
 import { Link } from 'react-router-dom';
 import InputField from './InputField';
 import { useForm, useMobile } from '../../hooks';
-import { auth, db, firebase } from '../../firebase';
+import { auth, firebase } from '../../firebase';
 import {
   FormContainer,
   ResponseText,
@@ -41,7 +41,6 @@ const Login = () => {
   const [status, setStatus] = useState(STATUS.IDLE);
   const [serverError, setServerError] = useState('');
   const isMobile = useMobile();
-  const usersRef = db.collection('users');
 
   const formContainerRef = useRef(null);
   const mouseMoveListener = (e) => {
@@ -57,7 +56,6 @@ const Login = () => {
     setServerError('');
     try {
       await auth.signInWithEmailAndPassword(values.email, values.password);
-      setStatus(STATUS.SUCCESS);
     } catch (error) {
       console.log(error);
       setServerError(error.message);
@@ -72,12 +70,7 @@ const Login = () => {
   const signInWithGoogle = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
-      const createdUser = await auth.signInWithPopup(provider);
-      await usersRef.doc(createdUser.user.uid).set({
-        displayName: createdUser.user.displayName,
-        photoURL: createdUser.user.photoURL,
-      }, { merge: true });
-      setStatus(STATUS.SUCCESS);
+      await auth.signInWithPopup(provider);
     } catch (error) {
       console.log(error);
       setServerError(error.message);
@@ -142,7 +135,7 @@ const Login = () => {
         <Fade when={status !== STATUS.IDLE} bottom>
           <>
             {status === STATUS.SUCCESS
-             && <ResponseText success> Registered successfully! </ResponseText>}
+             && <ResponseText success> Signed In successfully! </ResponseText>}
             {status === STATUS.ERROR && <ResponseText>{serverError}</ResponseText>}
           </>
         </Fade>

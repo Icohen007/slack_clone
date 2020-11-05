@@ -1,22 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
-  Route, Switch, useHistory,
+  Redirect,
+  Route, Switch,
 } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import Register from './Auth/Register';
 import Login from './Auth/Login';
-import { auth } from '../firebase';
+import { auth, db } from '../firebase';
 import App from './App';
 import Spinner from './Shared/Spinner';
 
 const Root = () => {
   const [user, loading] = useAuthState(auth);
-  const history = useHistory();
-  if (user && user.displayName) {
-    history.push('/');
-  } else {
-    history.push('/login');
-  }
+  const usersRef = db.collection('users');
+  const userConnected = user && user.displayName;
+
+  useEffect(() => {
+    if (userConnected) {
+      usersRef.doc(user.uid)
+        .set({
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+        }, { merge: true });
+    }
+  }, [user, userConnected]);
 
   if (loading) {
     return <Spinner secondaryColor="white" fullWindow />;
@@ -24,14 +31,17 @@ const Root = () => {
 
   return (
     <Switch>
+      <Route exact path="/register">
+        {userConnected ? <Redirect to="/" /> : <Register />}
+      </Route>
+      <Route exact path="/login">
+        {userConnected ? <Redirect to="/" /> : <Login />}
+      </Route>
       <Route exact path="/">
-        <App />
+        {userConnected ? <App /> : <Redirect to="/login" />}
       </Route>
-      <Route path="/register">
-        <Register />
-      </Route>
-      <Route path="/login">
-        <Login />
+      <Route path="/">
+        <Redirect to="/" />
       </Route>
     </Switch>
   );
