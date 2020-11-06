@@ -31,6 +31,12 @@ export const centeredFlex = css`
   justify-content: center;
 `;
 
+export const horizontalGap = (gap) => css`
+  & > :not(:last-child) {
+  margin-right: ${gap}px;
+  }
+`;
+
 export const AccordionButton = styled(ButtonUnstyled)`
   ${centeredFlex};
   border-radius: 4px;

@@ -8,7 +8,7 @@ import { Tooltip } from 'react-tippy';
 import { useSelector } from 'react-redux';
 import ProfileMenu from './ProfileMenu';
 import {
-  Centered, centeredFlex, ClickBlocker, navigationBarHeight,
+  Centered, centeredFlex, ClickBlocker, horizontalGap, navigationBarHeight,
 } from '../Shared/Shared.style';
 import { auth } from '../../firebaseConfig';
 import TooltipContent from '../Shared/TooltipContent';
@@ -114,13 +114,13 @@ box-shadow: 0 1px 0 0 rgba(255,255,255,0.1);
 const StyledSearchButtonContainer = styled(Centered)`
   flex: 1;
   padding: 0 10px;
-  gap: 4px;
+  ${horizontalGap(4)};
 `;
 
 const StyledSearchButton = styled.button`
     ${centeredFlex};
     min-width: 0;
-    max-width: clamp(300px, 50%, 500px);
+    max-width: clamp(100px, 50%, 500px);
     width: 100%;
     background: #431e44;
     box-shadow: inset 0 0 0 1px #684a68;

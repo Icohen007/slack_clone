@@ -4,7 +4,7 @@ import { FcHome } from 'react-icons/fc';
 import { BsCircleFill } from 'react-icons/bs';
 import Divider from '../Auth/Divider';
 import { auth } from '../../firebaseConfig';
-import { ButtonUnstyled } from '../Shared/Shared.style';
+import { ButtonUnstyled, horizontalGap } from '../Shared/Shared.style';
 import { ThemeContext } from '../App/ThemeProvider';
 import { UserImage } from '../Shared';
 
@@ -23,7 +23,7 @@ padding: 12px 0;
 .user {
   display: flex;
   align-items: center;
-  gap: 10px;
+  ${horizontalGap(10)};
   padding: 8px 20px 12px 24px;
   text-align: left;
   line-height: 1.2;
@@ -45,12 +45,12 @@ padding: 12px 0;
     .active {
     display: flex;
     align-items: center;
-    gap: 4px;
     font-weight: 400;
     font-size: 13px;
     
     .dot {
     color: ${({ theme }) => theme.colors.greenLight};
+    margin-right: 4px;
       svg {
        font-size: 8px;
       }
@@ -64,7 +64,7 @@ padding: 12px 0;
   .status {
   display: flex;
   align-items: center;
-  gap: 16px;
+  ${horizontalGap(16)};
   padding: 7px;
   background-color: ${({ theme }) => theme.colors.white};
   

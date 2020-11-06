@@ -1,5 +1,10 @@
 import styled from 'styled-components';
-import { centeredFlex, headerHeight, navigationBarHeight } from '../Shared/Shared.style';
+import {
+  centeredFlex,
+  headerHeight,
+  horizontalGap,
+  navigationBarHeight
+} from '../Shared/Shared.style';
 
 export const StyledMetaPanel = styled.section`
 display: flex;
@@ -78,7 +83,7 @@ font-weight: 700;
 
 .poster {
 display: flex;
-gap: 6px;
+${horizontalGap(6)};
 align-items: center;
 height: 50px;
 padding: 4px 0;

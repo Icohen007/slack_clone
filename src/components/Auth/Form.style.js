@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { horizontalGap } from '../Shared/Shared.style';
 
 export const FormContainer = styled.div`
 height: 100vh;
@@ -117,7 +118,7 @@ font-weight: bold;
 export const StyledGoogleButton = styled.button`
    position: relative;
    display: flex;
-   gap: 8px;
+   ${horizontalGap(8)};
    justify-content: center;
    align-items: center;
    width: 100%;
