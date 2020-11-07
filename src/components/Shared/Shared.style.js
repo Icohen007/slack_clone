@@ -7,7 +7,11 @@ export const Centered = styled.div`
 display: flex;
 align-items: center;
 justify-content: ${({ justify }) => justify || 'center'};
-gap: ${({ gap }) => gap}px;
+
+  & > :not(:last-child) {
+  margin-right: ${({ gap }) => gap}px;
+  }
+  
 `;
 
 export const ButtonUnstyled = styled.button`
