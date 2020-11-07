@@ -5,6 +5,14 @@ import { Tooltip } from 'react-tippy';
 import { ButtonUnstyled, centeredFlex } from '../Shared/Shared.style';
 import TooltipContent from '../Shared/TooltipContent';
 
+const NewMessageButton = () => (
+  <Tooltip position="bottom" arrow html={<TooltipContent> New message </TooltipContent>}>
+    <StyledNewMessageButton>
+      <FiEdit />
+    </StyledNewMessageButton>
+  </Tooltip>
+);
+
 const StyledNewMessageButton = styled(ButtonUnstyled)`
 ${centeredFlex};
 width: 36px;
@@ -22,13 +30,5 @@ color: ${({ theme }) => theme.colors.purpleDark};
     background-color: rgb(232,226,232);
     }
 `;
-
-const NewMessageButton = () => (
-  <Tooltip position="bottom" arrow html={<TooltipContent> New message </TooltipContent>}>
-    <StyledNewMessageButton>
-      <FiEdit />
-    </StyledNewMessageButton>
-  </Tooltip>
-);
 
 export default NewMessageButton;

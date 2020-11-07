@@ -2,6 +2,24 @@ import React from 'react';
 import styled from 'styled-components';
 import { lightTheme } from '../../theme';
 
+const InputField = ({
+  type = 'text', name, placeholder, onChange, value = '', error, color,
+}) => (
+  <StyledInputField color={color}>
+    <input
+      name={name}
+      type={type}
+      onChange={onChange}
+      value={value}
+      className={`${value ? 'not-empty' : ''} ${error ? 'error' : ''}`}
+      autoComplete="off"
+    />
+    <label htmlFor={name} className={`label-name ${error ? 'error' : ''}`}>
+      <span className="placeholder-name">{placeholder}</span>
+    </label>
+  </StyledInputField>
+);
+
 const StyledInputField = styled.div`
   width: 100%;
   height: 54px;
@@ -72,23 +90,5 @@ const StyledInputField = styled.div`
     color: #898989;
   }
 `;
-
-const InputField = ({
-  type = 'text', name, placeholder, onChange, value = '', error, color,
-}) => (
-  <StyledInputField color={color}>
-    <input
-      name={name}
-      type={type}
-      onChange={onChange}
-      value={value}
-      className={`${value ? 'not-empty' : ''} ${error ? 'error' : ''}`}
-      autoComplete="off"
-    />
-    <label htmlFor={name} className={`label-name ${error ? 'error' : ''}`}>
-      <span className="placeholder-name">{placeholder}</span>
-    </label>
-  </StyledInputField>
-);
 
 export default InputField;

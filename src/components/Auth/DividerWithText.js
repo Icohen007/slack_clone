@@ -17,17 +17,17 @@ align-items: center;
 width: 100%;
 margin-top: 24px;
 
-.text {
-padding: 0 20px;
-font-weight: bold;
-}
-
-hr {
-    flex-grow: 1;
-    border: none;
-    border-top: 1px solid #d0d0d0;
-    clear: both;
-}
+  .text {
+  padding: 0 20px;
+  font-weight: bold;
+  }
+  
+  hr {
+      flex-grow: 1;
+      border: none;
+      border-top: 1px solid #d0d0d0;
+      clear: both;
+  }
 `;
 
 export default DividerWithText;

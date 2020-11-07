@@ -53,12 +53,20 @@ const PublicMessagesHeader = ({ activeChannel, messagesRef }) => {
   const isChannelStarred = starredChannels
     .find((starredChannel) => starredChannel.id === activeChannel.id);
 
-  const starChannel = () => {
-    starredChannelsRef.doc(activeChannel.id).set(activeChannel);
+  const starChannel = async () => {
+    try {
+      await starredChannelsRef.doc(activeChannel.id).set(activeChannel);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
-  const unStarChannel = () => {
-    starredChannelsRef.doc(activeChannel.id).delete();
+  const unStarChannel = async () => {
+    try {
+      await starredChannelsRef.doc(activeChannel.id).delete();
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (

@@ -3,7 +3,7 @@ import {
   centeredFlex,
   headerHeight,
   horizontalGap,
-  navigationBarHeight
+  navigationBarHeight,
 } from '../Shared/Shared.style';
 
 export const StyledMetaPanel = styled.section`

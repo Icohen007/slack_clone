@@ -7,15 +7,6 @@ import Messages from './Messages';
 import MessageForm from './MessageForm';
 import PrivateMessagesHeader from './PrivateMessagesHeader';
 
-const StyledPrimaryView = styled.section`
-grid-area: primary-view;
-background: ${({ theme }) => theme.colors.white};
-color: ${({ theme }) => theme.colors.black1};
-height: 100%;
-position: relative;
-overflow: hidden;
-`;
-
 const PrimaryView = ({ messagesRef }) => {
   const { activeChannel, isPrivateChannelMode } = useSelector((state) => state.channels);
   const { ref: containerRef, height = 1 } = useResizeObserver();
@@ -35,5 +26,14 @@ const PrimaryView = ({ messagesRef }) => {
     </StyledPrimaryView>
   );
 };
+
+const StyledPrimaryView = styled.section`
+grid-area: primary-view;
+background: ${({ theme }) => theme.colors.white};
+color: ${({ theme }) => theme.colors.black1};
+height: 100%;
+position: relative;
+overflow: hidden;
+`;
 
 export default PrimaryView;

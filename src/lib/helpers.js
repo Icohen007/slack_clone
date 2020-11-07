@@ -23,3 +23,6 @@ export const parseDate = (date) => {
 
   return `${pad2(day)}/${pad2(month)}/${pad2(fullYear)} ${pad2(hours)}:${pad2(minutes)}`;
 };
+
+export const getPluralOrdinal = (size, baseText) => (size === 1 ? `${size} ${baseText}`
+  : `${size} ${baseText}s`);

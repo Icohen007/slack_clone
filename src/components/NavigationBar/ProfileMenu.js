@@ -8,6 +8,51 @@ import { ButtonUnstyled, horizontalGap } from '../Shared/Shared.style';
 import { ThemeContext } from '../App/ThemeProvider';
 import { UserImage } from '../Shared';
 
+const ProfileMenu = () => {
+  const { toggleTheme, theme } = useContext(ThemeContext);
+  return (
+    <StyledProfileMenu>
+      <div className="user">
+        <div className="img-container">
+          <UserImage
+            src={auth.currentUser.photoURL || '/dummy36.png'}
+            alt={auth.currentUser.displayName || 'User name'}
+          />
+        </div>
+        <div className="user-name">
+          {auth.currentUser.displayName || 'User name'}
+          <div className="active">
+            <span className="dot">
+              <BsCircleFill />
+            </span>
+            Active
+          </div>
+        </div>
+      </div>
+      <div className="status-container">
+        <div className="status">
+          <FcHome />
+          <div className="status-name">Working remotely</div>
+        </div>
+      </div>
+      <ChangeThemeContainer>
+        <ChangeThemeText>Change theme</ChangeThemeText>
+        <ToggleContainer type="button" onClick={toggleTheme} lightTheme={theme === 'light'}>
+          <UserImage className="sun" src="./sun.svg" />
+          <UserImage className="moon" src="./moon.svg" />
+        </ToggleContainer>
+      </ChangeThemeContainer>
+      <Divider />
+      <StyledProfileMenuButtonContainer>
+        <StyledProfileMenuButton type="button" onClick={() => auth.signOut()}>
+          Sign out of
+          Slack
+        </StyledProfileMenuButton>
+      </StyledProfileMenuButtonContainer>
+    </StyledProfileMenu>
+  );
+};
+
 const StyledProfileMenu = styled.div`
 width: 300px;
 max-width: 360px;
@@ -80,8 +125,6 @@ padding: 12px 0;
   }
   }
 }
-
-
 `;
 const StyledProfileMenuButtonContainer = styled.div`
     color: ${({ theme }) => theme.colors.black1};
@@ -136,13 +179,11 @@ const ToggleContainer = styled(ButtonUnstyled)`
     width: 22px;
     transition: all 0.3s linear;
     
-    // sun icon
-    &:first-child {
+    &.sun {
       transform: ${({ lightTheme }) => (lightTheme ? 'translateY(0)' : 'translateY(100px)')};
     }
     
-    // moon icon
-    &:nth-child(2) {
+    &.moon {
       transform: ${({ lightTheme }) => (lightTheme ? 'translateY(-100px)' : 'translateY(0)')};
     }
   }
@@ -152,50 +193,5 @@ const ChangeThemeText = styled.span`
 margin-right: 5px;
 cursor: auto;
 `;
-
-const ProfileMenu = () => {
-  const { toggleTheme, theme } = useContext(ThemeContext);
-  return (
-    <StyledProfileMenu>
-      <div className="user">
-        <div className="img-container">
-          <UserImage
-            src={auth.currentUser.photoURL || '/dummy36.png'}
-            alt={auth.currentUser.displayName || 'User name'}
-          />
-        </div>
-        <div className="user-name">
-          {auth.currentUser.displayName || 'User name'}
-          <div className="active">
-            <span className="dot">
-              <BsCircleFill />
-            </span>
-            Active
-          </div>
-        </div>
-      </div>
-      <div className="status-container">
-        <div className="status">
-          <FcHome />
-          <div className="status-name">Working remotely</div>
-        </div>
-      </div>
-      <ChangeThemeContainer>
-        <ChangeThemeText>Change theme</ChangeThemeText>
-        <ToggleContainer type="button" onClick={toggleTheme} lightTheme={theme === 'light'}>
-          <UserImage src="./sun.svg" />
-          <UserImage src="./moon.svg" />
-        </ToggleContainer>
-      </ChangeThemeContainer>
-      <Divider />
-      <StyledProfileMenuButtonContainer>
-        <StyledProfileMenuButton type="button" onClick={() => auth.signOut()}>
-          Sign out of
-          Slack
-        </StyledProfileMenuButton>
-      </StyledProfileMenuButtonContainer>
-    </StyledProfileMenu>
-  );
-};
 
 export default ProfileMenu;

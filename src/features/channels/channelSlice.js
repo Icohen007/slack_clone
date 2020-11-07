@@ -23,5 +23,9 @@ const channelSlice = createSlice({
   },
 });
 
-export const { setActiveChannel, setIsPrivateChannelMode, setActiveChannelSearch } = channelSlice.actions;
+export const {
+  setActiveChannel,
+  setIsPrivateChannelMode,
+  setActiveChannelSearch,
+} = channelSlice.actions;
 export default channelSlice.reducer;

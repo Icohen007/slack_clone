@@ -4,13 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { Centered } from '../Shared/Shared.style';
 import { enhance } from '../../lib/firebaseUtils';
-import { groupBY, parseDate } from '../../lib/helpers';
+import { getPluralOrdinal, groupBY, parseDate } from '../../lib/helpers';
 import Accordion from '../Shared/Accordion';
 import { UserImage } from '../Shared';
 import { StyledMetaPanel } from './MetaPanel.style';
 import { toggleMetaPanel } from '../../features/sidebar/sidebarSlice';
-
-const getPluralOrdinal = (size, baseText) => (size === 1 ? `${size} ${baseText}` : `${size} ${baseText}s`);
 
 const PublicMetaPanel = ({ messagesRef }) => {
   const { activeChannel } = useSelector((state) => state.channels);

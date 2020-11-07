@@ -159,8 +159,10 @@ const Register = () => {
         </Fade>
         <Fade when={status !== STATUS.IDLE} bottom>
           <>
-            {status === STATUS.SUCCESS && <ResponseText success>Register successfully!</ResponseText>}
-            {status === STATUS.ERROR && <ResponseText>{serverError}</ResponseText>}
+            {status === STATUS.SUCCESS
+             && <ResponseText success>Register successfully!</ResponseText>}
+            {status === STATUS.ERROR
+             && <ResponseText>{serverError}</ResponseText>}
           </>
         </Fade>
       </StyledForm>
