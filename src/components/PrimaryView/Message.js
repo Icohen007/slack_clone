@@ -51,7 +51,7 @@ const StyledMessage = styled.div`
   }
   
   .right {
-  padding: 0 16px 0 8px;
+  width: 100%;
   .user-name {
   font-weight: 900;
   margin-right: 4px;
@@ -63,6 +63,10 @@ const StyledMessage = styled.div`
     font-weight: 400;
   }
   
+  }
+  
+  div.DraftEditor-root {
+    padding-right: 40px;
   }
 `;
 
