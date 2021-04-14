@@ -18,6 +18,7 @@ import { STATUS } from './consts';
 import Spinner from '../Shared/Spinner';
 import { lightTheme } from '../../theme';
 import { updateUserCollection } from '../../lib/firebaseUtils';
+import Footer from './Footer';
 
 function validateForm(values) {
   const errors = {};
@@ -166,6 +167,7 @@ const Register = () => {
           </>
         </Fade>
       </StyledForm>
+      <Footer />
     </FormContainer>
   );
 };

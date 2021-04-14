@@ -26,6 +26,13 @@ const StyledInputField = styled.div`
   position: relative;
   overflow: hidden;
   margin-top: 20px;
+  
+    
+  @media only screen and (max-width: 768px) {
+    height: 40px;
+    margin-top: 0;
+  }
+  
   input {
     width: 100%;
     height: 100%;
@@ -89,6 +96,8 @@ const StyledInputField = styled.div`
     font-family: Roboto, sans-serif;
     color: #898989;
   }
+  
+
 `;
 
 export default InputField;

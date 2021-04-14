@@ -17,6 +17,7 @@ import { STATUS } from './consts';
 import Spinner from '../Shared/Spinner';
 import { lightTheme } from '../../theme';
 import { updateUserCollection } from '../../lib/firebaseUtils';
+import Footer from './Footer';
 
 const mainColor = 'rgba(66, 133, 244, 1)';
 
@@ -143,6 +144,7 @@ const Login = () => {
           </>
         </Fade>
       </StyledForm>
+      <Footer />
     </FormContainer>
   );
 };

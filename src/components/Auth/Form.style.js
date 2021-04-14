@@ -20,6 +20,11 @@ padding: 40px 25px;
   padding: 5px 15px;
   border-radius: 10px;
   box-shadow: 0 0 5px;
+  
+    @media only screen and (max-width: 768px) {
+    font-size: 30px;
+  }
+  
   &.login {
     background: rgba(66,133,244,0.85);
   }
@@ -141,4 +146,55 @@ export const StyledGoogleButton = styled.button`
    color: white;
    background: ${({ theme }) => theme.colors.blueLight};
    }
+`;
+
+export const Footertext = styled.div`
+font-size: clamp(16px, 4.25vw, 30px);
+color: white;
+background: #000000ba;
+padding: 2px 6px;
+border-radius: 15px;
+position: absolute;
+bottom: 20px;
+display: flex;
+justify-content: center;
+align-items: center;
+user-select: none;
+
+& .icon {
+ width: 24px;
+ height: 24px;
+ margin-left: 2px;
+ color: rgb(97, 218, 251);
+ vertical-align: middle;
+ transform: scale(1) rotate(0deg);
+ animation: 3s infinite react-animate ease-in-out;
+ display: inline-block !important;
+ 
+ @keyframes react-animate {
+ 0% {
+ transform: scale(1) rotate(0deg);
+ }
+ 
+  25% {
+ transform: scale(1.2) rotate(180deg);
+ }
+ 
+  50% {
+ transform: scale(1) rotate(360deg);
+ 
+ }
+ 
+   100% {
+ transform: scale(1) rotate(360deg);
+ 
+ }
+ }
+}
+
+a {
+color: #ff9d27;
+margin: 0 5px;
+font-weight: 700;
+}
 `;

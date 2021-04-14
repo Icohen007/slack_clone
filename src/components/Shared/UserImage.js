@@ -10,7 +10,7 @@ const UserImage = ({ ...rest }) => {
   return <StyledImage {...rest} onError={handleError} />;
 };
 
-const StyledImage = styled.img`
+export const StyledImage = styled.img`
   display: block;
   height: 100%;
   width: 100%;
