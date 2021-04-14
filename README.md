@@ -3,7 +3,7 @@
 
 This is Repository for [https://clone-slack.netlify.app](https://clone-slack.netlify.app)
 
-#### Slack Clone is a replica of the original Slack app, made with react and firebase.
+#### Slack Clone is a replica of the original Slack app, made with React and Firebase.
 
 ### Key features
 - Perfect Pixel design of Slack from scratch (no component libraries).
